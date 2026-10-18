@@ -1,0 +1,46 @@
+@use "../base.scss";
+@use "../colors.scss";
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: colors.$overlay;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: base.$space-4;
+  animation: fade 0.15s;
+
+  &__body {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  &__title {
+    margin: 0 0 base.$space-2;
+    color: colors.$blue-deep;
+    font-size: base.$fs-xl;
+    line-height: 1.15;
+  }
+
+  &__text {
+    margin: 0 0 base.$space-5;
+    color: colors.$muted;
+  }
+
+  &__actions {
+    display: flex;
+    gap: base.$space-3;
+    justify-content: flex-end;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

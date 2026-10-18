@@ -1,0 +1,51 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.checkbox {
+  display: flex;
+  gap: base.$space-3;
+  align-items: flex-start;
+  cursor: pointer;
+  color: colors.$muted;
+  font-size: base.$fs-s;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__box {
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid colors.$blue-deep;
+    border-radius: 6px;
+    background: colors.$surface;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: colors.$blue-deep;
+    font-size: 12px;
+  }
+
+  input:focus-visible + &__box {
+    outline: 2px solid colors.$blue;
+    outline-offset: 2px;
+  }
+
+  &__label {
+    padding-top: 2px;
+
+    a,
+    button {
+      color: colors.$blue;
+      text-decoration: none;
+      background: none;
+      border: 0;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+  }
+}

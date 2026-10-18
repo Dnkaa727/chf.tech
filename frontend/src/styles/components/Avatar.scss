@@ -1,0 +1,31 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.avatar {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: colors.$surface;
+  color: colors.$blue-deep;
+  font-weight: 600;
+
+  &--s {
+    width: 32px;
+    height: 32px;
+    font-size: base.$fs-xs;
+  }
+
+  &--m {
+    width: 40px;
+    height: 40px;
+    font-size: base.$fs-s;
+  }
+
+  &--xl {
+    width: 128px;
+    height: 128px;
+    font-size: 44px;
+  }
+}

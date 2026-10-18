@@ -1,0 +1,81 @@
+@use "../../base.scss";
+
+.conf {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: base.$space-4;
+  padding: base.$space-4;
+
+  &__body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    position: relative;
+  }
+
+  &__stage {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: base.$space-4;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: base.$space-2;
+    pointer-events: none;
+  }
+
+  &__panel {
+    width: 0;
+    margin-left: 0;
+    overflow: hidden;
+    transition:
+      width 0.2s ease,
+      margin-left 0.2s ease;
+
+    &--open {
+      width: 360px;
+      margin-left: base.$space-4;
+    }
+  }
+
+  &__panel-inner {
+    width: 360px;
+    height: 100%;
+    > * {
+      height: 100%;
+    }
+  }
+}
+
+@media (max-width: base.$bp-mobile) {
+  .conf__panel {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    transition: none;
+
+    &,
+    &--open {
+      width: auto;
+      margin-left: 0;
+    }
+
+    &:not(&--open) {
+      display: none;
+    }
+  }
+
+  .conf__panel-inner {
+    width: 100%;
+  }
+}

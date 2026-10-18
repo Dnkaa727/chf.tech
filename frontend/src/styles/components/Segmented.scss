@@ -1,0 +1,27 @@
+@use "../mixins";
+@use "../colors.scss";
+@use "../base.scss";
+
+.segmented {
+  display: inline-flex;
+  gap: base.$space-2;
+  flex-wrap: wrap;
+
+  &__item {
+    @include mixins.reset-button;
+    @include mixins.focus-ring;
+    height: 44px;
+    padding: 0 base.$space-5;
+    border-radius: base.$radius-s;
+    background: colors.$bg;
+    border: 1px solid colors.$border;
+    color: colors.$muted;
+
+    &--selected {
+      background: colors.$surface;
+      border: 2px solid colors.$blue-deep;
+      color: colors.$blue-deep;
+      font-weight: 500;
+    }
+  }
+}

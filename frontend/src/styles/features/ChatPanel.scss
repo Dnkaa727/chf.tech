@@ -1,0 +1,76 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.chat {
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: base.$space-2 base.$space-5;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: base.$space-3;
+  }
+
+  &__empty {
+    color: colors.$muted;
+    text-align: center;
+    padding: base.$space-5 0;
+    font-size: base.$fs-s;
+  }
+
+  &__form {
+    display: flex;
+    align-items: flex-start;
+    gap: base.$space-2;
+    padding: base.$space-4;
+    border-top: 1px solid colors.$fill-muted;
+
+    .field__box {
+      height: 44px;
+    }
+  }
+}
+
+.msg {
+  max-width: 88%;
+  align-self: flex-start;
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: base.$space-2;
+    margin-bottom: base.$space-1;
+    font-size: base.$fs-xs;
+    color: colors.$muted;
+
+    strong {
+      color: colors.$text;
+    }
+  }
+
+  &__text {
+    margin: 0;
+    padding: base.$space-2 base.$space-3;
+    border-radius: base.$radius-l;
+    border-top-left-radius: 4px;
+    background: colors.$fill-muted;
+    word-break: break-word;
+  }
+
+  &--own {
+    align-self: flex-end;
+
+    .msg__meta {
+      justify-content: flex-end;
+    }
+
+    .msg__text {
+      background: colors.$blue;
+      color: #fff;
+      border-top-left-radius: base.$radius-l;
+      border-top-right-radius: 4px;
+    }
+  }
+}

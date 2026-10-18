@@ -1,0 +1,31 @@
+@use "colors.scss";
+@use "base.scss";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: colors.$bg;
+  color: colors.$text;
+  font-family: base.$font;
+  font-size: base.$fs-m;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

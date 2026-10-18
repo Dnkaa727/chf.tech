@@ -1,0 +1,41 @@
+@use "../mixins";
+@use "../colors.scss";
+@use "../base.scss";
+
+.icon-btn {
+  @include mixins.reset-button;
+  @include mixins.focus-ring;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: base.$radius-pill;
+  transition: background-color 0.15s;
+
+  &--neutral {
+    background: colors.$fill-muted;
+    color: colors.$text;
+
+    &:hover:not(:disabled) {
+      background: colors.$border;
+    }
+  }
+
+  &--alert {
+    background: colors.$red-soft;
+    color: colors.$red;
+  }
+
+  &--outline {
+    border: 1px solid colors.$border;
+    color: colors.$muted;
+    background: colors.$surface;
+  }
+
+  &--primary {
+    background: colors.$blue;
+    color: #fff;
+  }
+}

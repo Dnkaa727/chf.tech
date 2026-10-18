@@ -1,0 +1,35 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 base.$space-5;
+  background: colors.$surface;
+
+  &__logo {
+    padding: base.$space-2 base.$space-4;
+    border: 1px dashed colors.$border;
+    border-radius: base.$radius-s;
+    color: colors.$muted;
+    font-size: base.$fs-s;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: base.$space-5;
+  }
+
+  &__link {
+    color: colors.$text;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: colors.$blue;
+    }
+  }
+}

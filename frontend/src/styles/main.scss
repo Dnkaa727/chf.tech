@@ -1,0 +1,27 @@
+@use "sass:meta";
+
+@include meta.load-css("./global.scss");
+
+@include meta.load-css("./components/Avatar.scss");
+@include meta.load-css("./components/Badge.scss");
+@include meta.load-css("./components/Button.scss");
+@include meta.load-css("./components/Card.scss");
+@include meta.load-css("./components/Checkbox.scss");
+@include meta.load-css("./components/Dialog.scss");
+@include meta.load-css("./components/IconButton.scss");
+@include meta.load-css("./components/Indicator.scss");
+@include meta.load-css("./components/Notice.scss");
+@include meta.load-css("./components/Segmented.scss");
+@include meta.load-css("./components/TextField.scss");
+
+@include meta.load-css("./features/layout/ConferenceLayout.scss");
+@include meta.load-css("./features/layout/PageIntro.scss");
+@include meta.load-css("./features/layout/Screen.scss");
+@include meta.load-css("./features/stage/renderers.scss");
+@include meta.load-css("./features/stage/Stage.scss");
+@include meta.load-css("./features/AppHeader.scss");
+@include meta.load-css("./features/ChatPanel.scss");
+@include meta.load-css("./features/ControlBar.scss");
+@include meta.load-css("./features/ParticipantsPanel.scss");
+@include meta.load-css("./features/SidePanel.scss");
+@include meta.load-css("./features/StateMessage.scss");

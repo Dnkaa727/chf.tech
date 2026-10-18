@@ -1,0 +1,59 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.field {
+  width: 100%;
+
+  &__box {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    background: colors.$surface;
+    border: 1px solid colors.$border;
+    border-radius: base.$radius-s;
+    transition: border-color 0.15s;
+
+    &:focus-within {
+      border-color: colors.$blue;
+    }
+
+    &--error {
+      border-color: colors.$red;
+    }
+  }
+
+  &__prefix {
+    padding: 0 base.$space-4;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid colors.$fill-muted;
+    color: colors.$muted;
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0 base.$space-4;
+    border: 0;
+    outline: 0;
+    background: none;
+    font: inherit;
+    color: colors.$text;
+
+    &::placeholder {
+      color: #b7bfd3;
+    }
+  }
+
+  &__hint {
+    margin: base.$space-2 base.$space-4 0;
+    font-size: base.$fs-xs;
+    color: colors.$muted;
+
+    &--error {
+      color: colors.$red;
+    }
+  }
+}

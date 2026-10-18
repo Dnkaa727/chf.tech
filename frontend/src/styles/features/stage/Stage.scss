@@ -1,0 +1,44 @@
+@use "../../colors.scss";
+@use "../../base.scss";
+
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: base.$radius-xl;
+  background: colors.$blue-tonal;
+  overflow: hidden;
+
+  &__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__caption {
+    position: absolute;
+    left: base.$space-4;
+    bottom: base.$space-4;
+    display: flex;
+    align-items: center;
+    gap: base.$space-2;
+    max-width: calc(100% - 32px);
+    padding: base.$space-2 base.$space-4;
+    border-radius: base.$radius-pill;
+    background: colors.$surface;
+    font-size: base.$fs-s;
+
+    strong {
+      color: colors.$text;
+    }
+
+    span {
+      color: colors.$muted;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

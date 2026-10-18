@@ -1,0 +1,52 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.p-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.p-row {
+  display: flex;
+  align-items: center;
+  gap: base.$space-3;
+  padding: base.$space-3 base.$space-5;
+  border-top: 1px solid colors.$fill-muted;
+
+  .avatar {
+    background: colors.$blue-tonal;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+
+    strong {
+      color: colors.$text;
+    }
+
+    span {
+      font-size: base.$fs-xs;
+      color: colors.$muted;
+    }
+
+    .badge {
+      margin-top: base.$space-1;
+    }
+  }
+
+  &__dev {
+    color: colors.$muted;
+
+    &--off {
+      color: colors.$red;
+    }
+  }
+}

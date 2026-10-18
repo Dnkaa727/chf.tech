@@ -1,0 +1,25 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.control-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: base.$space-3;
+  padding: base.$space-3 base.$space-4;
+  border-radius: base.$radius-l;
+  background: colors.$surface;
+
+  &__group {
+    display: flex;
+    gap: base.$space-2;
+
+    &--start {
+      justify-self: start;
+    }
+
+    &--end {
+      justify-self: end;
+    }
+  }
+}

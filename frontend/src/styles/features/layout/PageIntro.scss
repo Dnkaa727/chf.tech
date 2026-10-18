@@ -1,0 +1,24 @@
+@use "../../colors.scss";
+@use "../../base.scss";
+
+.intro {
+  &__title {
+    margin: 0 0 base.$space-4;
+    color: colors.$blue-deep;
+    font-size: base.$fs-display;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  &__text {
+    margin: 0;
+    color: colors.$muted;
+  }
+}
+
+@media (max-width: base.$bp-mobile) {
+  .intro__title {
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,41 @@
+@use "../colors.scss";
+@use "../base.scss";
+
+.state-message {
+  flex: 1;
+  min-height: 0;
+  border-radius: base.$radius-xl;
+  background: colors.$surface;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: base.$space-3;
+  padding: base.$space-5;
+  text-align: center;
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: colors.$blue-tonal;
+    color: colors.$blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: base.$fs-l;
+  }
+
+  h2 {
+    margin: 0;
+    color: colors.$blue-deep;
+    font-size: base.$fs-xl;
+    line-height: 1.15;
+  }
+
+  p {
+    margin: 0;
+    color: colors.$muted;
+    max-width: 420px;
+  }
+}
