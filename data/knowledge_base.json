@@ -1,0 +1,993 @@
+{
+  "schema_version": "2.0",
+  "project": "chf.tech | AI-интервьюер Python Backend",
+  "description": "Черновая экспертная база тем интервью из требований восьми вакансий; не эталон объективного найма.",
+  "target_role": "Middle Python Backend",
+  "source_dataset": "competencies_evidence.csv на основе 8 вручную выбранных вакансий из vacancies_bank_it.csv",
+  "warning": "Частоты отражают только выбранные 8 вакансий. Вакансии подтверждают требования, но НЕ техническую правильность вопросов/критериев. Все карточки требуют экспертной проверки.",
+  "cards": [
+    {
+      "id": "PY-OOP-01",
+      "competency": "Python",
+      "topic": "ООП и композиция",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "python",
+        "питон"
+      ],
+      "retrieval_tags": [
+        "oop",
+        "ооп",
+        "классы",
+        "интерфейс",
+        "composition",
+        "solid"
+      ],
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "title": "Разработчик программного обеспечения",
+          "company": "ООО \"ТЕХНОЛОГИИ - И ТОЧКА\"",
+          "url": "https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "requirement_context_excerpt": "ыми таск трекерами и базами знаний - Хорошее понимание принципов ООП и современных паттернов проектирования. - Навыки работы с техническим заданием и ком",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "51c11150-c3cf-11f1-9dff-97d306130813",
+          "title": "Python-разработчик (Junior+)",
+          "company": "ООО ФИРМА \"ИНТЕРСВЯЗЬ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1037403866840/51c11150-c3cf-11f1-9dff-97d306130813",
+          "requirement_context_excerpt": "го владения Python: умения писать и отлаживать код, знания основ ООП, функций, модулей, типов данных и обработки ошибок; практического опыта разработки A",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 2,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "PY-ASYNC-01",
+      "competency": "Python",
+      "topic": "asyncio и блокирующий код",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "python",
+        "питон"
+      ],
+      "retrieval_tags": [
+        "asyncio",
+        "event loop",
+        "async",
+        "await",
+        "асинхронность"
+      ],
+      "question": "Что произойдёт с другими задачами того же event loop, пока внутри async def выполняется time.sleep(2), и как организовать ожидание, чтобы они могли продолжать работу?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "d023dae8-76cd-11f1-9a9e-6f4b77459deb",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/d023dae8-76cd-11f1-9a9e-6f4b77459deb",
+          "requirement_context_excerpt": "роить; опыт работы с Django / Flask / aio-http; умение применять асинхронные / многопоточные подходы в разработке.",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "title": "Разработчик программного обеспечения",
+          "company": "ООО \"ТЕХНОЛОГИИ - И ТОЧКА\"",
+          "url": "https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "requirement_context_excerpt": "- Уверенные знания Django, Redis, PostgreSQL - Понимание работы асинхронности в Python и asyncio - Понимание основных способов взаимодействия микросервисов между",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 2,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "PY-ERROR-01",
+      "competency": "Python",
+      "topic": "Исключения и обработка ошибок",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "python",
+        "питон"
+      ],
+      "retrieval_tags": [
+        "exceptions",
+        "исключения",
+        "try except",
+        "ошибки",
+        "timeout"
+      ],
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "Мы ожидаем Опыт коммерческой разработки на Python Опыт использования реляционных СУБД (MySQL, PostgreSQL) Опыт работы с ОС семейства L",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "Оконченное высшее образование Опыт разработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимущес",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 6,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "PG-QUERY-01",
+      "competency": "PostgreSQL",
+      "topic": "EXPLAIN и диагностика медленного запроса",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "postgresql",
+        "postgres",
+        "postgres 9+",
+        "pgsql"
+      ],
+      "retrieval_tags": [
+        "explain",
+        "explain analyze",
+        "индекс",
+        "sql",
+        "оптимизация",
+        "план запроса",
+        "slow query",
+        "индексы",
+        "индекс",
+        "slow query"
+      ],
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "разработки на Python Опыт использования реляционных СУБД (MySQL, PostgreSQL) Опыт работы с ОС семейства Linux, то есть для вас не должно быть проблемой: написат",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с temporal",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 6,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "PG-TX-01",
+      "competency": "PostgreSQL",
+      "topic": "Транзакции и гонки",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "postgresql",
+        "postgres",
+        "postgres 9+",
+        "pgsql"
+      ],
+      "retrieval_tags": [
+        "транзакции",
+        "изоляция",
+        "гонка",
+        "concurrency",
+        "row lock"
+      ],
+      "question": "Два клиента почти одновременно пытаются списать деньги с одного баланса. Как спроектировать операции в PostgreSQL, чтобы конкурентные изменения не потерялись и остаток не стал некорректным?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "разработки на Python Опыт использования реляционных СУБД (MySQL, PostgreSQL) Опыт работы с ОС семейства Linux, то есть для вас не должно быть проблемой: написат",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с temporal",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 6,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "SQL-JOIN-01",
+      "competency": "SQL",
+      "topic": "JOIN и связи таблиц",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "sql",
+        "sql join"
+      ],
+      "retrieval_tags": [
+        "sql",
+        "join",
+        "left join",
+        "inner join",
+        "агрегация"
+      ],
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "51c11150-c3cf-11f1-9dff-97d306130813",
+          "title": "Python-разработчик (Junior+)",
+          "company": "ООО ФИРМА \"ИНТЕРСВЯЗЬ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1037403866840/51c11150-c3cf-11f1-9dff-97d306130813",
+          "requirement_context_excerpt": "и JSON; знания основ SQL: умения писать запросы с фильтрацией и JOIN, понимания связей между таблицами; знания основ SQLAlchemy: моделей, сессий и запрос",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 1,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "API-VAL-01",
+      "competency": "FastAPI",
+      "topic": "Pydantic и валидация запросов",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "fastapi",
+        "fast api"
+      ],
+      "retrieval_tags": [
+        "fastapi",
+        "pydantic",
+        "валидация",
+        "request body",
+        "endpoint"
+      ],
+      "question": "Как спроектировать POST /orders в FastAPI, чтобы проверять входные данные, применять бизнес-правила и возвращать клиенту понятные ответы при успехе и ошибках?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "ие Опыт разработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с tempor",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "title": "Разработчик Python",
+          "company": "ООО \"УРАЛАЙТЕХ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1227700702074/c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "requirement_context_excerpt": "ыки работы с командной строкой Linux. Опыт работы с фреймворками FastAPI, Flask. Будет преимуществом: Опыт работы с очередями сообщений RabbitMQ или Apache K",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "API-DI-01",
+      "competency": "FastAPI",
+      "topic": "Dependency Injection и тестирование API",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "fastapi",
+        "fast api"
+      ],
+      "retrieval_tags": [
+        "fastapi",
+        "depends",
+        "dependency injection",
+        "тестирование"
+      ],
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "ие Опыт разработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с tempor",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "title": "Разработчик Python",
+          "company": "ООО \"УРАЛАЙТЕХ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1227700702074/c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "requirement_context_excerpt": "ыки работы с командной строкой Linux. Опыт работы с фреймворками FastAPI, Flask. Будет преимуществом: Опыт работы с очередями сообщений RabbitMQ или Apache K",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "PYD-MODEL-01",
+      "competency": "Pydantic",
+      "topic": "Схемы и преобразование данных",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "pydantic"
+      ],
+      "retrieval_tags": [
+        "pydantic",
+        "field",
+        "validator",
+        "schema",
+        "валидация"
+      ],
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "енное высшее образование Опыт разработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 1,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "ORM-SESSION-01",
+      "competency": "SQLAlchemy",
+      "topic": "Сессии и транзакции ORM",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "sqlalchemy",
+        "sql alchemy"
+      ],
+      "retrieval_tags": [
+        "sqlalchemy",
+        "orm",
+        "session",
+        "commit",
+        "rollback",
+        "transaction"
+      ],
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "зработки (git, github/gitlab, review) Опыт разработки проектов c sqlalchemy, gevent/eventlet Опыт написания инфраструктурного кода",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "ее образование Опыт разработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 4,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "ORM-N1-01",
+      "competency": "SQLAlchemy",
+      "topic": "N+1 запросы",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "sqlalchemy",
+        "sql alchemy"
+      ],
+      "retrieval_tags": [
+        "sqlalchemy",
+        "orm",
+        "n+1",
+        "selectinload",
+        "joinedload"
+      ],
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "зработки (git, github/gitlab, review) Опыт разработки проектов c sqlalchemy, gevent/eventlet Опыт написания инфраструктурного кода",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "ее образование Опыт разработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 4,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "REDIS-CACHE-01",
+      "competency": "Redis",
+      "topic": "Кэширование и инвалидация",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "redis"
+      ],
+      "retrieval_tags": [
+        "redis",
+        "кэш",
+        "cache",
+        "ttl",
+        "инвалидация"
+      ],
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "antic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с temporal",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "requirement_context_excerpt": "Знание: Django, Aiohttp, Postgres 9+, Redis, Rabbitmq, Dramatiq, Camel, Apscheduler, Docker, Gitlab-ci, Kubernetes.",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 4,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "DOC-IMAGE-01",
+      "competency": "Docker",
+      "topic": "Dockerfile и безопасность образа",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "docker"
+      ],
+      "retrieval_tags": [
+        "docker",
+        "dockerfile",
+        "image",
+        "container",
+        "multi-stage"
+      ],
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "requirement_context_excerpt": "ttp, Postgres 9+, Redis, Rabbitmq, Dramatiq, Camel, Apscheduler, Docker, Gitlab-ci, Kubernetes.",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "title": "Разработчик программного обеспечения",
+          "company": "ООО \"ТЕХНОЛОГИИ - И ТОЧКА\"",
+          "url": "https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "requirement_context_excerpt": "itbucket в командной и асинхронно разработке - Умение работать с Docker, Docker Compose, Kubernetes - Опыт работы с гибкими методологиями разработки Agile и",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 4,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "LINUX-DIAG-01",
+      "competency": "Linux / Unix",
+      "topic": "Диагностика процесса и логов",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "linux",
+        "unix",
+        "линукс"
+      ],
+      "retrieval_tags": [
+        "linux",
+        "unix",
+        "logs",
+        "процессы",
+        "top",
+        "journalctl"
+      ],
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "реляционных СУБД (MySQL, PostgreSQL) Опыт работы с ОС семейства Linux, то есть для вас не должно быть проблемой: написать bash скрипт, погрепать логи, вый",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "f4ddd8e0-bbc0-11f0-93eb-c3084e6d8ff5",
+          "title": "Разработчик на Python",
+          "company": "ООО  \"АЙДЕКО\"",
+          "url": "https://trudvsem.ru/vacancy/card/1086670012220/f4ddd8e0-bbc0-11f0-93eb-c3084e6d8ff5",
+          "requirement_context_excerpt": "отки, уровень не ниже middle; Уверенные навыки администрирования Linux; Уверенное понимание сетевых протоколов, модели OSI, протоколов прикладного уровня (",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 5,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "GIT-MERGE-01",
+      "competency": "Git",
+      "topic": "Ветки и merge-конфликты",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "git"
+      ],
+      "retrieval_tags": [
+        "git",
+        "merge",
+        "rebase",
+        "branch",
+        "конфликт"
+      ],
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "b CI/Jenkins Опыт и владение инструментами командной разработки (git, github/gitlab, review) Опыт разработки проектов c sqlalchemy, gevent/eventlet Опыт",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "title": "Разработчик Python",
+          "company": "ООО \"УРАЛАЙТЕХ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1227700702074/c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "requirement_context_excerpt": "е завершенных проектов. Опыт работы с системами контроля версий (git). Понимание принципов работы HTTP, WebSockets, REST, JWT, MQ. Знание БД (реляционных",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "CI-PIPE-01",
+      "competency": "GitLab CI",
+      "topic": "Пайплайн проверки Python-сервиса",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "gitlab ci",
+        "gitlab-ci",
+        "ci/cd"
+      ],
+      "retrieval_tags": [
+        "gitlab ci",
+        "ci/cd",
+        "pipeline",
+        "тесты",
+        "деплой"
+      ],
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "title": "Питон разработчик",
+          "company": "АКЦИОНЕРНОЕ ОБЩЕСТВО \"СЕЛЕКТЕЛ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0",
+          "requirement_context_excerpt": "е принципов и владение инструментами CI/CD: Ansible/Puppet/Chef, Gitlab CI/Jenkins Опыт и владение инструментами командной разработки (git, github/gitlab, revi",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "requirement_context_excerpt": "tgres 9+, Redis, Rabbitmq, Dramatiq, Camel, Apscheduler, Docker, Gitlab-ci, Kubernetes.",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "REST-IDEMP-01",
+      "competency": "REST API",
+      "topic": "HTTP и идемпотентность",
+      "target_level": "Middle",
+      "priority_for_demo": "core",
+      "aliases": [
+        "rest api",
+        "rest",
+        "http api"
+      ],
+      "retrieval_tags": [
+        "rest",
+        "http",
+        "api",
+        "идемпотентность",
+        "post",
+        "retry"
+      ],
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "f4ddd8e0-bbc0-11f0-93eb-c3084e6d8ff5",
+          "title": "Разработчик на Python",
+          "company": "ООО  \"АЙДЕКО\"",
+          "url": "https://trudvsem.ru/vacancy/card/1086670012220/f4ddd8e0-bbc0-11f0-93eb-c3084e6d8ff5",
+          "requirement_context_excerpt": "оты с Systemd; Опыт работы с виртуализацией; Опыт проектирования REST-API. Желаемые качества (преимущество будет отдаваться обладающим ими): Опыт написания юн",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "title": "Разработчик программного обеспечения",
+          "company": "ООО \"ТЕХНОЛОГИИ - И ТОЧКА\"",
+          "url": "https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "requirement_context_excerpt": "аписание и профилирование сложных запросов - Понимание принципов REST API и построения интеграция с другими системами - Опыт работы с системой контроля версий",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 4,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "MQ-ACK-01",
+      "competency": "RabbitMQ",
+      "topic": "Подтверждения доставки и повторная обработка",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "rabbitmq",
+        "rabbit mq"
+      ],
+      "retrieval_tags": [
+        "rabbitmq",
+        "queue",
+        "broker",
+        "ack",
+        "dlq",
+        "consumer"
+      ],
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "requirement_context_excerpt": "Знание: Django, Aiohttp, Postgres 9+, Redis, Rabbitmq, Dramatiq, Camel, Apscheduler, Docker, Gitlab-ci, Kubernetes.",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "d023dae8-76cd-11f1-9a9e-6f4b77459deb",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/d023dae8-76cd-11f1-9a9e-6f4b77459deb",
+          "requirement_context_excerpt": "рвисов, понимание принципов их построения; знания Celery, Redis, Rabbit и умение их настроить; опыт работы с Django / Flask / aio-http; умение применять аси",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "TEST-PYTEST-01",
+      "competency": "pytest",
+      "topic": "Изоляция тестов",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "pytest"
+      ],
+      "retrieval_tags": [
+        "pytest",
+        "unit",
+        "fixtures",
+        "mock",
+        "тестирование"
+      ],
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "title": "Разработчик Python",
+          "company": "ООО \"УРАЛАЙТЕХ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1227700702074/c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "requirement_context_excerpt": "зования ORM - SQLAlchemy. Опыт написания тестов с использованием pytest. Знание DevOps инструментов (Gitlab CI, Docker, Nginx).",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 1,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "K8S-HEALTH-01",
+      "competency": "Kubernetes",
+      "topic": "Readiness и liveness",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "kubernetes",
+        "k8s"
+      ],
+      "retrieval_tags": [
+        "kubernetes",
+        "k8s",
+        "readiness",
+        "liveness",
+        "pod"
+      ],
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "requirement_context_excerpt": "edis, Rabbitmq, Dramatiq, Camel, Apscheduler, Docker, Gitlab-ci, Kubernetes.",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "title": "Разработчик программного обеспечения",
+          "company": "ООО \"ТЕХНОЛОГИИ - И ТОЧКА\"",
+          "url": "https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "requirement_context_excerpt": "синхронно разработке - Умение работать с Docker, Docker Compose, Kubernetes - Опыт работы с гибкими методологиями разработки Agile и SCRUM и современными таск т",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "MICRO-TIMEOUT-01",
+      "competency": "Микросервисная архитектура",
+      "topic": "Таймауты и отказоустойчивость",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "microservices",
+        "микросервисы"
+      ],
+      "retrieval_tags": [
+        "микросервисы",
+        "timeout",
+        "retry",
+        "circuit breaker",
+        "resilience"
+      ],
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "title": "Разработчик программного обеспечения",
+          "company": "ООО \"ТЕХНОЛОГИИ - И ТОЧКА\"",
+          "url": "https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279",
+          "requirement_context_excerpt": "- Высшее образование - Опыт работы в разработке сервисов и микросервисов на Python - Понимание принципов микросервисной архитектуры - Уверенные знания Python",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "title": "Разработчик Python",
+          "company": "ООО \"УРАЛАЙТЕХ\"",
+          "url": "https://trudvsem.ru/vacancy/card/1227700702074/c50d9cd8-bbe3-11f1-9a11-2f8460579df4",
+          "requirement_context_excerpt": "ионных): PostgreSQL, MSSQL, ElasticSearch. Опыт в проектировании микросервисной архитектуры. Навыки работы с командной строкой Linux. Опыт работы с фреймворками Fas",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 2,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "MQTT-QOS-01",
+      "competency": "MQTT",
+      "topic": "Брокер MQTT и уровни QoS",
+      "target_level": "Middle",
+      "priority_for_demo": "optional",
+      "aliases": [
+        "mqtt",
+        "mqtt-брокер"
+      ],
+      "retrieval_tags": [
+        "mqtt",
+        "mqtt-брокер",
+        "broker",
+        "qos"
+      ],
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "азработки от 3х лет Стек: Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с temporal",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 1,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "TEMP-WF-01",
+      "competency": "Temporal",
+      "topic": "Workflow и Activity",
+      "target_level": "Middle",
+      "priority_for_demo": "optional",
+      "aliases": [
+        "temporal"
+      ],
+      "retrieval_tags": [
+        "temporal",
+        "workflow",
+        "activity",
+        "retry"
+      ],
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "postgresql, clickhouse, redis Преимуществом будет опыт работы с temporal",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 1,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "CH-OLAP-01",
+      "competency": "ClickHouse",
+      "topic": "Аналитические запросы и OLAP",
+      "target_level": "Middle",
+      "priority_for_demo": "optional",
+      "aliases": [
+        "clickhouse"
+      ],
+      "retrieval_tags": [
+        "clickhouse",
+        "olap",
+        "колоночная",
+        "аналитика"
+      ],
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "fd850128-cabc-11f0-a346-3f19de5e882c",
+          "title": "Backend-разработчик (Python)",
+          "company": "ООО \"СЗ \"УГМК-НАВИГАТОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c",
+          "requirement_context_excerpt": "Python, pydantic, sqlalchemy, fastapi, mqtt-брокер, postgresql, clickhouse, redis Преимуществом будет опыт работы с temporal",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 1,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    },
+    {
+      "id": "DJ-ORM-01",
+      "competency": "Django",
+      "topic": "Django ORM и N+1",
+      "target_level": "Middle",
+      "priority_for_demo": "extended",
+      "aliases": [
+        "django"
+      ],
+      "retrieval_tags": [
+        "django",
+        "orm",
+        "n+1",
+        "select_related",
+        "prefetch_related"
+      ],
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "source_vacancies": [
+        {
+          "vacancy_id": "5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74",
+          "requirement_context_excerpt": "Знание: Django, Aiohttp, Postgres 9+, Redis, Rabbitmq, Dramatiq, Camel, Apscheduler, Docker, Gitlab",
+          "extraction_status": "auto_detected_not_reviewed"
+        },
+        {
+          "vacancy_id": "d023dae8-76cd-11f1-9a9e-6f4b77459deb",
+          "title": "Python-разработчик Middle",
+          "company": "ООО \"СТРОИТЕЛЬНЫЙ ДВОР\"",
+          "url": "https://trudvsem.ru/vacancy/card/1107232016583/d023dae8-76cd-11f1-9a9e-6f4b77459deb",
+          "requirement_context_excerpt": "нания Celery, Redis, Rabbit и умение их настроить; опыт работы с Django / Flask / aio-http; умение применять асинхронные / многопоточные подходы в разработк",
+          "extraction_status": "auto_detected_not_reviewed"
+        }
+      ],
+      "mention_count_in_8_vacancies": 3,
+      "technical_reference_urls": [],
+      "review_status": "draft_needs_expert_review",
+      "provenance_note": "Тема встречается в требованиях вакансий; вопрос, ожидаемые признаки ответа и уровень Middle предложены авторами демо и не подтверждены работодателем."
+    }
+  ],
+  "scoring_source": "rubrics_all_25.json"
+}

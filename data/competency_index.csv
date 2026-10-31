@@ -1,0 +1,26 @@
+﻿card_id,competency,topic,level,demo_priority,vacancy_mentions_in_8,review_status,vacancy_url
+PY-OOP-01,Python,ООП и композиция,Middle,core,2,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279
+PY-ASYNC-01,Python,asyncio и блокирующий код,Middle,core,2,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1107232016583/d023dae8-76cd-11f1-9a9e-6f4b77459deb
+PY-ERROR-01,Python,Исключения и обработка ошибок,Middle,core,6,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+PG-QUERY-01,PostgreSQL,EXPLAIN и диагностика медленного запроса,Middle,core,6,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+PG-TX-01,PostgreSQL,Транзакции и гонки,Middle,extended,6,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+SQL-JOIN-01,SQL,JOIN и связи таблиц,Middle,core,1,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1037403866840/51c11150-c3cf-11f1-9dff-97d306130813
+API-VAL-01,FastAPI,Pydantic и валидация запросов,Middle,core,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+API-DI-01,FastAPI,Dependency Injection и тестирование API,Middle,extended,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+PYD-MODEL-01,Pydantic,Схемы и преобразование данных,Middle,extended,1,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+ORM-SESSION-01,SQLAlchemy,Сессии и транзакции ORM,Middle,core,4,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+ORM-N1-01,SQLAlchemy,N+1 запросы,Middle,extended,4,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+REDIS-CACHE-01,Redis,Кэширование и инвалидация,Middle,core,4,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+DOC-IMAGE-01,Docker,Dockerfile и безопасность образа,Middle,core,4,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74
+LINUX-DIAG-01,Linux / Unix,Диагностика процесса и логов,Middle,core,5,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+GIT-MERGE-01,Git,Ветки и merge-конфликты,Middle,core,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+CI-PIPE-01,GitLab CI,Пайплайн проверки Python-сервиса,Middle,extended,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1247800067790/a2a63a28-0c17-11f1-8053-7d02f7782fc0
+REST-IDEMP-01,REST API,HTTP и идемпотентность,Middle,core,4,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1086670012220/f4ddd8e0-bbc0-11f0-93eb-c3084e6d8ff5
+MQ-ACK-01,RabbitMQ,Подтверждения доставки и повторная обработка,Middle,extended,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74
+TEST-PYTEST-01,pytest,Изоляция тестов,Middle,extended,1,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1227700702074/c50d9cd8-bbe3-11f1-9a11-2f8460579df4
+K8S-HEALTH-01,Kubernetes,Readiness и liveness,Middle,extended,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74
+MICRO-TIMEOUT-01,Микросервисная архитектура,Таймауты и отказоустойчивость,Middle,extended,2,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1117746174150/cc0f9e28-75fc-11f1-bb0f-e76a5debc279
+MQTT-QOS-01,MQTT,Брокер MQTT и уровни QoS,Middle,optional,1,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+TEMP-WF-01,Temporal,Workflow и Activity,Middle,optional,1,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+CH-OLAP-01,ClickHouse,Аналитические запросы и OLAP,Middle,optional,1,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1156658059580/fd850128-cabc-11f0-a346-3f19de5e882c
+DJ-ORM-01,Django,Django ORM и N+1,Middle,extended,3,draft_needs_expert_review,https://trudvsem.ru/vacancy/card/1107232016583/5610ca08-4dbb-11f1-8792-db038e2b6f74
