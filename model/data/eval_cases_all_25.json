@@ -1,0 +1,3805 @@
+{
+  "schema_version": "3.0",
+  "cases": [
+    {
+      "case_id": "PY-OOP-01__bad",
+      "card_id": "PY-OOP-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "PY-OOP-01-K1": 0,
+        "PY-OOP-01-K2": 0,
+        "PY-OOP-01-K3": 0,
+        "PY-OOP-01-K4": 0,
+        "PY-OOP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-OOP-01__medium",
+      "card_id": "PY-OOP-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "answer": "Я выделю общий интерфейс отправки с методом send, который реализуют email и SMS каналы. Сервис получает реализацию канала через конструктор, поэтому не зависит от конкретного SMTP-класса. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "PY-OOP-01-K1": 2,
+        "PY-OOP-01-K2": 2,
+        "PY-OOP-01-K3": 0,
+        "PY-OOP-01-K4": 0,
+        "PY-OOP-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-OOP-01__excellent",
+      "card_id": "PY-OOP-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "answer": "Я выделю общий интерфейс отправки с методом send, который реализуют email и SMS каналы. Сервис получает реализацию канала через конструктор, поэтому не зависит от конкретного SMTP-класса. Выбор получателей и шаблон уведомления отделю от адаптера реального транспорта. Для теста передам fake-канал и проверю сообщение и адрес без реальной отправки. Ошибку доставки оформлю отдельно, добавлю логирование и повтор только для временных ошибок.",
+      "gold_criteria": {
+        "PY-OOP-01-K1": 2,
+        "PY-OOP-01-K2": 2,
+        "PY-OOP-01-K3": 2,
+        "PY-OOP-01-K4": 2,
+        "PY-OOP-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-OOP-01__partial",
+      "card_id": "PY-OOP-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "answer": "Я выделю общий интерфейс отправки с методом send, который реализуют email и SMS каналы. Сервис получает реализацию канала через конструктор, поэтому не зависит от конкретного SMTP-класса. Выбор получателей и шаблон уведомления отделю от адаптера реального транспорта. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "PY-OOP-01-K1": 2,
+        "PY-OOP-01-K2": 2,
+        "PY-OOP-01-K3": 2,
+        "PY-OOP-01-K4": 0,
+        "PY-OOP-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-OOP-01__confident_wrong",
+      "card_id": "PY-OOP-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "answer": "Я уверен в следующем: Все новые каналы добавлю как ветки if/else внутри сервиса, общий контракт не нужен; тестирование с реальной отправкой всегда лучше.",
+      "gold_criteria": {
+        "PY-OOP-01-K1": 0,
+        "PY-OOP-01-K2": 0,
+        "PY-OOP-01-K3": 0,
+        "PY-OOP-01-K4": 0,
+        "PY-OOP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-OOP-01__evasive",
+      "card_id": "PY-OOP-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Нужно разработать сервис уведомлений с разными каналами доставки. Как организуешь классы, чтобы легко добавлять новые каналы?",
+      "answer": "Я много работал с Python, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "PY-OOP-01-K1": 0,
+        "PY-OOP-01-K2": 0,
+        "PY-OOP-01-K3": 0,
+        "PY-OOP-01-K4": 0,
+        "PY-OOP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ASYNC-01__bad",
+      "card_id": "PY-ASYNC-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Что будет, если внутри async def вызвать time.sleep(2), и как сделать ожидание неблокирующим?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "PY-ASYNC-01-K1": 0,
+        "PY-ASYNC-01-K2": 0,
+        "PY-ASYNC-01-K3": 0,
+        "PY-ASYNC-01-K4": 0,
+        "PY-ASYNC-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ASYNC-01__medium",
+      "card_id": "PY-ASYNC-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Что будет, если внутри async def вызвать time.sleep(2), и как сделать ожидание неблокирующим?",
+      "answer": "Вызов time.sleep внутри async def блокирует поток event loop и мешает выполнять другие корутины. Для ожидания таймера использую await asyncio.sleep(2), чтобы цикл мог выполнять другие задачи. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "PY-ASYNC-01-K1": 2,
+        "PY-ASYNC-01-K2": 2,
+        "PY-ASYNC-01-K3": 0,
+        "PY-ASYNC-01-K4": 0,
+        "PY-ASYNC-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ASYNC-01__excellent",
+      "card_id": "PY-ASYNC-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Что будет, если внутри async def вызвать time.sleep(2), и как сделать ожидание неблокирующим?",
+      "answer": "Вызов time.sleep внутри async def блокирует поток event loop и мешает выполнять другие корутины. Для ожидания таймера использую await asyncio.sleep(2), чтобы цикл мог выполнять другие задачи. Если библиотека делает блокирующий сетевой запрос, возьму асинхронный клиент или вынесу вызов в поток. Тяжёлые CPU-вычисления вынесу в отдельный процесс или worker: await не делает их неблокирующими. Запущу параллельные запросы и измерю latency, чтобы проверить, что один запрос не останавливает остальные.",
+      "gold_criteria": {
+        "PY-ASYNC-01-K1": 2,
+        "PY-ASYNC-01-K2": 2,
+        "PY-ASYNC-01-K3": 2,
+        "PY-ASYNC-01-K4": 2,
+        "PY-ASYNC-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ASYNC-01__partial",
+      "card_id": "PY-ASYNC-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Что будет, если внутри async def вызвать time.sleep(2), и как сделать ожидание неблокирующим?",
+      "answer": "Вызов time.sleep внутри async def блокирует поток event loop и мешает выполнять другие корутины. Для ожидания таймера использую await asyncio.sleep(2), чтобы цикл мог выполнять другие задачи. Если библиотека делает блокирующий сетевой запрос, возьму асинхронный клиент или вынесу вызов в поток. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "PY-ASYNC-01-K1": 2,
+        "PY-ASYNC-01-K2": 2,
+        "PY-ASYNC-01-K3": 2,
+        "PY-ASYNC-01-K4": 0,
+        "PY-ASYNC-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ASYNC-01__confident_wrong",
+      "card_id": "PY-ASYNC-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Что будет, если внутри async def вызвать time.sleep(2), и как сделать ожидание неблокирующим?",
+      "answer": "Я уверен в следующем: time.sleep(2) внутри async def автоматически отдаёт управление event loop, потому что функция async; await здесь не требуется.",
+      "gold_criteria": {
+        "PY-ASYNC-01-K1": 0,
+        "PY-ASYNC-01-K2": 0,
+        "PY-ASYNC-01-K3": 0,
+        "PY-ASYNC-01-K4": 0,
+        "PY-ASYNC-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ASYNC-01__evasive",
+      "card_id": "PY-ASYNC-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Что будет, если внутри async def вызвать time.sleep(2), и как сделать ожидание неблокирующим?",
+      "answer": "Я много работал с Python, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "PY-ASYNC-01-K1": 0,
+        "PY-ASYNC-01-K2": 0,
+        "PY-ASYNC-01-K3": 0,
+        "PY-ASYNC-01-K4": 0,
+        "PY-ASYNC-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ERROR-01__bad",
+      "card_id": "PY-ERROR-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "PY-ERROR-01-K1": 0,
+        "PY-ERROR-01-K2": 0,
+        "PY-ERROR-01-K3": 0,
+        "PY-ERROR-01-K4": 0,
+        "PY-ERROR-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ERROR-01__medium",
+      "card_id": "PY-ERROR-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "answer": "Отдельно обработаю сетевой таймаут, HTTP-ошибку сервера и ошибку разбора или валидации ответа. Буду ловить конкретные исключения клиента, не глуша все ошибки через except Exception: pass. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "PY-ERROR-01-K1": 2,
+        "PY-ERROR-01-K2": 2,
+        "PY-ERROR-01-K3": 0,
+        "PY-ERROR-01-K4": 0,
+        "PY-ERROR-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ERROR-01__excellent",
+      "card_id": "PY-ERROR-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "answer": "Отдельно обработаю сетевой таймаут, HTTP-ошибку сервера и ошибку разбора или валидации ответа. Буду ловить конкретные исключения клиента, не глуша все ошибки через except Exception: pass. Поставлю таймаут, а временный сбой повторю ограниченно с backoff, учитывая идемпотентность. На границе сервиса преобразую ошибку внешнего API в свой тип исключения и корректный ответ клиенту. Логи будут содержать request ID и тип ошибки, но не токены и секретные поля ответа.",
+      "gold_criteria": {
+        "PY-ERROR-01-K1": 2,
+        "PY-ERROR-01-K2": 2,
+        "PY-ERROR-01-K3": 2,
+        "PY-ERROR-01-K4": 2,
+        "PY-ERROR-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ERROR-01__partial",
+      "card_id": "PY-ERROR-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "answer": "Отдельно обработаю сетевой таймаут, HTTP-ошибку сервера и ошибку разбора или валидации ответа. Буду ловить конкретные исключения клиента, не глуша все ошибки через except Exception: pass. Поставлю таймаут, а временный сбой повторю ограниченно с backoff, учитывая идемпотентность. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "PY-ERROR-01-K1": 2,
+        "PY-ERROR-01-K2": 2,
+        "PY-ERROR-01-K3": 2,
+        "PY-ERROR-01-K4": 0,
+        "PY-ERROR-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ERROR-01__confident_wrong",
+      "card_id": "PY-ERROR-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "answer": "Я уверен в следующем: Я перехвачу вообще всё через except: pass, без таймаутов и логирования; это гарантирует стабильность.",
+      "gold_criteria": {
+        "PY-ERROR-01-K1": 0,
+        "PY-ERROR-01-K2": 0,
+        "PY-ERROR-01-K3": 0,
+        "PY-ERROR-01-K4": 0,
+        "PY-ERROR-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PY-ERROR-01__evasive",
+      "card_id": "PY-ERROR-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "В сервисе сторонний API иногда отвечает таймаутом и некорректными данными. Как организуешь обработку ошибок в Python?",
+      "answer": "Я много работал с Python, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "PY-ERROR-01-K1": 0,
+        "PY-ERROR-01-K2": 0,
+        "PY-ERROR-01-K3": 0,
+        "PY-ERROR-01-K4": 0,
+        "PY-ERROR-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-QUERY-01__bad",
+      "card_id": "PG-QUERY-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "answer": "Я сразу перезапущу сервер и добавлю индекс на все колонки, без измерений.",
+      "gold_criteria": {
+        "PG-QUERY-01-K1": 0,
+        "PG-QUERY-01-K2": 0,
+        "PG-QUERY-01-K3": 0,
+        "PG-QUERY-01-K4": 0,
+        "PG-QUERY-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-QUERY-01__medium",
+      "card_id": "PG-QUERY-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "answer": "Сначала воспроизведу проблему на сопоставимых данных и сниму EXPLAIN (ANALYZE, BUFFERS) для безопасного SELECT. В плане сравню estimated и actual rows, loops и операции Seq Scan и Index Scan, чтобы найти узкое место. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "PG-QUERY-01-K1": 2,
+        "PG-QUERY-01-K2": 2,
+        "PG-QUERY-01-K3": 0,
+        "PG-QUERY-01-K4": 0,
+        "PG-QUERY-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-QUERY-01__excellent",
+      "card_id": "PG-QUERY-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "answer": "Сначала воспроизведу проблему на сопоставимых данных и сниму EXPLAIN (ANALYZE, BUFFERS) для безопасного SELECT. В плане сравню estimated и actual rows, loops и операции Seq Scan и Index Scan, чтобы найти узкое место. После роста данных проверю статистику и распределение значений; при устаревших сведениях рассмотрю ANALYZE. Индекс выберу по WHERE и JOIN и селективности, учитывая дисковое место и замедление INSERT/UPDATE. После изменения сравню время, план и нагрузку до и после на типичных запросах, а не по одному запуску.",
+      "gold_criteria": {
+        "PG-QUERY-01-K1": 2,
+        "PG-QUERY-01-K2": 2,
+        "PG-QUERY-01-K3": 2,
+        "PG-QUERY-01-K4": 2,
+        "PG-QUERY-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-QUERY-01__partial",
+      "card_id": "PG-QUERY-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "answer": "Сначала воспроизведу проблему на сопоставимых данных и сниму EXPLAIN (ANALYZE, BUFFERS) для безопасного SELECT. В плане сравню estimated и actual rows, loops и операции Seq Scan и Index Scan, чтобы найти узкое место. После роста данных проверю статистику и распределение значений; при устаревших сведениях рассмотрю ANALYZE. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "PG-QUERY-01-K1": 2,
+        "PG-QUERY-01-K2": 2,
+        "PG-QUERY-01-K3": 2,
+        "PG-QUERY-01-K4": 0,
+        "PG-QUERY-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-QUERY-01__confident_wrong",
+      "card_id": "PG-QUERY-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "answer": "Я уверен в следующем: EXPLAIN ANALYZE сам оптимизирует запрос; B-Tree индекс всегда ускоряет и чтение, и запись, а Seq Scan при наличии индекса — ошибка PostgreSQL.",
+      "gold_criteria": {
+        "PG-QUERY-01-K1": 0,
+        "PG-QUERY-01-K2": 0,
+        "PG-QUERY-01-K3": 0,
+        "PG-QUERY-01-K4": 0,
+        "PG-QUERY-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-QUERY-01__evasive",
+      "card_id": "PG-QUERY-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "После роста таблицы запрос стал медленным. Как выяснишь причину и решишь, нужен ли индекс?",
+      "answer": "Я много работал с PostgreSQL, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "PG-QUERY-01-K1": 0,
+        "PG-QUERY-01-K2": 0,
+        "PG-QUERY-01-K3": 0,
+        "PG-QUERY-01-K4": 0,
+        "PG-QUERY-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-TX-01__bad",
+      "card_id": "PG-TX-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Два клиента одновременно пытаются списать средства с одного баланса. Что нужно предусмотреть на уровне PostgreSQL?",
+      "answer": "Пусть оба клиента списывают одновременно, после ошибки перезапустим сервис.",
+      "gold_criteria": {
+        "PG-TX-01-K1": 0,
+        "PG-TX-01-K2": 0,
+        "PG-TX-01-K3": 0,
+        "PG-TX-01-K4": 0,
+        "PG-TX-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-TX-01__medium",
+      "card_id": "PG-TX-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Два клиента одновременно пытаются списать средства с одного баланса. Что нужно предусмотреть на уровне PostgreSQL?",
+      "answer": "Проверку и списание баланса сделаю атомарной операцией в транзакции с commit только при успехе. Два чтения старого остатка могут привести к потерянному обновлению, поэтому нужно координировать конкуренцию. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "PG-TX-01-K1": 2,
+        "PG-TX-01-K2": 2,
+        "PG-TX-01-K3": 0,
+        "PG-TX-01-K4": 0,
+        "PG-TX-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-TX-01__excellent",
+      "card_id": "PG-TX-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Два клиента одновременно пытаются списать средства с одного баланса. Что нужно предусмотреть на уровне PostgreSQL?",
+      "answer": "Проверку и списание баланса сделаю атомарной операцией в транзакции с commit только при успехе. Два чтения старого остатка могут привести к потерянному обновлению, поэтому нужно координировать конкуренцию. Использую SELECT FOR UPDATE либо UPDATE balances SET amount=amount-x WHERE amount>=x с проверкой числа обновлённых строк. Выберу подходящую изоляцию; при deadlock или serialization failure перезапущу всю транзакцию по правилам. Проверю конкурентным тестом, что итоговый баланс верен, не уходит ниже нуля и нет двойного списания.",
+      "gold_criteria": {
+        "PG-TX-01-K1": 2,
+        "PG-TX-01-K2": 2,
+        "PG-TX-01-K3": 2,
+        "PG-TX-01-K4": 2,
+        "PG-TX-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-TX-01__partial",
+      "card_id": "PG-TX-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Два клиента одновременно пытаются списать средства с одного баланса. Что нужно предусмотреть на уровне PostgreSQL?",
+      "answer": "Проверку и списание баланса сделаю атомарной операцией в транзакции с commit только при успехе. Два чтения старого остатка могут привести к потерянному обновлению, поэтому нужно координировать конкуренцию. Использую SELECT FOR UPDATE либо UPDATE balances SET amount=amount-x WHERE amount>=x с проверкой числа обновлённых строк. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "PG-TX-01-K1": 2,
+        "PG-TX-01-K2": 2,
+        "PG-TX-01-K3": 2,
+        "PG-TX-01-K4": 0,
+        "PG-TX-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-TX-01__confident_wrong",
+      "card_id": "PG-TX-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Два клиента одновременно пытаются списать средства с одного баланса. Что нужно предусмотреть на уровне PostgreSQL?",
+      "answer": "Я уверен в следующем: Две транзакции могут одновременно прочитать остаток, но SQL сам гарантирует корректное списание без блокировок и условий. Коммиты можно делать отдельно.",
+      "gold_criteria": {
+        "PG-TX-01-K1": 0,
+        "PG-TX-01-K2": 0,
+        "PG-TX-01-K3": 0,
+        "PG-TX-01-K4": 0,
+        "PG-TX-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PG-TX-01__evasive",
+      "card_id": "PG-TX-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Два клиента одновременно пытаются списать средства с одного баланса. Что нужно предусмотреть на уровне PostgreSQL?",
+      "answer": "Я много работал с PostgreSQL, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "PG-TX-01-K1": 0,
+        "PG-TX-01-K2": 0,
+        "PG-TX-01-K3": 0,
+        "PG-TX-01-K4": 0,
+        "PG-TX-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "SQL-JOIN-01__bad",
+      "card_id": "SQL-JOIN-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "answer": "Просто выполню SELECT * FROM orders; этого хватит, чтобы увидеть всех клиентов.",
+      "gold_criteria": {
+        "SQL-JOIN-01-K1": 0,
+        "SQL-JOIN-01-K2": 0,
+        "SQL-JOIN-01-K3": 0,
+        "SQL-JOIN-01-K4": 0,
+        "SQL-JOIN-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "SQL-JOIN-01__medium",
+      "card_id": "SQL-JOIN-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "answer": "Начну с customers LEFT JOIN orders ON customers.id = orders.customer_id. У клиента без заказов поля присоединённого orders будут NULL, но строка клиента останется. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "SQL-JOIN-01-K1": 2,
+        "SQL-JOIN-01-K2": 2,
+        "SQL-JOIN-01-K3": 0,
+        "SQL-JOIN-01-K4": 0,
+        "SQL-JOIN-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "SQL-JOIN-01__excellent",
+      "card_id": "SQL-JOIN-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "answer": "Начну с customers LEFT JOIN orders ON customers.id = orders.customer_id. У клиента без заказов поля присоединённого orders будут NULL, но строка клиента останется. INNER JOIN убрал бы клиентов без соответствия, поэтому здесь нужен LEFT JOIN. У клиента с тремя заказами после JOIN будут три строки, поэтому для уникальных клиентов использую DISTINCT или иной запрос. Для количества заказов применю GROUP BY customers.id и COUNT(orders.id): у клиента без заказов будет ноль.",
+      "gold_criteria": {
+        "SQL-JOIN-01-K1": 2,
+        "SQL-JOIN-01-K2": 2,
+        "SQL-JOIN-01-K3": 2,
+        "SQL-JOIN-01-K4": 2,
+        "SQL-JOIN-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "SQL-JOIN-01__partial",
+      "card_id": "SQL-JOIN-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "answer": "Начну с customers LEFT JOIN orders ON customers.id = orders.customer_id. У клиента без заказов поля присоединённого orders будут NULL, но строка клиента останется. INNER JOIN убрал бы клиентов без соответствия, поэтому здесь нужен LEFT JOIN. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "SQL-JOIN-01-K1": 2,
+        "SQL-JOIN-01-K2": 2,
+        "SQL-JOIN-01-K3": 2,
+        "SQL-JOIN-01-K4": 0,
+        "SQL-JOIN-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "SQL-JOIN-01__confident_wrong",
+      "card_id": "SQL-JOIN-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "answer": "Я уверен в следующем: Тут INNER JOIN от orders к customers гарантированно вернёт всех клиентов, даже если заказов не было.",
+      "gold_criteria": {
+        "SQL-JOIN-01-K1": 0,
+        "SQL-JOIN-01-K2": 0,
+        "SQL-JOIN-01-K3": 0,
+        "SQL-JOIN-01-K4": 0,
+        "SQL-JOIN-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "SQL-JOIN-01__evasive",
+      "card_id": "SQL-JOIN-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Есть таблицы orders(id, customer_id) и customers(id, name). Как получить всех клиентов, включая тех, у кого нет заказов?",
+      "answer": "Я много работал с SQL, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "SQL-JOIN-01-K1": 0,
+        "SQL-JOIN-01-K2": 0,
+        "SQL-JOIN-01-K3": 0,
+        "SQL-JOIN-01-K4": 0,
+        "SQL-JOIN-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-VAL-01__bad",
+      "card_id": "API-VAL-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Как реализовать POST /orders в FastAPI, чтобы валидировать данные и возвращать понятные ошибки?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "API-VAL-01-K1": 0,
+        "API-VAL-01-K2": 0,
+        "API-VAL-01-K3": 0,
+        "API-VAL-01-K4": 0,
+        "API-VAL-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-VAL-01__medium",
+      "card_id": "API-VAL-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Как реализовать POST /orders в FastAPI, чтобы валидировать данные и возвращать понятные ошибки?",
+      "answer": "Опишу Pydantic-модель входного заказа с типами, обязательными полями и ограничениями. Проверю положительное количество и формат идентификатора на уровне схемы, а наличие товара — в бизнес-логике. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "API-VAL-01-K1": 2,
+        "API-VAL-01-K2": 2,
+        "API-VAL-01-K3": 0,
+        "API-VAL-01-K4": 0,
+        "API-VAL-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-VAL-01__excellent",
+      "card_id": "API-VAL-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Как реализовать POST /orders в FastAPI, чтобы валидировать данные и возвращать понятные ошибки?",
+      "answer": "Опишу Pydantic-модель входного заказа с типами, обязательными полями и ограничениями. Проверю положительное количество и формат идентификатора на уровне схемы, а наличие товара — в бизнес-логике. При ошибке валидации FastAPI обычно вернёт 422, при конфликте домена подберу осмысленный 409, при создании 201. Endpoint передаст валидированные данные в сервисный слой, а не разместит в обработчике всю логику базы. Ответы об ошибках будут понятными без внутренних трассировок; протестирую пропуск полей и неверные типы.",
+      "gold_criteria": {
+        "API-VAL-01-K1": 2,
+        "API-VAL-01-K2": 2,
+        "API-VAL-01-K3": 2,
+        "API-VAL-01-K4": 2,
+        "API-VAL-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-VAL-01__partial",
+      "card_id": "API-VAL-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Как реализовать POST /orders в FastAPI, чтобы валидировать данные и возвращать понятные ошибки?",
+      "answer": "Опишу Pydantic-модель входного заказа с типами, обязательными полями и ограничениями. Проверю положительное количество и формат идентификатора на уровне схемы, а наличие товара — в бизнес-логике. При ошибке валидации FastAPI обычно вернёт 422, при конфликте домена подберу осмысленный 409, при создании 201. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "API-VAL-01-K1": 2,
+        "API-VAL-01-K2": 2,
+        "API-VAL-01-K3": 2,
+        "API-VAL-01-K4": 0,
+        "API-VAL-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-VAL-01__confident_wrong",
+      "card_id": "API-VAL-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Как реализовать POST /orders в FastAPI, чтобы валидировать данные и возвращать понятные ошибки?",
+      "answer": "Я уверен в следующем: FastAPI всегда превращает любые ошибки, в том числе отсутствие товара, в 200 OK, а схема Pydantic не нужна.",
+      "gold_criteria": {
+        "API-VAL-01-K1": 0,
+        "API-VAL-01-K2": 0,
+        "API-VAL-01-K3": 0,
+        "API-VAL-01-K4": 0,
+        "API-VAL-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-VAL-01__evasive",
+      "card_id": "API-VAL-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Как реализовать POST /orders в FastAPI, чтобы валидировать данные и возвращать понятные ошибки?",
+      "answer": "Я много работал с FastAPI, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "API-VAL-01-K1": 0,
+        "API-VAL-01-K2": 0,
+        "API-VAL-01-K3": 0,
+        "API-VAL-01-K4": 0,
+        "API-VAL-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-DI-01__bad",
+      "card_id": "API-DI-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "API-DI-01-K1": 0,
+        "API-DI-01-K2": 0,
+        "API-DI-01-K3": 0,
+        "API-DI-01-K4": 0,
+        "API-DI-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-DI-01__medium",
+      "card_id": "API-DI-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "answer": "В endpoint будет зависимость от интерфейса OrderService, а не от прямого создания SQL-сессии. Реализацию сервиса передам через Depends(get_order_service), а не создам внутри функции. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "API-DI-01-K1": 2,
+        "API-DI-01-K2": 2,
+        "API-DI-01-K3": 0,
+        "API-DI-01-K4": 0,
+        "API-DI-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-DI-01__excellent",
+      "card_id": "API-DI-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "answer": "В endpoint будет зависимость от интерфейса OrderService, а не от прямого создания SQL-сессии. Реализацию сервиса передам через Depends(get_order_service), а не создам внутри функции. Endpoint отвечает за HTTP и валидацию, а бизнес-операцию выполняет OrderService. В тесте применю app.dependency_overrides для возврата fake OrderService. Проверю статус и тело ответа, а после теста очищу overrides, чтобы тесты не влияли друг на друга.",
+      "gold_criteria": {
+        "API-DI-01-K1": 2,
+        "API-DI-01-K2": 2,
+        "API-DI-01-K3": 2,
+        "API-DI-01-K4": 2,
+        "API-DI-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-DI-01__partial",
+      "card_id": "API-DI-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "answer": "В endpoint будет зависимость от интерфейса OrderService, а не от прямого создания SQL-сессии. Реализацию сервиса передам через Depends(get_order_service), а не создам внутри функции. Endpoint отвечает за HTTP и валидацию, а бизнес-операцию выполняет OrderService. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "API-DI-01-K1": 2,
+        "API-DI-01-K2": 2,
+        "API-DI-01-K3": 2,
+        "API-DI-01-K4": 0,
+        "API-DI-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-DI-01__confident_wrong",
+      "card_id": "API-DI-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "answer": "Я уверен в следующем: Для лучшей тестируемости всегда создаю соединение БД и реальный сервис оплаты внутри endpoint. Depends мешает тестам.",
+      "gold_criteria": {
+        "API-DI-01-K1": 0,
+        "API-DI-01-K2": 0,
+        "API-DI-01-K3": 0,
+        "API-DI-01-K4": 0,
+        "API-DI-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "API-DI-01__evasive",
+      "card_id": "API-DI-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Как сделать так, чтобы endpoint FastAPI использовал сервис заказов, а в тестах его можно было заменить?",
+      "answer": "Я много работал с FastAPI, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "API-DI-01-K1": 0,
+        "API-DI-01-K2": 0,
+        "API-DI-01-K3": 0,
+        "API-DI-01-K4": 0,
+        "API-DI-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PYD-MODEL-01__bad",
+      "card_id": "PYD-MODEL-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "PYD-MODEL-01-K1": 0,
+        "PYD-MODEL-01-K2": 0,
+        "PYD-MODEL-01-K3": 0,
+        "PYD-MODEL-01-K4": 0,
+        "PYD-MODEL-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PYD-MODEL-01__medium",
+      "card_id": "PYD-MODEL-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "answer": "Опишу quantity: int и promo_code: str | None = None, чтобы промокод был необязательным. Для количества поставлю Field(gt=0), чтобы ноль и отрицательные значения отклонялись. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "PYD-MODEL-01-K1": 2,
+        "PYD-MODEL-01-K2": 2,
+        "PYD-MODEL-01-K3": 0,
+        "PYD-MODEL-01-K4": 0,
+        "PYD-MODEL-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PYD-MODEL-01__excellent",
+      "card_id": "PYD-MODEL-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "answer": "Опишу quantity: int и promo_code: str | None = None, чтобы промокод был необязательным. Для количества поставлю Field(gt=0), чтобы ноль и отрицательные значения отклонялись. Pydantic проверит входную схему; на неверное количество мы вернём структурированную ошибку валидации. Входную Pydantic-схему отделю от SQLAlchemy ORM модели, чтобы не раскрывать поля БД. Проверю валидный заказ без промокода, ноль, отрицательное число и ошибочный тип.",
+      "gold_criteria": {
+        "PYD-MODEL-01-K1": 2,
+        "PYD-MODEL-01-K2": 2,
+        "PYD-MODEL-01-K3": 2,
+        "PYD-MODEL-01-K4": 2,
+        "PYD-MODEL-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PYD-MODEL-01__partial",
+      "card_id": "PYD-MODEL-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "answer": "Опишу quantity: int и promo_code: str | None = None, чтобы промокод был необязательным. Для количества поставлю Field(gt=0), чтобы ноль и отрицательные значения отклонялись. Pydantic проверит входную схему; на неверное количество мы вернём структурированную ошибку валидации. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "PYD-MODEL-01-K1": 2,
+        "PYD-MODEL-01-K2": 2,
+        "PYD-MODEL-01-K3": 2,
+        "PYD-MODEL-01-K4": 0,
+        "PYD-MODEL-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PYD-MODEL-01__confident_wrong",
+      "card_id": "PYD-MODEL-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "answer": "Я уверен в следующем: quantity: int допускает любое число и автоматически означает строго положительное; promo_code: str | None без default всегда необязателен.",
+      "gold_criteria": {
+        "PYD-MODEL-01-K1": 0,
+        "PYD-MODEL-01-K2": 0,
+        "PYD-MODEL-01-K3": 0,
+        "PYD-MODEL-01-K4": 0,
+        "PYD-MODEL-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "PYD-MODEL-01__evasive",
+      "card_id": "PYD-MODEL-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Как описать модель входного заказа с положительным количеством и необязательным промокодом?",
+      "answer": "Я много работал с Pydantic, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "PYD-MODEL-01-K1": 0,
+        "PYD-MODEL-01-K2": 0,
+        "PYD-MODEL-01-K3": 0,
+        "PYD-MODEL-01-K4": 0,
+        "PYD-MODEL-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-SESSION-01__bad",
+      "card_id": "ORM-SESSION-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "ORM-SESSION-01-K1": 0,
+        "ORM-SESSION-01-K2": 0,
+        "ORM-SESSION-01-K3": 0,
+        "ORM-SESSION-01-K4": 0,
+        "ORM-SESSION-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-SESSION-01__medium",
+      "card_id": "ORM-SESSION-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "answer": "Создание заказа и уменьшение остатка объединю в одну транзакцию Session. При успехе сделаю commit, при исключении выполню rollback и проброшу обработанную ошибку. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "ORM-SESSION-01-K1": 2,
+        "ORM-SESSION-01-K2": 2,
+        "ORM-SESSION-01-K3": 0,
+        "ORM-SESSION-01-K4": 0,
+        "ORM-SESSION-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-SESSION-01__excellent",
+      "card_id": "ORM-SESSION-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "answer": "Создание заказа и уменьшение остатка объединю в одну транзакцию Session. При успехе сделаю commit, при исключении выполню rollback и проброшу обработанную ошибку. Сессию открою на одну единицу работы через context manager и гарантирую закрытие ресурса. Границу commit определю в сервисе или Unit of Work, а не вызываю его внутри каждого repository. Добавлю защиту конкурентных обновлений остатков и интеграционный тест отката при ошибке записи заказа.",
+      "gold_criteria": {
+        "ORM-SESSION-01-K1": 2,
+        "ORM-SESSION-01-K2": 2,
+        "ORM-SESSION-01-K3": 2,
+        "ORM-SESSION-01-K4": 2,
+        "ORM-SESSION-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-SESSION-01__partial",
+      "card_id": "ORM-SESSION-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "answer": "Создание заказа и уменьшение остатка объединю в одну транзакцию Session. При успехе сделаю commit, при исключении выполню rollback и проброшу обработанную ошибку. Сессию открою на одну единицу работы через context manager и гарантирую закрытие ресурса. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "ORM-SESSION-01-K1": 2,
+        "ORM-SESSION-01-K2": 2,
+        "ORM-SESSION-01-K3": 2,
+        "ORM-SESSION-01-K4": 0,
+        "ORM-SESSION-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-SESSION-01__confident_wrong",
+      "card_id": "ORM-SESSION-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "answer": "Я уверен в следующем: После списания остатков сразу commit, а заказ запишем во второй транзакции; при ошибке второго шага первый сам откатится.",
+      "gold_criteria": {
+        "ORM-SESSION-01-K1": 0,
+        "ORM-SESSION-01-K2": 0,
+        "ORM-SESSION-01-K3": 0,
+        "ORM-SESSION-01-K4": 0,
+        "ORM-SESSION-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-SESSION-01__evasive",
+      "card_id": "ORM-SESSION-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Обработчик создаёт заказ и списывает остаток на складе. Как организуешь SQLAlchemy Session и commit/rollback?",
+      "answer": "Я много работал с SQLAlchemy, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "ORM-SESSION-01-K1": 0,
+        "ORM-SESSION-01-K2": 0,
+        "ORM-SESSION-01-K3": 0,
+        "ORM-SESSION-01-K4": 0,
+        "ORM-SESSION-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-N1-01__bad",
+      "card_id": "ORM-N1-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "ORM-N1-01-K1": 0,
+        "ORM-N1-01-K2": 0,
+        "ORM-N1-01-K3": 0,
+        "ORM-N1-01-K4": 0,
+        "ORM-N1-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-N1-01__medium",
+      "card_id": "ORM-N1-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "answer": "Проблема N+1 возникает из-за lazy loading: один запрос на заказы и по запросу на клиента для каждой строки. Включу логирование SQL и посчитаю число запросов при выдаче списка. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "ORM-N1-01-K1": 2,
+        "ORM-N1-01-K2": 2,
+        "ORM-N1-01-K3": 0,
+        "ORM-N1-01-K4": 0,
+        "ORM-N1-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-N1-01__excellent",
+      "card_id": "ORM-N1-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "answer": "Проблема N+1 возникает из-за lazy loading: один запрос на заказы и по запросу на клиента для каждой строки. Включу логирование SQL и посчитаю число запросов при выдаче списка. Для связи many-to-one подойдёт joinedload, а для коллекций часто разумен selectinload с учётом размера результата. Сохраню пагинацию и проверю, не размножаются ли строки при eager loading коллекций. После изменения сравню SQL count и latency на реальном размере страницы и данных.",
+      "gold_criteria": {
+        "ORM-N1-01-K1": 2,
+        "ORM-N1-01-K2": 2,
+        "ORM-N1-01-K3": 2,
+        "ORM-N1-01-K4": 2,
+        "ORM-N1-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-N1-01__partial",
+      "card_id": "ORM-N1-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "answer": "Проблема N+1 возникает из-за lazy loading: один запрос на заказы и по запросу на клиента для каждой строки. Включу логирование SQL и посчитаю число запросов при выдаче списка. Для связи many-to-one подойдёт joinedload, а для коллекций часто разумен selectinload с учётом размера результата. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "ORM-N1-01-K1": 2,
+        "ORM-N1-01-K2": 2,
+        "ORM-N1-01-K3": 2,
+        "ORM-N1-01-K4": 0,
+        "ORM-N1-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-N1-01__confident_wrong",
+      "card_id": "ORM-N1-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "answer": "Я уверен в следующем: Проблема N+1 означает, что SQLAlchemy отправляет один запрос на все связи; делать ничего не нужно, запросов становится меньше.",
+      "gold_criteria": {
+        "ORM-N1-01-K1": 0,
+        "ORM-N1-01-K2": 0,
+        "ORM-N1-01-K3": 0,
+        "ORM-N1-01-K4": 0,
+        "ORM-N1-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "ORM-N1-01__evasive",
+      "card_id": "ORM-N1-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "При выдаче списка заказов ORM выполняет сотни дополнительных запросов за данными клиентов. Почему и как исправить?",
+      "answer": "Я много работал с SQLAlchemy, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "ORM-N1-01-K1": 0,
+        "ORM-N1-01-K2": 0,
+        "ORM-N1-01-K3": 0,
+        "ORM-N1-01-K4": 0,
+        "ORM-N1-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REDIS-CACHE-01__bad",
+      "card_id": "REDIS-CACHE-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "REDIS-CACHE-01-K1": 0,
+        "REDIS-CACHE-01-K2": 0,
+        "REDIS-CACHE-01-K3": 0,
+        "REDIS-CACHE-01-K4": 0,
+        "REDIS-CACHE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REDIS-CACHE-01__medium",
+      "card_id": "REDIS-CACHE-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "answer": "Использую cache-aside: сначала Redis, при промахе — БД и заполнение кэша. После изменения товара инвалидирую его ключ и не буду полагаться только на бесконечный TTL. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "REDIS-CACHE-01-K1": 2,
+        "REDIS-CACHE-01-K2": 2,
+        "REDIS-CACHE-01-K3": 0,
+        "REDIS-CACHE-01-K4": 0,
+        "REDIS-CACHE-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REDIS-CACHE-01__excellent",
+      "card_id": "REDIS-CACHE-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "answer": "Использую cache-aside: сначала Redis, при промахе — БД и заполнение кэша. После изменения товара инвалидирую его ключ и не буду полагаться только на бесконечный TTL. Выберу TTL по допустимой устарелости и явно оговорю компромисс eventual consistency. При отказе Redis пойду в БД с ограничением нагрузки; для массовых промахов учту stampede и jitter TTL. Проверю cache hit rate, latency и тест смены товара с последующим чтением актуальной версии.",
+      "gold_criteria": {
+        "REDIS-CACHE-01-K1": 2,
+        "REDIS-CACHE-01-K2": 2,
+        "REDIS-CACHE-01-K3": 2,
+        "REDIS-CACHE-01-K4": 2,
+        "REDIS-CACHE-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REDIS-CACHE-01__partial",
+      "card_id": "REDIS-CACHE-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "answer": "Использую cache-aside: сначала Redis, при промахе — БД и заполнение кэша. После изменения товара инвалидирую его ключ и не буду полагаться только на бесконечный TTL. Выберу TTL по допустимой устарелости и явно оговорю компромисс eventual consistency. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "REDIS-CACHE-01-K1": 2,
+        "REDIS-CACHE-01-K2": 2,
+        "REDIS-CACHE-01-K3": 2,
+        "REDIS-CACHE-01-K4": 0,
+        "REDIS-CACHE-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REDIS-CACHE-01__confident_wrong",
+      "card_id": "REDIS-CACHE-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "answer": "Я уверен в следующем: Кэш Redis всегда актуален, потому что есть TTL; обновление товара в БД автоматически обновляет любой произвольный ключ в Redis.",
+      "gold_criteria": {
+        "REDIS-CACHE-01-K1": 0,
+        "REDIS-CACHE-01-K2": 0,
+        "REDIS-CACHE-01-K3": 0,
+        "REDIS-CACHE-01-K4": 0,
+        "REDIS-CACHE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REDIS-CACHE-01__evasive",
+      "card_id": "REDIS-CACHE-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Каталог товаров редко меняется, но читается очень часто. Как добавить Redis-кэш и избежать устаревших данных?",
+      "answer": "Я много работал с Redis, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "REDIS-CACHE-01-K1": 0,
+        "REDIS-CACHE-01-K2": 0,
+        "REDIS-CACHE-01-K3": 0,
+        "REDIS-CACHE-01-K4": 0,
+        "REDIS-CACHE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DOC-IMAGE-01__bad",
+      "card_id": "DOC-IMAGE-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "DOC-IMAGE-01-K1": 0,
+        "DOC-IMAGE-01-K2": 0,
+        "DOC-IMAGE-01-K3": 0,
+        "DOC-IMAGE-01-K4": 0,
+        "DOC-IMAGE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DOC-IMAGE-01__medium",
+      "card_id": "DOC-IMAGE-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "answer": "Возьму проверенный образ Python с фиксированной версией и зафиксирую зависимости lock-файлом. Сначала скопирую файлы зависимостей, затем код, используя кэш слоёв и multi-stage когда нужен build. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "DOC-IMAGE-01-K1": 2,
+        "DOC-IMAGE-01-K2": 2,
+        "DOC-IMAGE-01-K3": 0,
+        "DOC-IMAGE-01-K4": 0,
+        "DOC-IMAGE-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DOC-IMAGE-01__excellent",
+      "card_id": "DOC-IMAGE-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "answer": "Возьму проверенный образ Python с фиксированной версией и зафиксирую зависимости lock-файлом. Сначала скопирую файлы зависимостей, затем код, используя кэш слоёв и multi-stage когда нужен build. Добавлю .env в .dockerignore и передам секреты при запуске через менеджер секретов, не через Dockerfile. Создам непривилегированного пользователя и запущу API без root. Прогоню docker build, тест запуска, проверю итоговый размер и сканирование уязвимостей.",
+      "gold_criteria": {
+        "DOC-IMAGE-01-K1": 2,
+        "DOC-IMAGE-01-K2": 2,
+        "DOC-IMAGE-01-K3": 2,
+        "DOC-IMAGE-01-K4": 2,
+        "DOC-IMAGE-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DOC-IMAGE-01__partial",
+      "card_id": "DOC-IMAGE-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "answer": "Возьму проверенный образ Python с фиксированной версией и зафиксирую зависимости lock-файлом. Сначала скопирую файлы зависимостей, затем код, используя кэш слоёв и multi-stage когда нужен build. Добавлю .env в .dockerignore и передам секреты при запуске через менеджер секретов, не через Dockerfile. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "DOC-IMAGE-01-K1": 2,
+        "DOC-IMAGE-01-K2": 2,
+        "DOC-IMAGE-01-K3": 2,
+        "DOC-IMAGE-01-K4": 0,
+        "DOC-IMAGE-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DOC-IMAGE-01__confident_wrong",
+      "card_id": "DOC-IMAGE-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "answer": "Я уверен в следующем: Чтобы безопасно собрать образ, скопирую .env с секретами в Dockerfile и буду запускать все контейнеры от root.",
+      "gold_criteria": {
+        "DOC-IMAGE-01-K1": 0,
+        "DOC-IMAGE-01-K2": 0,
+        "DOC-IMAGE-01-K3": 0,
+        "DOC-IMAGE-01-K4": 0,
+        "DOC-IMAGE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DOC-IMAGE-01__evasive",
+      "card_id": "DOC-IMAGE-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Как собрать Docker-образ Python API для production так, чтобы он был воспроизводимым и не слишком большим?",
+      "answer": "Я много работал с Docker, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "DOC-IMAGE-01-K1": 0,
+        "DOC-IMAGE-01-K2": 0,
+        "DOC-IMAGE-01-K3": 0,
+        "DOC-IMAGE-01-K4": 0,
+        "DOC-IMAGE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "LINUX-DIAG-01__bad",
+      "card_id": "LINUX-DIAG-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "LINUX-DIAG-01-K1": 0,
+        "LINUX-DIAG-01-K2": 0,
+        "LINUX-DIAG-01-K3": 0,
+        "LINUX-DIAG-01-K4": 0,
+        "LINUX-DIAG-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "LINUX-DIAG-01__medium",
+      "card_id": "LINUX-DIAG-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "answer": "Перед рестартом посмотрю top/ps, PID, загрузку CPU и память сервиса. Посмотрю journalctl и логи приложения с привязкой ко времени скачка CPU. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "LINUX-DIAG-01-K1": 2,
+        "LINUX-DIAG-01-K2": 2,
+        "LINUX-DIAG-01-K3": 0,
+        "LINUX-DIAG-01-K4": 0,
+        "LINUX-DIAG-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "LINUX-DIAG-01__excellent",
+      "card_id": "LINUX-DIAG-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "answer": "Перед рестартом посмотрю top/ps, PID, загрузку CPU и память сервиса. Посмотрю journalctl и логи приложения с привязкой ко времени скачка CPU. Проверю, не вызвана ли задержка OOM или I/O wait, а не только загрузкой CPU. Проверю профили процесса и thread stack там, где безопасно, и лимиты контейнера/cgroup. После исправления сравню CPU и latency и добавлю алерт, вместо слепого kill без разбора.",
+      "gold_criteria": {
+        "LINUX-DIAG-01-K1": 2,
+        "LINUX-DIAG-01-K2": 2,
+        "LINUX-DIAG-01-K3": 2,
+        "LINUX-DIAG-01-K4": 2,
+        "LINUX-DIAG-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "LINUX-DIAG-01__partial",
+      "card_id": "LINUX-DIAG-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "answer": "Перед рестартом посмотрю top/ps, PID, загрузку CPU и память сервиса. Посмотрю journalctl и логи приложения с привязкой ко времени скачка CPU. Проверю, не вызвана ли задержка OOM или I/O wait, а не только загрузкой CPU. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "LINUX-DIAG-01-K1": 2,
+        "LINUX-DIAG-01-K2": 2,
+        "LINUX-DIAG-01-K3": 2,
+        "LINUX-DIAG-01-K4": 0,
+        "LINUX-DIAG-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "LINUX-DIAG-01__confident_wrong",
+      "card_id": "LINUX-DIAG-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "answer": "Я уверен в следующем: При 100% CPU лучшая диагностика — немедленный kill -9 процесса без логов и метрик, так проблема гарантированно исчезнет.",
+      "gold_criteria": {
+        "LINUX-DIAG-01-K1": 0,
+        "LINUX-DIAG-01-K2": 0,
+        "LINUX-DIAG-01-K3": 0,
+        "LINUX-DIAG-01-K4": 0,
+        "LINUX-DIAG-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "LINUX-DIAG-01__evasive",
+      "card_id": "LINUX-DIAG-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Сервис на Linux потребляет 100% CPU и периодически перестаёт отвечать. Какие первые шаги диагностики?",
+      "answer": "Я много работал с Linux / Unix, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "LINUX-DIAG-01-K1": 0,
+        "LINUX-DIAG-01-K2": 0,
+        "LINUX-DIAG-01-K3": 0,
+        "LINUX-DIAG-01-K4": 0,
+        "LINUX-DIAG-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "GIT-MERGE-01__bad",
+      "card_id": "GIT-MERGE-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "GIT-MERGE-01-K1": 0,
+        "GIT-MERGE-01-K2": 0,
+        "GIT-MERGE-01-K3": 0,
+        "GIT-MERGE-01-K4": 0,
+        "GIT-MERGE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "GIT-MERGE-01__medium",
+      "card_id": "GIT-MERGE-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "answer": "Сначала просмотрю конфликтные участки и git diff, выясню намерения обеих веток. Разрешу конфликт с учётом обеих фич, при неоднозначности уточню у авторов. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "GIT-MERGE-01-K1": 2,
+        "GIT-MERGE-01-K2": 2,
+        "GIT-MERGE-01-K3": 0,
+        "GIT-MERGE-01-K4": 0,
+        "GIT-MERGE-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "GIT-MERGE-01__excellent",
+      "card_id": "GIT-MERGE-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "answer": "Сначала просмотрю конфликтные участки и git diff, выясню намерения обеих веток. Разрешу конфликт с учётом обеих фич, при неоднозначности уточню у авторов. На общей ветке не стану без согласования force push после rebase. После разрешения выполню тесты и просмотрю diff итогового merge commit. Завершу merge коммитом, проверю git status и что не потеряны файлы из обеих веток.",
+      "gold_criteria": {
+        "GIT-MERGE-01-K1": 2,
+        "GIT-MERGE-01-K2": 2,
+        "GIT-MERGE-01-K3": 2,
+        "GIT-MERGE-01-K4": 2,
+        "GIT-MERGE-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "GIT-MERGE-01__partial",
+      "card_id": "GIT-MERGE-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "answer": "Сначала просмотрю конфликтные участки и git diff, выясню намерения обеих веток. Разрешу конфликт с учётом обеих фич, при неоднозначности уточню у авторов. На общей ветке не стану без согласования force push после rebase. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "GIT-MERGE-01-K1": 2,
+        "GIT-MERGE-01-K2": 2,
+        "GIT-MERGE-01-K3": 2,
+        "GIT-MERGE-01-K4": 0,
+        "GIT-MERGE-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "GIT-MERGE-01__confident_wrong",
+      "card_id": "GIT-MERGE-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "answer": "Я уверен в следующем: При любом конфликте достаточно git checkout --theirs для всего проекта и force push в общую ветку, чужой код точно не потеряется.",
+      "gold_criteria": {
+        "GIT-MERGE-01-K1": 0,
+        "GIT-MERGE-01-K2": 0,
+        "GIT-MERGE-01-K3": 0,
+        "GIT-MERGE-01-K4": 0,
+        "GIT-MERGE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "GIT-MERGE-01__evasive",
+      "card_id": "GIT-MERGE-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Две ветки изменили один и тот же файл, при слиянии появился конфликт. Как действуешь?",
+      "answer": "Я много работал с Git, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "GIT-MERGE-01-K1": 0,
+        "GIT-MERGE-01-K2": 0,
+        "GIT-MERGE-01-K3": 0,
+        "GIT-MERGE-01-K4": 0,
+        "GIT-MERGE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CI-PIPE-01__bad",
+      "card_id": "CI-PIPE-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "CI-PIPE-01-K1": 0,
+        "CI-PIPE-01-K2": 0,
+        "CI-PIPE-01-K3": 0,
+        "CI-PIPE-01-K4": 0,
+        "CI-PIPE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CI-PIPE-01__medium",
+      "card_id": "CI-PIPE-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "answer": "Начну с линтера, проверки типов и быстрых unit-тестов до сборки образа. Добавлю интеграционные тесты с тестовой БД и проверю применение миграций. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "CI-PIPE-01-K1": 2,
+        "CI-PIPE-01-K2": 2,
+        "CI-PIPE-01-K3": 0,
+        "CI-PIPE-01-K4": 0,
+        "CI-PIPE-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CI-PIPE-01__excellent",
+      "card_id": "CI-PIPE-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "answer": "Начну с линтера, проверки типов и быстрых unit-тестов до сборки образа. Добавлю интеграционные тесты с тестовой БД и проверю применение миграций. Соберу Docker-образ с фиксацией зависимостей и тегом commit SHA. Пароли будут в защищённых переменных CI; deploy в production разрешу только доверенному окружению. Если тесты падают, деплой блокируется; после релиза проверю метрики и возможность rollback.",
+      "gold_criteria": {
+        "CI-PIPE-01-K1": 2,
+        "CI-PIPE-01-K2": 2,
+        "CI-PIPE-01-K3": 2,
+        "CI-PIPE-01-K4": 2,
+        "CI-PIPE-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CI-PIPE-01__partial",
+      "card_id": "CI-PIPE-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "answer": "Начну с линтера, проверки типов и быстрых unit-тестов до сборки образа. Добавлю интеграционные тесты с тестовой БД и проверю применение миграций. Соберу Docker-образ с фиксацией зависимостей и тегом commit SHA. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "CI-PIPE-01-K1": 2,
+        "CI-PIPE-01-K2": 2,
+        "CI-PIPE-01-K3": 2,
+        "CI-PIPE-01-K4": 0,
+        "CI-PIPE-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CI-PIPE-01__confident_wrong",
+      "card_id": "CI-PIPE-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "answer": "Я уверен в следующем: Для ускорения деплоя пропущу все тесты и сохраню пароли в gitlab-ci.yml открытым текстом, так надёжнее.",
+      "gold_criteria": {
+        "CI-PIPE-01-K1": 0,
+        "CI-PIPE-01-K2": 0,
+        "CI-PIPE-01-K3": 0,
+        "CI-PIPE-01-K4": 0,
+        "CI-PIPE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CI-PIPE-01__evasive",
+      "card_id": "CI-PIPE-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Какие стадии CI-пайплайна ты настроишь для Python API, прежде чем разрешить деплой?",
+      "answer": "Я много работал с GitLab CI, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "CI-PIPE-01-K1": 0,
+        "CI-PIPE-01-K2": 0,
+        "CI-PIPE-01-K3": 0,
+        "CI-PIPE-01-K4": 0,
+        "CI-PIPE-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REST-IDEMP-01__bad",
+      "card_id": "REST-IDEMP-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "answer": "При повторном платеже просто отправлю тот же POST ещё раз, ничего не записывая.",
+      "gold_criteria": {
+        "REST-IDEMP-01-K1": 0,
+        "REST-IDEMP-01-K2": 0,
+        "REST-IDEMP-01-K3": 0,
+        "REST-IDEMP-01-K4": 0,
+        "REST-IDEMP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REST-IDEMP-01__medium",
+      "card_id": "REST-IDEMP-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "answer": "Таймаут не гарантирует, что платёж не прошёл; повтор без защиты может списать деньги дважды. Клиент передаст idempotency key, сервер свяжет его с параметрами операции и сохранит результат. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "REST-IDEMP-01-K1": 2,
+        "REST-IDEMP-01-K2": 2,
+        "REST-IDEMP-01-K3": 0,
+        "REST-IDEMP-01-K4": 0,
+        "REST-IDEMP-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REST-IDEMP-01__excellent",
+      "card_id": "REST-IDEMP-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "answer": "Таймаут не гарантирует, что платёж не прошёл; повтор без защиты может списать деньги дважды. Клиент передаст idempotency key, сервер свяжет его с параметрами операции и сохранит результат. Сохранение ключа и результата обеспечу транзакционно с уникальным ограничением от гонок. На повтор с тем же ключом отдам предыдущий результат, а не создам новый платёж. Протестирую таймаут после commit и конкурентные повторы, проверю ровно одно списание.",
+      "gold_criteria": {
+        "REST-IDEMP-01-K1": 2,
+        "REST-IDEMP-01-K2": 2,
+        "REST-IDEMP-01-K3": 2,
+        "REST-IDEMP-01-K4": 2,
+        "REST-IDEMP-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REST-IDEMP-01__partial",
+      "card_id": "REST-IDEMP-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "answer": "Таймаут не гарантирует, что платёж не прошёл; повтор без защиты может списать деньги дважды. Клиент передаст idempotency key, сервер свяжет его с параметрами операции и сохранит результат. Сохранение ключа и результата обеспечу транзакционно с уникальным ограничением от гонок. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "REST-IDEMP-01-K1": 2,
+        "REST-IDEMP-01-K2": 2,
+        "REST-IDEMP-01-K3": 2,
+        "REST-IDEMP-01-K4": 0,
+        "REST-IDEMP-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REST-IDEMP-01__confident_wrong",
+      "card_id": "REST-IDEMP-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "answer": "Я уверен в следующем: Если клиент получил таймаут, сервер точно не провёл платеж. Повтор с новым ключом гарантирует отсутствие двойного списания.",
+      "gold_criteria": {
+        "REST-IDEMP-01-K1": 0,
+        "REST-IDEMP-01-K2": 0,
+        "REST-IDEMP-01-K3": 0,
+        "REST-IDEMP-01-K4": 0,
+        "REST-IDEMP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "REST-IDEMP-01__evasive",
+      "card_id": "REST-IDEMP-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Клиент повторил запрос на создание платежа из-за таймаута. Как избежать повторного списания?",
+      "answer": "Я много работал с REST API, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "REST-IDEMP-01-K1": 0,
+        "REST-IDEMP-01-K2": 0,
+        "REST-IDEMP-01-K3": 0,
+        "REST-IDEMP-01-K4": 0,
+        "REST-IDEMP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQ-ACK-01__bad",
+      "card_id": "MQ-ACK-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "answer": "При сбое consumer просто перезагрузим RabbitMQ и будем надеяться, что всё хорошо.",
+      "gold_criteria": {
+        "MQ-ACK-01-K1": 0,
+        "MQ-ACK-01-K2": 0,
+        "MQ-ACK-01-K3": 0,
+        "MQ-ACK-01-K4": 0,
+        "MQ-ACK-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQ-ACK-01__medium",
+      "card_id": "MQ-ACK-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "answer": "Consumer отправит manual ack только после успешного сохранения результата операции. Если worker падает до ack, сообщение может прийти повторно: доставка обычно at-least-once. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "MQ-ACK-01-K1": 2,
+        "MQ-ACK-01-K2": 2,
+        "MQ-ACK-01-K3": 0,
+        "MQ-ACK-01-K4": 0,
+        "MQ-ACK-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQ-ACK-01__excellent",
+      "card_id": "MQ-ACK-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "answer": "Consumer отправит manual ack только после успешного сохранения результата операции. Если worker падает до ack, сообщение может прийти повторно: доставка обычно at-least-once. Для обработки сохраню message ID и уникальность операции, чтобы повтор не создал дубль заказа. Временные сбои повторю с ограничениями, а неисправимые сообщения отправлю в DLQ. Добавлю метрики redelivery, DLQ и lag, а тестом проверю падение между commit и ack.",
+      "gold_criteria": {
+        "MQ-ACK-01-K1": 2,
+        "MQ-ACK-01-K2": 2,
+        "MQ-ACK-01-K3": 2,
+        "MQ-ACK-01-K4": 2,
+        "MQ-ACK-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQ-ACK-01__partial",
+      "card_id": "MQ-ACK-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "answer": "Consumer отправит manual ack только после успешного сохранения результата операции. Если worker падает до ack, сообщение может прийти повторно: доставка обычно at-least-once. Для обработки сохраню message ID и уникальность операции, чтобы повтор не создал дубль заказа. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "MQ-ACK-01-K1": 2,
+        "MQ-ACK-01-K2": 2,
+        "MQ-ACK-01-K3": 2,
+        "MQ-ACK-01-K4": 0,
+        "MQ-ACK-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQ-ACK-01__confident_wrong",
+      "card_id": "MQ-ACK-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "answer": "Я уверен в следующем: Отправлю ack до commit, чтобы сообщение точно никогда не повторялось; если БД упадёт, RabbitMQ восстановит результат транзакции.",
+      "gold_criteria": {
+        "MQ-ACK-01-K1": 0,
+        "MQ-ACK-01-K2": 0,
+        "MQ-ACK-01-K3": 0,
+        "MQ-ACK-01-K4": 0,
+        "MQ-ACK-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQ-ACK-01__evasive",
+      "card_id": "MQ-ACK-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Consumer получил сообщение о заказе и упал до подтверждения. Как избежать потери сообщения и некорректного дубля?",
+      "answer": "Я много работал с RabbitMQ, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "MQ-ACK-01-K1": 0,
+        "MQ-ACK-01-K2": 0,
+        "MQ-ACK-01-K3": 0,
+        "MQ-ACK-01-K4": 0,
+        "MQ-ACK-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEST-PYTEST-01__bad",
+      "card_id": "TEST-PYTEST-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "TEST-PYTEST-01-K1": 0,
+        "TEST-PYTEST-01-K2": 0,
+        "TEST-PYTEST-01-K3": 0,
+        "TEST-PYTEST-01-K4": 0,
+        "TEST-PYTEST-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEST-PYTEST-01__medium",
+      "card_id": "TEST-PYTEST-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "answer": "Unit-тестом проверю бизнес-правила отдельно от БД и платёжного сервиса. В pytest fixture подменю платёжный клиент фейком, чтобы не отправлять настоящий платёж. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "TEST-PYTEST-01-K1": 2,
+        "TEST-PYTEST-01-K2": 2,
+        "TEST-PYTEST-01-K3": 0,
+        "TEST-PYTEST-01-K4": 0,
+        "TEST-PYTEST-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEST-PYTEST-01__excellent",
+      "card_id": "TEST-PYTEST-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "answer": "Unit-тестом проверю бизнес-правила отдельно от БД и платёжного сервиса. В pytest fixture подменю платёжный клиент фейком, чтобы не отправлять настоящий платёж. Проверю создание заказа и изменение остатков при успешной оплате. При таймауте оплаты проверю, что состояние заказа и транзакция не остались частично изменёнными. Интеграционные тесты проведу с отдельной тестовой БД и сбросом состояния между тестами.",
+      "gold_criteria": {
+        "TEST-PYTEST-01-K1": 2,
+        "TEST-PYTEST-01-K2": 2,
+        "TEST-PYTEST-01-K3": 2,
+        "TEST-PYTEST-01-K4": 2,
+        "TEST-PYTEST-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEST-PYTEST-01__partial",
+      "card_id": "TEST-PYTEST-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "answer": "Unit-тестом проверю бизнес-правила отдельно от БД и платёжного сервиса. В pytest fixture подменю платёжный клиент фейком, чтобы не отправлять настоящий платёж. Проверю создание заказа и изменение остатков при успешной оплате. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "TEST-PYTEST-01-K1": 2,
+        "TEST-PYTEST-01-K2": 2,
+        "TEST-PYTEST-01-K3": 2,
+        "TEST-PYTEST-01-K4": 0,
+        "TEST-PYTEST-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEST-PYTEST-01__confident_wrong",
+      "card_id": "TEST-PYTEST-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "answer": "Я уверен в следующем: В unit-тестах нужно обязательно обращаться к настоящему платёжному API и production БД; так тесты никогда не будут нестабильными.",
+      "gold_criteria": {
+        "TEST-PYTEST-01-K1": 0,
+        "TEST-PYTEST-01-K2": 0,
+        "TEST-PYTEST-01-K3": 0,
+        "TEST-PYTEST-01-K4": 0,
+        "TEST-PYTEST-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEST-PYTEST-01__evasive",
+      "card_id": "TEST-PYTEST-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Как протестировать функцию создания заказа, если она обращается к БД и внешнему платёжному API?",
+      "answer": "Я много работал с pytest, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "TEST-PYTEST-01-K1": 0,
+        "TEST-PYTEST-01-K2": 0,
+        "TEST-PYTEST-01-K3": 0,
+        "TEST-PYTEST-01-K4": 0,
+        "TEST-PYTEST-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "K8S-HEALTH-01__bad",
+      "card_id": "K8S-HEALTH-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "K8S-HEALTH-01-K1": 0,
+        "K8S-HEALTH-01-K2": 0,
+        "K8S-HEALTH-01-K3": 0,
+        "K8S-HEALTH-01-K4": 0,
+        "K8S-HEALTH-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "K8S-HEALTH-01__medium",
+      "card_id": "K8S-HEALTH-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "answer": "Сделаю readiness probe: пока API не готово, pod не должен получать пользовательский трафик. Liveness будет проверять, жив ли процесс, а не готов ли он уже обслуживать запросы. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "K8S-HEALTH-01-K1": 2,
+        "K8S-HEALTH-01-K2": 2,
+        "K8S-HEALTH-01-K3": 0,
+        "K8S-HEALTH-01-K4": 0,
+        "K8S-HEALTH-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "K8S-HEALTH-01__excellent",
+      "card_id": "K8S-HEALTH-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "answer": "Сделаю readiness probe: пока API не готово, pod не должен получать пользовательский трафик. Liveness будет проверять, жив ли процесс, а не готов ли он уже обслуживать запросы. Если инициализация долгая, добавлю startupProbe, чтобы liveness не убивала pod при прогреве. Readiness endpoint проверит способность обслужить запрос, не делая хрупкий каскад всех внешних зависимостей. Протестирую rolling update: неготовые pod исключаются из трафика, при этом нет restart loops.",
+      "gold_criteria": {
+        "K8S-HEALTH-01-K1": 2,
+        "K8S-HEALTH-01-K2": 2,
+        "K8S-HEALTH-01-K3": 2,
+        "K8S-HEALTH-01-K4": 2,
+        "K8S-HEALTH-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "K8S-HEALTH-01__partial",
+      "card_id": "K8S-HEALTH-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "answer": "Сделаю readiness probe: пока API не готово, pod не должен получать пользовательский трафик. Liveness будет проверять, жив ли процесс, а не готов ли он уже обслуживать запросы. Если инициализация долгая, добавлю startupProbe, чтобы liveness не убивала pod при прогреве. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "K8S-HEALTH-01-K1": 2,
+        "K8S-HEALTH-01-K2": 2,
+        "K8S-HEALTH-01-K3": 2,
+        "K8S-HEALTH-01-K4": 0,
+        "K8S-HEALTH-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "K8S-HEALTH-01__confident_wrong",
+      "card_id": "K8S-HEALTH-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "answer": "Я уверен в следующем: Liveness отвечает за маршрутизацию трафика к pod, readiness только перезапускает контейнер и не влияет на Service.",
+      "gold_criteria": {
+        "K8S-HEALTH-01-K1": 0,
+        "K8S-HEALTH-01-K2": 0,
+        "K8S-HEALTH-01-K3": 0,
+        "K8S-HEALTH-01-K4": 0,
+        "K8S-HEALTH-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "K8S-HEALTH-01__evasive",
+      "card_id": "K8S-HEALTH-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Python API в Kubernetes ещё не готов принимать трафик после запуска. Как избежать запросов к неготовому pod?",
+      "answer": "Я много работал с Kubernetes, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "K8S-HEALTH-01-K1": 0,
+        "K8S-HEALTH-01-K2": 0,
+        "K8S-HEALTH-01-K3": 0,
+        "K8S-HEALTH-01-K4": 0,
+        "K8S-HEALTH-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MICRO-TIMEOUT-01__bad",
+      "card_id": "MICRO-TIMEOUT-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "MICRO-TIMEOUT-01-K1": 0,
+        "MICRO-TIMEOUT-01-K2": 0,
+        "MICRO-TIMEOUT-01-K3": 0,
+        "MICRO-TIMEOUT-01-K4": 0,
+        "MICRO-TIMEOUT-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MICRO-TIMEOUT-01__medium",
+      "card_id": "MICRO-TIMEOUT-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "answer": "Поставлю ограниченный таймаут вызова оплаты, чтобы worker заказов не зависал бесконечно. Для временных сбоев применю ограниченный retry с backoff и jitter, а оплату защищу идемпотентностью. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "MICRO-TIMEOUT-01-K1": 2,
+        "MICRO-TIMEOUT-01-K2": 2,
+        "MICRO-TIMEOUT-01-K3": 0,
+        "MICRO-TIMEOUT-01-K4": 0,
+        "MICRO-TIMEOUT-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MICRO-TIMEOUT-01__excellent",
+      "card_id": "MICRO-TIMEOUT-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "answer": "Поставлю ограниченный таймаут вызова оплаты, чтобы worker заказов не зависал бесконечно. Для временных сбоев применю ограниченный retry с backoff и jitter, а оплату защищу идемпотентностью. При массовых ошибках сработает circuit breaker или ограничитель параллельных вызовов. Заказ перейдёт в ожидающий статус, если платёж не подтверждён; не буду отмечать его оплаченным на таймауте. Измерю p95 latency, процент таймаутов и протестирую отказ платёжного сервиса под нагрузкой.",
+      "gold_criteria": {
+        "MICRO-TIMEOUT-01-K1": 2,
+        "MICRO-TIMEOUT-01-K2": 2,
+        "MICRO-TIMEOUT-01-K3": 2,
+        "MICRO-TIMEOUT-01-K4": 2,
+        "MICRO-TIMEOUT-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MICRO-TIMEOUT-01__partial",
+      "card_id": "MICRO-TIMEOUT-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "answer": "Поставлю ограниченный таймаут вызова оплаты, чтобы worker заказов не зависал бесконечно. Для временных сбоев применю ограниченный retry с backoff и jitter, а оплату защищу идемпотентностью. При массовых ошибках сработает circuit breaker или ограничитель параллельных вызовов. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "MICRO-TIMEOUT-01-K1": 2,
+        "MICRO-TIMEOUT-01-K2": 2,
+        "MICRO-TIMEOUT-01-K3": 2,
+        "MICRO-TIMEOUT-01-K4": 0,
+        "MICRO-TIMEOUT-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MICRO-TIMEOUT-01__confident_wrong",
+      "card_id": "MICRO-TIMEOUT-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "answer": "Я уверен в следующем: Отключу все таймауты и бесконечно повторю оплату без ключа идемпотентности; при ошибке отмечу заказ как оплаченный.",
+      "gold_criteria": {
+        "MICRO-TIMEOUT-01-K1": 0,
+        "MICRO-TIMEOUT-01-K2": 0,
+        "MICRO-TIMEOUT-01-K3": 0,
+        "MICRO-TIMEOUT-01-K4": 0,
+        "MICRO-TIMEOUT-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MICRO-TIMEOUT-01__evasive",
+      "card_id": "MICRO-TIMEOUT-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Сервис заказов вызывает сервис оплаты, который иногда зависает. Как не уронить всю систему?",
+      "answer": "Я много работал с Микросервисная архитектура, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "MICRO-TIMEOUT-01-K1": 0,
+        "MICRO-TIMEOUT-01-K2": 0,
+        "MICRO-TIMEOUT-01-K3": 0,
+        "MICRO-TIMEOUT-01-K4": 0,
+        "MICRO-TIMEOUT-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQTT-QOS-01__bad",
+      "card_id": "MQTT-QOS-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "MQTT-QOS-01-K1": 0,
+        "MQTT-QOS-01-K2": 0,
+        "MQTT-QOS-01-K3": 0,
+        "MQTT-QOS-01-K4": 0,
+        "MQTT-QOS-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQTT-QOS-01__medium",
+      "card_id": "MQTT-QOS-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "answer": "QoS 0 — доставка без подтверждения на уровне MQTT, поэтому сообщение может потеряться. QoS 1 подтверждает доставку, но возможна повторная публикация или дубли. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "MQTT-QOS-01-K1": 2,
+        "MQTT-QOS-01-K2": 2,
+        "MQTT-QOS-01-K3": 0,
+        "MQTT-QOS-01-K4": 0,
+        "MQTT-QOS-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQTT-QOS-01__excellent",
+      "card_id": "MQTT-QOS-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "answer": "QoS 0 — доставка без подтверждения на уровне MQTT, поэтому сообщение может потеряться. QoS 1 подтверждает доставку, но возможна повторная публикация или дубли. QoS 2 обеспечивает протокольную доставку exactly once с дополнительными шагами обмена. Телеметрию с высокой частотой могу отправлять QoS 0, а важные события QoS 1/2 по требованиям. QoS 2 не гарантирует единственное применение платежа в БД; обработчик должен быть идемпотентным.",
+      "gold_criteria": {
+        "MQTT-QOS-01-K1": 2,
+        "MQTT-QOS-01-K2": 2,
+        "MQTT-QOS-01-K3": 2,
+        "MQTT-QOS-01-K4": 2,
+        "MQTT-QOS-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQTT-QOS-01__partial",
+      "card_id": "MQTT-QOS-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "answer": "QoS 0 — доставка без подтверждения на уровне MQTT, поэтому сообщение может потеряться. QoS 1 подтверждает доставку, но возможна повторная публикация или дубли. QoS 2 обеспечивает протокольную доставку exactly once с дополнительными шагами обмена. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "MQTT-QOS-01-K1": 2,
+        "MQTT-QOS-01-K2": 2,
+        "MQTT-QOS-01-K3": 2,
+        "MQTT-QOS-01-K4": 0,
+        "MQTT-QOS-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQTT-QOS-01__confident_wrong",
+      "card_id": "MQTT-QOS-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "answer": "Я уверен в следующем: QoS 0 гарантирует доставку ровно один раз, QoS 1 исключает дубли, а QoS 2 гарантирует ровно одну запись в любой внешней БД.",
+      "gold_criteria": {
+        "MQTT-QOS-01-K1": 0,
+        "MQTT-QOS-01-K2": 0,
+        "MQTT-QOS-01-K3": 0,
+        "MQTT-QOS-01-K4": 0,
+        "MQTT-QOS-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "MQTT-QOS-01__evasive",
+      "card_id": "MQTT-QOS-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Датчики публикуют сообщения через MQTT. Что означают QoS 0, 1, 2 и когда какой выбрать?",
+      "answer": "Я много работал с MQTT, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "MQTT-QOS-01-K1": 0,
+        "MQTT-QOS-01-K2": 0,
+        "MQTT-QOS-01-K3": 0,
+        "MQTT-QOS-01-K4": 0,
+        "MQTT-QOS-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEMP-WF-01__bad",
+      "card_id": "TEMP-WF-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "TEMP-WF-01-K1": 0,
+        "TEMP-WF-01-K2": 0,
+        "TEMP-WF-01-K3": 0,
+        "TEMP-WF-01-K4": 0,
+        "TEMP-WF-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEMP-WF-01__medium",
+      "card_id": "TEMP-WF-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "answer": "Workflow в Temporal координирует этапы заказа и может восстановить ход процесса после сбоя. Внешний вызов оплаты выполняю как Activity, отдельно от детерминированной логики Workflow. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "TEMP-WF-01-K1": 2,
+        "TEMP-WF-01-K2": 2,
+        "TEMP-WF-01-K3": 0,
+        "TEMP-WF-01-K4": 0,
+        "TEMP-WF-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEMP-WF-01__excellent",
+      "card_id": "TEMP-WF-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "answer": "Workflow в Temporal координирует этапы заказа и может восстановить ход процесса после сбоя. Внешний вызов оплаты выполняю как Activity, отдельно от детерминированной логики Workflow. Для Activity настрою разумные таймауты и повтор временных ошибок, а постоянные отказы не буду повторять бесконечно. Payment Activity будет принимать idempotency key, чтобы её повтор не списал деньги дважды. Проверю восстановление workflow после рестарта воркера и корректную обработку уже завершённых Activity.",
+      "gold_criteria": {
+        "TEMP-WF-01-K1": 2,
+        "TEMP-WF-01-K2": 2,
+        "TEMP-WF-01-K3": 2,
+        "TEMP-WF-01-K4": 2,
+        "TEMP-WF-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEMP-WF-01__partial",
+      "card_id": "TEMP-WF-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "answer": "Workflow в Temporal координирует этапы заказа и может восстановить ход процесса после сбоя. Внешний вызов оплаты выполняю как Activity, отдельно от детерминированной логики Workflow. Для Activity настрою разумные таймауты и повтор временных ошибок, а постоянные отказы не буду повторять бесконечно. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "TEMP-WF-01-K1": 2,
+        "TEMP-WF-01-K2": 2,
+        "TEMP-WF-01-K3": 2,
+        "TEMP-WF-01-K4": 0,
+        "TEMP-WF-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEMP-WF-01__confident_wrong",
+      "card_id": "TEMP-WF-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "answer": "Я уверен в следующем: Activity в Temporal гарантированно выполняется только один раз, поэтому платежи можно повторять без idempotency key; Workflow ничего не хранит.",
+      "gold_criteria": {
+        "TEMP-WF-01-K1": 0,
+        "TEMP-WF-01-K2": 0,
+        "TEMP-WF-01-K3": 0,
+        "TEMP-WF-01-K4": 0,
+        "TEMP-WF-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "TEMP-WF-01__evasive",
+      "card_id": "TEMP-WF-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Нужно выполнить заказ в несколько этапов с возможными временными сбоями. Зачем может понадобиться Temporal?",
+      "answer": "Я много работал с Temporal, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "TEMP-WF-01-K1": 0,
+        "TEMP-WF-01-K2": 0,
+        "TEMP-WF-01-K3": 0,
+        "TEMP-WF-01-K4": 0,
+        "TEMP-WF-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CH-OLAP-01__bad",
+      "card_id": "CH-OLAP-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "CH-OLAP-01-K1": 0,
+        "CH-OLAP-01-K2": 0,
+        "CH-OLAP-01-K3": 0,
+        "CH-OLAP-01-K4": 0,
+        "CH-OLAP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CH-OLAP-01__medium",
+      "card_id": "CH-OLAP-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "answer": "Для больших агрегирующих запросов по событиям уместен ClickHouse, а для транзакционных заказов — PostgreSQL. ClickHouse хранит данные по колонкам, поэтому чтение пары метрик на миллионах событий эффективно. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "CH-OLAP-01-K1": 2,
+        "CH-OLAP-01-K2": 2,
+        "CH-OLAP-01-K3": 0,
+        "CH-OLAP-01-K4": 0,
+        "CH-OLAP-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CH-OLAP-01__excellent",
+      "card_id": "CH-OLAP-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "answer": "Для больших агрегирующих запросов по событиям уместен ClickHouse, а для транзакционных заказов — PostgreSQL. ClickHouse хранит данные по колонкам, поэтому чтение пары метрик на миллионах событий эффективно. Подберу ORDER BY по типовым фильтрам и времени, а partitioning по сроку жизни и характеру данных. Частые точечные UPDATE и строгие транзакции удобнее оставлю PostgreSQL; в ClickHouse проверю семантику мутаций. Проверю время группировок, объём сканирования и стоимость хранения на репрезентативном потоке событий.",
+      "gold_criteria": {
+        "CH-OLAP-01-K1": 2,
+        "CH-OLAP-01-K2": 2,
+        "CH-OLAP-01-K3": 2,
+        "CH-OLAP-01-K4": 2,
+        "CH-OLAP-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CH-OLAP-01__partial",
+      "card_id": "CH-OLAP-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "answer": "Для больших агрегирующих запросов по событиям уместен ClickHouse, а для транзакционных заказов — PostgreSQL. ClickHouse хранит данные по колонкам, поэтому чтение пары метрик на миллионах событий эффективно. Подберу ORDER BY по типовым фильтрам и времени, а partitioning по сроку жизни и характеру данных. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "CH-OLAP-01-K1": 2,
+        "CH-OLAP-01-K2": 2,
+        "CH-OLAP-01-K3": 2,
+        "CH-OLAP-01-K4": 0,
+        "CH-OLAP-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CH-OLAP-01__confident_wrong",
+      "card_id": "CH-OLAP-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "answer": "Я уверен в следующем: ClickHouse как колоночная СУБД предназначен прежде всего для миллиона отдельных банковских транзакций с частыми UPDATE, а группировки ему не подходят.",
+      "gold_criteria": {
+        "CH-OLAP-01-K1": 0,
+        "CH-OLAP-01-K2": 0,
+        "CH-OLAP-01-K3": 0,
+        "CH-OLAP-01-K4": 0,
+        "CH-OLAP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "CH-OLAP-01__evasive",
+      "card_id": "CH-OLAP-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "У нас есть поток событий пользователя. Когда для аналитики уместен ClickHouse, а когда PostgreSQL?",
+      "answer": "Я много работал с ClickHouse, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "CH-OLAP-01-K1": 0,
+        "CH-OLAP-01-K2": 0,
+        "CH-OLAP-01-K3": 0,
+        "CH-OLAP-01-K4": 0,
+        "CH-OLAP-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DJ-ORM-01__bad",
+      "card_id": "DJ-ORM-01",
+      "category": "плохой",
+      "kind": "bad",
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "answer": "Я бы просто перезапустил сервис и попробовал поменять настройки наугад, не анализируя проблему.",
+      "gold_criteria": {
+        "DJ-ORM-01-K1": 0,
+        "DJ-ORM-01-K2": 0,
+        "DJ-ORM-01-K3": 0,
+        "DJ-ORM-01-K4": 0,
+        "DJ-ORM-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "unsupported_remedy"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DJ-ORM-01__medium",
+      "card_id": "DJ-ORM-01",
+      "category": "средний",
+      "kind": "medium",
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "answer": "Когда обращаюсь к task.author по каждой строке, lazy loading создаёт дополнительные SELECT — классический N+1. Посмотрю количество SQL-запросов в Django Debug Toolbar или логах запросов на тестовом окружении. Остальные детали решения пока объяснить не могу.",
+      "gold_criteria": {
+        "DJ-ORM-01-K1": 2,
+        "DJ-ORM-01-K2": 2,
+        "DJ-ORM-01-K3": 0,
+        "DJ-ORM-01-K4": 0,
+        "DJ-ORM-01-K5": 0
+      },
+      "gold_score": 4,
+      "acceptable_score_range": [
+        3,
+        6
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DJ-ORM-01__excellent",
+      "card_id": "DJ-ORM-01",
+      "category": "отличный",
+      "kind": "excellent",
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "answer": "Когда обращаюсь к task.author по каждой строке, lazy loading создаёт дополнительные SELECT — классический N+1. Посмотрю количество SQL-запросов в Django Debug Toolbar или логах запросов на тестовом окружении. Для task.author с ForeignKey применю select_related(\"author\") при загрузке списка задач. Для ManyToMany или обратных коллекций использую prefetch_related, который делает отдельную загрузку и связывание. После изменений проверю SQL count, latency и что пагинация и список задач остались корректными.",
+      "gold_criteria": {
+        "DJ-ORM-01-K1": 2,
+        "DJ-ORM-01-K2": 2,
+        "DJ-ORM-01-K3": 2,
+        "DJ-ORM-01-K4": 2,
+        "DJ-ORM-01-K5": 2
+      },
+      "gold_score": 10,
+      "acceptable_score_range": [
+        8,
+        10
+      ],
+      "expected_flags": [],
+      "expected_next_action": "next_topic",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DJ-ORM-01__partial",
+      "card_id": "DJ-ORM-01",
+      "category": "частичный",
+      "kind": "partial",
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "answer": "Когда обращаюсь к task.author по каждой строке, lazy loading создаёт дополнительные SELECT — классический N+1. Посмотрю количество SQL-запросов в Django Debug Toolbar или логах запросов на тестовом окружении. Для task.author с ForeignKey применю select_related(\"author\") при загрузке списка задач. Но последние два аспекта пока не знаю, поэтому не буду утверждать без проверки.",
+      "gold_criteria": {
+        "DJ-ORM-01-K1": 2,
+        "DJ-ORM-01-K2": 2,
+        "DJ-ORM-01-K3": 2,
+        "DJ-ORM-01-K4": 0,
+        "DJ-ORM-01-K5": 0
+      },
+      "gold_score": 6,
+      "acceptable_score_range": [
+        5,
+        7
+      ],
+      "expected_flags": [],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DJ-ORM-01__confident_wrong",
+      "card_id": "DJ-ORM-01",
+      "category": "уверенно неверный",
+      "kind": "confident_wrong",
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "answer": "Я уверен в следующем: Если внутри цикла обращаться к task.author, Django всегда делает один запрос независимо от числа задач, и select_related невозможно применять к ForeignKey.",
+      "gold_criteria": {
+        "DJ-ORM-01-K1": 0,
+        "DJ-ORM-01-K2": 0,
+        "DJ-ORM-01-K3": 0,
+        "DJ-ORM-01-K4": 0,
+        "DJ-ORM-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        2
+      ],
+      "expected_flags": [
+        "confidently_incorrect",
+        "technical_contradiction"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    },
+    {
+      "case_id": "DJ-ORM-01__evasive",
+      "card_id": "DJ-ORM-01",
+      "category": "уклончивый",
+      "kind": "evasive",
+      "question": "Django endpoint выводит список задач и их авторов, но обращается к БД сотни раз. Почему?",
+      "answer": "Я много работал с Django, знаю Docker, SQL, Git, Kubernetes и любые сложные технологии. У меня большой опыт, но объяснять этот конкретный вопрос сейчас не буду.",
+      "gold_criteria": {
+        "DJ-ORM-01-K1": 0,
+        "DJ-ORM-01-K2": 0,
+        "DJ-ORM-01-K3": 0,
+        "DJ-ORM-01-K4": 0,
+        "DJ-ORM-01-K5": 0
+      },
+      "gold_score": 0,
+      "acceptable_score_range": [
+        0,
+        1
+      ],
+      "expected_flags": [
+        "evasion",
+        "keyword_stuffing"
+      ],
+      "expected_next_action": "followup",
+      "review_status": "draft_needs_expert_review",
+      "case_note": "Синтетический ответ для отладки. Разметка требует независимой проверки Backend-экспертом."
+    }
+  ]
+}

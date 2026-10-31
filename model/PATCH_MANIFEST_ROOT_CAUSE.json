@@ -1,0 +1,19 @@
+{
+  "patch": "RAG_BACKEND_ALL_25_ROOT_CAUSE_PATCH",
+  "description": "Replace dynamic empty-object stage-2 schemas with arrays and expose safe provider error metadata.",
+  "adds_retries": false,
+  "public_api_response_changed": false,
+  "files": [
+    "v3/engine.py",
+    "v3/llm.py",
+    "v3/diagnostics.py",
+    "tests/test_v3_root_cause_schema.py",
+    "tests/test_v3_two_stage.py",
+    "tests/test_v3_red_flag_evidence.py",
+    "tests/test_v3_red_flag_checklist.py",
+    "tests/test_v3_resolution_guard.py",
+    "tests/test_v3_llm_validation.py",
+    "ROOT_CAUSE_PATCH_RU.md",
+    "README_ROOT_CAUSE_RU.md"
+  ]
+}

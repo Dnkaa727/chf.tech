@@ -1,0 +1,124 @@
+[
+  {
+    "id": "T01_bad",
+    "category": "плохой",
+    "answer": "Похоже, база просто подвисла. Я бы перезапустил PostgreSQL, а если не поможет — добавил побольше индексов на все колонки. Обычно этого хватает.",
+    "gold_score": [
+      0,
+      2
+    ],
+    "gold_criteria": {
+      "diagnosis": 0,
+      "plan": 0,
+      "statistics": 0,
+      "index": 0,
+      "verification": 0
+    },
+    "expected_flags": [
+      "unsupported_remedy"
+    ],
+    "expected_next_action": "followup",
+    "expert_note": "Нет измерений, нет анализа плана. Перезапуск и массовые индексы не обоснованы."
+  },
+  {
+    "id": "T02_medium",
+    "category": "средний",
+    "answer": "Начну с EXPLAIN ANALYZE на тестовом окружении, посмотрю, где тратится время. Если увижу Seq Scan на большой таблице и фильтр по нужному столбцу, проверю, есть ли индекс, и попробую сравнить время до и после. Но не уверен, когда Seq Scan бывает выгоднее.",
+    "gold_score": [
+      4,
+      7
+    ],
+    "gold_criteria": {
+      "diagnosis": 2,
+      "plan": 1,
+      "statistics": 0,
+      "index": 1,
+      "verification": 1
+    },
+    "expected_flags": [],
+    "expected_next_action": "followup",
+    "expert_note": "Есть осмысленная последовательность, но мало внимания статистике, стоимости и проверке на нагрузке."
+  },
+  {
+    "id": "T03_excellent",
+    "category": "отличный",
+    "answer": "Сначала воспроизведу запрос на сопоставимых данных и соберу план: EXPLAIN (ANALYZE, BUFFERS) для безопасного SELECT в подходящем окружении. Сверю estimated и actual rows, loops, чтения, Seq Scan/Index Scan, сортировки и соединения. После роста таблицы могла измениться селективность или устареть статистика — проверю её и при необходимости обновлю ANALYZE. Индекс выбираю по реальным WHERE/JOIN/ORDER BY и распределению значений: для низкой селективности Seq Scan может быть дешевле, а каждый индекс расходует место и замедляет запись. Сравню время, план и нагрузку до/после на типичных запросах, а не только на одном прогоне.",
+    "gold_score": [
+      9,
+      10
+    ],
+    "gold_criteria": {
+      "diagnosis": 2,
+      "plan": 2,
+      "statistics": 2,
+      "index": 2,
+      "verification": 2
+    },
+    "expected_flags": [],
+    "expected_next_action": "next_topic",
+    "expert_note": "Все пять аспектов объяснены причинно-следственно. Важно не требовать конкретную формулировку."
+  },
+  {
+    "id": "T04_partial",
+    "category": "частичный",
+    "answer": "Я начну с EXPLAIN (ANALYZE, BUFFERS) для этого SELECT на безопасной копии данных. Проверю расхождение estimated и actual rows, loops и операции Seq Scan/Index Scan. Если оценки строк не совпадают с фактическими после роста таблицы, проверю статистику и попробую ANALYZE. Но как именно выбрать индекс и каким способом проверить последствия его создания для нагрузки, пока не знаю.",
+    "gold_score": [
+      5,
+      7
+    ],
+    "gold_criteria": {
+      "diagnosis": 2,
+      "plan": 2,
+      "statistics": 2,
+      "index": 0,
+      "verification": 0
+    },
+    "expected_flags": [],
+    "expected_next_action": "followup",
+    "expert_note": "Сильная диагностика при явных пробелах в выборе индекса и проверке результата. Уточнение должно проверять именно пробел."
+  },
+  {
+    "id": "T05_confident_wrong",
+    "category": "уверенно неверный",
+    "answer": "Я точно знаю: если создать B-Tree индекс, PostgreSQL ОБЯЗАТЕЛЬНО будет использовать Index Scan — Seq Scan при наличии индекса означает неисправность планировщика. Поэтому сразу создам индекс на каждую колонку, это всегда ускоряет чтение и запись. EXPLAIN ANALYZE сам оптимизирует запрос, так что измерять до и после нет смысла.",
+    "gold_score": [
+      0,
+      2
+    ],
+    "gold_criteria": {
+      "diagnosis": 0,
+      "plan": 0,
+      "statistics": 0,
+      "index": 0,
+      "verification": 0
+    },
+    "expected_flags": [
+      "confidently_incorrect",
+      "technical_contradiction"
+    ],
+    "expected_next_action": "followup",
+    "expert_note": "Термины есть, но утверждения про гарантированный Index Scan, влияние индекса на запись и EXPLAIN ANALYZE неверны."
+  },
+  {
+    "id": "T06_evasive",
+    "category": "уклончивый",
+    "answer": "Я работал с PostgreSQL, Redis, Docker, Kubernetes, SQL, EXPLAIN, B-Tree, VACUUM и большими объёмами. В прошлой компании быстро решал сложные проблемы производительности. Главное — опыт и системное мышление; в технические детали сейчас не хотел бы погружаться.",
+    "gold_score": [
+      0,
+      1
+    ],
+    "gold_criteria": {
+      "diagnosis": 0,
+      "plan": 0,
+      "statistics": 0,
+      "index": 0,
+      "verification": 0
+    },
+    "expected_flags": [
+      "evasion",
+      "keyword_stuffing"
+    ],
+    "expected_next_action": "followup",
+    "expert_note": "Термины и заявление об опыте не подтверждают выполнение ни одного критерия."
+  }
+]
