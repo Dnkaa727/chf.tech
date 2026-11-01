@@ -45,6 +45,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 		try {
 			const body = await response.json();
 
+			if (typeof body.detail?.message === "string")
+				detail = body.detail.message;
 			if (typeof body.detail === "string") {
 				detail = body.detail;
 			}
@@ -90,7 +92,7 @@ export function createBackendServices(): Services {
 	let lastNotifiedMessageId: string | null = null;
 
 	const notifyLatestMessage = (next: BackendSnapshot) => {
-		const latest = next.messages.at(-1);
+		const latest = next.messages[next.messages.length - 1];
 
 		if (!latest || latest.id === lastNotifiedMessageId) {
 			return;
@@ -147,7 +149,7 @@ export function createBackendServices(): Services {
 							name,
 							card_id:
 								import.meta.env.VITE_INTERVIEW_CARD_ID ??
-								"PY-ASYNC-01",
+								undefined,
 						}),
 					},
 				);
@@ -207,6 +209,7 @@ export function createBackendServices(): Services {
 
 				conferenceId = null;
 				state.set({
+					...state.get(),
 					status: "ended",
 				});
 			},
@@ -221,13 +224,14 @@ export function createBackendServices(): Services {
 					throw new Error("Conference is not connected");
 				}
 
-				await request<BackendSnapshot>(
+				const next = await request<BackendSnapshot>(
 					`/api/conferences/${conferenceId}/messages`,
 					{
 						method: "POST",
 						body: JSON.stringify({ text }),
 					},
 				);
+				applyBackendSnapshot(next);
 			},
 		},
 	};

@@ -60,7 +60,12 @@ export function createMockServices(): Services {
 
 	const me = person(SELF_ID, "Вы", "candidate", "Кандидат");
 	const ai1 = person("ai-1", "Анна", "ai", "ИИ-интервьюер, знакомство");
-	const ai2 = person("ai-2", "Макс", "ai", "ИИ-интервьюер, техническая часть");
+	const ai2 = person(
+		"ai-2",
+		"Макс",
+		"ai",
+		"ИИ-интервьюер, техническая часть",
+	);
 	const hr = person("h-1", "Ирина Орлова", "human", "Представитель компании");
 
 	const later = (ms: number, fn: () => void) => {
@@ -152,7 +157,10 @@ export function createMockServices(): Services {
 					if (list.get().find((p) => p.speaking)?.id === "ai-2")
 						content.set({
 							...content.get(),
-							"ai-2": { type: "visualizer", level: Math.random() },
+							"ai-2": {
+								type: "visualizer",
+								level: Math.random(),
+							},
 						});
 				});
 				script.forEach((m, k) =>
@@ -174,6 +182,7 @@ export function createMockServices(): Services {
 			},
 		},
 		chat: {
+			interviewerTyping: createStore(false),
 			messages,
 			async send(text) {
 				push(me, text);
