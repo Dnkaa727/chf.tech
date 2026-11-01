@@ -1,136 +1,132 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { InterviewerSpeech, speechChunks } from '../src/services/speech/interviewerSpeech.ts';
+import { InterviewerSpeech } from '../src/services/speech/interviewerSpeech.ts';
 
-const ru = { lang: 'ru-RU', localService: true };
-const message = (id, text, authorKind = 'ai') => ({ id, text, authorKind });
-function setup(t, voices = [ru]) {
-  const spoken = [];
-  let cancelled = 0;
-  const listeners = new Map();
-  const synth = {
-    getVoices: () => voices,
-    speak: u => spoken.push(u),
-    cancel: () => cancelled++,
-    addEventListener: (event, cb) => listeners.set(event, cb),
-    removeEventListener: (event, cb) => { if (listeners.get(event) === cb) listeners.delete(event); },
+const message = (id, text = id, authorKind = 'ai') => ({ id, text, authorKind, audioUrl: `/audio/${id}` });
+const tick = () => new Promise(resolve => setImmediate(resolve));
+function setup(t, customLoader) {
+  const requests = [], played = [];
+  let unlocks = 0, disposed = false, finish;
+  const player = {
+    async unlock() { unlocks++; },
+    play(data, signal, onPlaying) {
+      played.push(new TextDecoder().decode(data));
+      onPlaying(true);
+      return new Promise(resolve => {
+        finish = () => { onPlaying(false); resolve(); };
+        signal.addEventListener('abort', finish, { once: true });
+      });
+    },
+    stop() { finish?.(); },
+    dispose() { disposed = true; },
   };
-  const controller = new InterviewerSpeech(synth, text => ({ text }));
-  const disconnect = controller.connect();
-  t.after(disconnect);
-  return { controller, spoken, listeners, disconnect, cancelled: () => cancelled, voices: next => { voices = next; listeners.get('voiceschanged')?.(); } };
+  const loader = async (m, signal) => {
+    requests.push(m.id);
+    return customLoader ? customLoader(m, signal) : new TextEncoder().encode(m.id).buffer;
+  };
+  const c = new InterviewerSpeech(player, loader);
+  const cleanup = c.connect();
+  t.after(cleanup);
+  return { c, requests, played, player, cleanup, end: () => finish(), unlocks: () => unlocks, disposed: () => disposed };
 }
 
-test('speech is opt-in, follows feedback/question order, and ignores duplicate snapshots and candidate text', t => {
-  const { controller: c, spoken } = setup(t);
-  const initial = [message('q1', 'Первый вопрос?')];
+test('opt-in, AI-only ordered playback; duplicate HTTP/WS snapshots never duplicate requests', async t => {
+  const { c, requests, played, end } = setup(t);
+  const initial = [message('q1')];
   c.update(initial);
-  assert.equal(spoken.length, 0);
+  assert.deepEqual(requests, []);
   c.enable();
-  assert.equal(spoken[0].voice, ru);
-  assert.equal(c.getSnapshot().speaking, false);
-  spoken[0].onstart();
+  await tick();
   assert.equal(c.getSnapshot().speaking, true);
-  const next = [...initial, message('a1', 'Ответ кандидата', 'candidate'), message('f1', 'Ты верно заметил блокировку.'), message('q2', 'Как это проверить?')];
+  const next = [...initial, message('a1', 'Ответ', 'candidate'), message('feedback'), message('q2')];
   c.update(next);
   c.update(structuredClone(next));
-  assert.equal(spoken.length, 1);
-  spoken[0].onend();
-  assert.equal(spoken[1].text, 'Ты верно заметил блокировку.');
-  spoken[1].onend();
-  assert.equal(spoken[2].text, 'Как это проверить?');
-  spoken[2].onend();
-  assert.equal(c.getSnapshot().busy, false);
+  assert.deepEqual(requests, ['q1']);
+  end(); await tick();
+  assert.deepEqual(played, ['q1', 'feedback']);
+  end(); await tick();
+  assert.deepEqual(played, ['q1', 'feedback', 'q2']);
+  end(); await tick();
   c.update(next);
-  assert.equal(spoken.length, 3);
+  assert.equal(c.getSnapshot().busy, false);
+  assert.deepEqual(requests, played);
 });
 
-test('final feedback remains pending before and during speech', t => {
-  const { controller: c, spoken } = setup(t);
+test('final feedback is pending while generation runs and remains busy until audio ends', async t => {
+  let release;
+  const { c, end } = setup(t, () => new Promise(resolve => { release = resolve; }));
   c.enable();
-  const final = [message('final', 'Ты хорошо разобрал эту тему.')];
+  const final = [message('final')];
   assert.equal(c.hasUnread(final), true);
   c.update(final);
-  assert.equal(c.hasUnread(final), false);
+  await tick();
   assert.equal(c.getSnapshot().busy, true);
-  spoken[0].onend();
-  assert.equal(c.getSnapshot().busy, false);
-});
-
-test('mute cancels queued speech, stale callbacks cannot resume it; re-enable reads only latest', t => {
-  const { controller: c, spoken, cancelled } = setup(t);
-  c.update([message('q', 'Вопрос?')]);
-  c.enable();
-  const staleEnd = spoken[0].onend;
-  c.update([message('q', 'Вопрос?'), message('f', 'Обратная связь.'), message('next', 'Следующий вопрос?')]);
-  c.stop();
-  staleEnd();
-  assert.equal(cancelled(), 1);
-  assert.equal(spoken.length, 1);
-  assert.equal(c.getSnapshot().busy, false);
-  c.enable();
-  assert.equal(spoken[1].text, 'Следующий вопрос?');
-  spoken[1].onend();
-  assert.equal(c.getSnapshot().busy, false);
-});
-
-test('repeat explicitly rereads latest message without replaying transcript', t => {
-  const { controller: c, spoken } = setup(t);
-  c.update([message('old', 'Старая реплика.'), message('new', 'Текущий вопрос?')]);
-  c.enable();
-  spoken[0].onend();
-  c.repeat();
-  assert.deepEqual(spoken.map(s => s.text), ['Текущий вопрос?', 'Текущий вопрос?']);
-});
-
-test('voice loading and missing Russian voice do not silently select an English voice', t => {
-  const { controller: c, spoken, voices } = setup(t, []);
-  c.update([message('q', 'Вопрос?')]);
-  c.enable();
-  assert.equal(spoken.length, 0);
-  voices([{ lang: 'en-US', localService: true }]);
-  c.enable();
-  assert.equal(spoken.length, 0);
-  voices([ru]);
-  c.enable();
-  assert.equal(spoken[0].voice, ru);
-});
-
-test('speech failures stop animation/queue and allow explicit retry', t => {
-  const { controller: c, spoken } = setup(t);
-  c.update([message('q', 'Вопрос?')]);
-  c.enable();
-  spoken[0].onstart();
-  spoken[0].onerror({ error: 'not-allowed' });
-  assert.equal(c.getSnapshot().enabled, false);
   assert.equal(c.getSnapshot().speaking, false);
-  assert.match(c.getSnapshot().error, /Не удалось/);
-  c.enable();
-  assert.equal(spoken.length, 2);
-  assert.equal(c.getSnapshot().error, null);
+  release(new ArrayBuffer(8)); await tick();
+  assert.equal(c.getSnapshot().speaking, true);
+  end(); await tick();
+  assert.equal(c.getSnapshot().busy, false);
 });
 
-test('unmount removes voice listeners and stops the active utterance', t => {
-  const { controller: c, spoken, listeners, disconnect, cancelled } = setup(t);
-  c.update([message('q', 'Вопрос?')]);
-  c.enable();
-  disconnect();
-  assert.equal(listeners.size, 0);
-  assert.equal(cancelled(), 1);
-  assert.equal(spoken[0].onend, null);
+test('mute aborts generation and an old response cannot play over a new request', async t => {
+  const pending = [];
+  const { c, played } = setup(t, (m, signal) => new Promise(resolve => pending.push({ resolve, signal })));
+  c.update([message('old')]); c.enable(); await tick();
+  c.stop();
+  assert.equal(pending[0].signal.aborted, true);
+  c.update([message('old'), message('new')]); c.enable(); await tick();
+  pending[0].resolve(new TextEncoder().encode('old').buffer); await tick();
+  assert.deepEqual(played, []);
+  pending[1].resolve(new TextEncoder().encode('new').buffer); await tick();
+  assert.deepEqual(played, ['new']);
 });
 
-test('unsupported browser remains usable without speech', () => {
-  const c = new InterviewerSpeech(null, () => { throw new Error('Not supported'); });
-  c.update([message('q', 'Вопрос?')]);
-  c.enable();
+test('repeat reads only the latest reply; muted messages are not replayed as a backlog', async t => {
+  const { c, played, end } = setup(t);
+  c.update([message('old'), message('current')]); c.enable(); await tick();
+  end(); await tick(); c.repeat(); await tick();
+  assert.deepEqual(played, ['current', 'current']);
+});
+
+test('backend error is visible, does not auto-retry paid generation, and allows explicit retry', async t => {
+  let fail = true;
+  const { c, requests, played } = setup(t, () => {
+    if (fail) throw new Error('Проверь ключ GenAPI');
+    return new ArrayBuffer(1);
+  });
+  c.update([message('q')]); c.enable(); await tick();
+  assert.equal(c.getSnapshot().error, 'Проверь ключ GenAPI');
   assert.equal(c.getSnapshot().enabled, false);
-  assert.equal(c.hasUnread([message('q', 'Вопрос?')]), false);
+  assert.equal(c.getSnapshot().busy, false);
+  c.update([message('q')]); await tick();
+  assert.equal(requests.length, 1);
+  fail = false; c.enable(); await tick();
+  assert.equal(c.getSnapshot().error, null);
+  assert.equal(played.length, 1);
 });
 
-test('long feedback is split without losing words or punctuation', () => {
-  const text = 'Ты верно описал цикл событий. ' + 'Теперь рассмотрим детали '.repeat(30) + 'Готов?';
-  const chunks = speechChunks(text);
-  assert.ok(chunks.every(c => c.length <= 180));
-  assert.equal(chunks.join(' '), text.trim());
+test('unmount stops audio and releases the audio context', async t => {
+  const { c, cleanup, disposed } = setup(t);
+  c.update([message('q')]); c.enable(); await tick();
+  cleanup(); await tick();
+  assert.equal(c.getSnapshot().speaking, false);
+  assert.equal(disposed(), true);
+});
+
+test('unsupported browser does not request audio', () => {
+  const c = new InterviewerSpeech(null, () => { throw new Error('must not fetch'); });
+  c.update([message('q')]); c.enable();
+  assert.equal(c.getSnapshot().available, false);
+  assert.equal(c.hasUnread([message('q')]), false);
+});
+
+test('audio unlock happens synchronously in the user gesture and failure blocks generation', async t => {
+  const { c, player, requests } = setup(t);
+  let called = false;
+  player.unlock = () => { called = true; return Promise.reject(new Error('Разреши звук')); };
+  c.update([message('q')]); c.enable();
+  assert.equal(called, true);
+  await tick();
+  assert.deepEqual(requests, []);
+  assert.equal(c.getSnapshot().error, 'Разреши звук');
 });

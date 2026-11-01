@@ -77,7 +77,7 @@ export function SnowLeopard({ voice, thinking }: { voice: Voice; thinking: boole
 					<Button variant="secondary" iconLeft="rotate-right" disabled={!voice.supported || !voice.available || voice.busy} onClick={voice.repeat}>Повторить</Button>
 				</div>
 				<p className="mascot-stage__hint" role={voice.error ? "alert" : "status"}>
-					{voice.error ?? (!voice.supported ? "В этом браузере нет озвучивания. Все реплики доступны в чате." : !voice.available ? "Русский голос пока недоступен. Добавь его в настройках речи системы или продолжи в чате." : voice.enabled ? "Вопросы и обратная связь звучат автоматически" : "Включи голос — я прочитаю вопрос вслух")}
+					{voice.error ?? (!voice.supported ? "В этом браузере нет озвучивания. Все реплики доступны в чате." : !voice.available ? "Озвучивание пока недоступно. Можно продолжить в чате." : voice.enabled ? "Вопросы и обратная связь звучат голосом Silero" : "Включи голос — я прочитаю вопрос вслух")}
 				</p>
 			</div>
 		</div>

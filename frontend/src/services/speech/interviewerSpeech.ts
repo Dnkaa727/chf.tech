@@ -8,47 +8,32 @@ export interface SpeechState {
 	error: string | null;
 }
 
-// Short utterances avoid long-message stalls in browser speech engines.
-export function speechChunks(text: string): string[] {
-	const words = text.replace(/[`*_#]/g, "").trim().split(/\s+/).filter(Boolean);
-	const chunks: string[] = [];
-	let chunk = "";
-	for (const word of words) {
-		if (chunk && chunk.length + 1 + word.length > 180) {
-			chunks.push(chunk);
-			chunk = "";
-		}
-		chunk += (chunk ? " " : "") + word;
-		if (/[.!?…]$/.test(word)) {
-			chunks.push(chunk);
-			chunk = "";
-		}
-	}
-	if (chunk) chunks.push(chunk);
-	return chunks;
+export interface SpeechPlayer {
+	unlock(): Promise<void>;
+	play(data: ArrayBuffer, signal: AbortSignal, onPlaying: (playing: boolean) => void): Promise<void>;
+	stop(): void;
+	dispose(): void;
 }
 
-/** Owns one interview's speech queue. Message IDs survive repeated HTTP/WS snapshots. */
+export type AudioLoader = (message: ChatMessage, signal: AbortSignal) => Promise<ArrayBuffer>;
+
+/** Owns one interview's audio queue. HTTP/WS duplicates never create extra synthesis requests. */
 export class InterviewerSpeech {
 	private state: SpeechState;
 	private seen = new Set<string>();
 	private messages: ChatMessage[] = [];
-	private queue: string[] = [];
-	private active: SpeechSynthesisUtterance | null = null;
+	private queue: ChatMessage[] = [];
+	private active: AbortController | null = null;
 	private timer: ReturnType<typeof setTimeout> | undefined;
-	private voice: SpeechSynthesisVoice | undefined;
+	private ready: Promise<void> = Promise.resolve();
 	private listeners = new Set<() => void>();
+	private player: SpeechPlayer | null;
+	private load: AudioLoader;
 
-	private synth: SpeechSynthesis | null;
-	private utterance: (text: string) => SpeechSynthesisUtterance;
-
-	constructor(
-		synth: SpeechSynthesis | null,
-		utterance: (text: string) => SpeechSynthesisUtterance,
-	) {
-		this.synth = synth;
-		this.utterance = utterance;
-		this.state = { enabled: false, available: false, speaking: false, busy: false, error: null };
+	constructor(player: SpeechPlayer | null, load: AudioLoader) {
+		this.player = player;
+		this.load = load;
+		this.state = { enabled: false, available: Boolean(player), speaking: false, busy: false, error: null };
 	}
 
 	getSnapshot = () => this.state;
@@ -61,18 +46,10 @@ export class InterviewerSpeech {
 		this.listeners.forEach(listener => listener());
 	}
 
-	refreshVoices = () => {
-		const russian = this.synth?.getVoices().filter(v => /^ru(?:[-_]|$)/i.test(v.lang)) ?? [];
-		this.voice = russian.find(v => v.localService) ?? russian[0];
-		this.emit({ available: Boolean(this.voice) });
-	};
-
 	connect() {
-		this.refreshVoices();
-		this.synth?.addEventListener("voiceschanged", this.refreshVoices);
 		return () => {
-			this.synth?.removeEventListener("voiceschanged", this.refreshVoices);
 			this.stop();
+			this.player?.dispose();
 		};
 	}
 
@@ -80,7 +57,7 @@ export class InterviewerSpeech {
 		return this.messages.filter(m => m.authorKind === "ai" && m.text.trim());
 	}
 
-	// Read during render as well, so an ended snapshot cannot unmount the final feedback.
+	// Read during render too: an ended snapshot must not unmount the final feedback.
 	hasUnread(messages: ChatMessage[]) {
 		return this.state.enabled && messages.some(m => m.authorKind === "ai" && m.text.trim() && !this.seen.has(m.id));
 	}
@@ -91,17 +68,18 @@ export class InterviewerSpeech {
 		for (const message of this.aiMessages()) {
 			if (this.seen.has(message.id)) continue;
 			this.seen.add(message.id);
-			this.queue.push(...speechChunks(message.text));
+			this.queue.push(message);
 		}
-		this.pump();
+		void this.pump();
 	}
 
-	// Called from a user click to meet browser audio activation requirements.
+	// Unlock Web Audio immediately in the click handler, before waiting for synthesis.
 	enable = () => {
-		this.refreshVoices();
-		if (!this.synth || !this.voice) return;
+		if (!this.player || this.state.enabled) return;
+		this.ready = this.player.unlock();
+		// Observe rejection even when there are no messages yet; pump reports it to the UI.
+		void this.ready.catch(() => {});
 		this.emit({ enabled: true, error: null });
-		// Enabling mid-interview reads the latest remark, not the entire transcript.
 		const messages = this.aiMessages();
 		messages.slice(0, -1).forEach(m => this.seen.add(m.id));
 		const latest = messages[messages.length - 1];
@@ -109,66 +87,56 @@ export class InterviewerSpeech {
 		this.update(this.messages);
 	};
 
-	private cancelQueue() {
+	stop = () => {
 		clearTimeout(this.timer);
-		const active = this.active;
+		this.active?.abort();
 		this.active = null;
 		this.queue = [];
-		if (active) {
-			active.onstart = active.onend = active.onerror = null;
-			this.synth?.cancel();
-		}
-	}
-
-	stop = () => {
-		this.cancelQueue();
+		this.player?.stop();
 		this.emit({ enabled: false, speaking: false, busy: false });
 	};
 
 	repeat = () => {
-		this.cancelQueue();
-		this.emit({ speaking: false, busy: false });
+		this.stop();
 		this.enable();
 	};
 
-	private fail(message: string) {
-		this.cancelQueue();
-		this.emit({ enabled: false, speaking: false, busy: false, error: message });
-	}
-
-	private pump() {
-		if (this.active || !this.state.enabled) return;
-		const text = this.queue.shift();
-		if (!text) {
+	private async pump() {
+		if (this.active || !this.state.enabled || !this.player) return;
+		const message = this.queue.shift();
+		if (!message) {
 			this.emit({ busy: false, speaking: false });
 			return;
 		}
-		if (!this.synth || !this.voice) {
-			this.fail("Русский голос недоступен. Можно продолжить в чате.");
-			return;
-		}
-		const utterance = this.utterance(text);
-		utterance.lang = this.voice.lang;
-		utterance.voice = this.voice;
-		utterance.rate = 1;
-		this.active = utterance;
-		this.emit({ busy: true });
-		const fail = () => this.fail("Не удалось воспроизвести речь. Нажми «Включить голос» ещё раз или продолжи в чате.");
-		utterance.onstart = () => {
-			if (this.active !== utterance) return;
-			clearTimeout(this.timer);
-			this.emit({ speaking: true });
-			this.timer = setTimeout(fail, 45000);
-		};
-		utterance.onend = () => {
-			if (this.active !== utterance) return;
-			clearTimeout(this.timer);
+		const operation = new AbortController();
+		this.active = operation;
+		this.emit({ busy: true, speaking: false });
+		// A stuck generation must not hold the final screen forever.
+		const timeout = setTimeout(() => {
+			if (this.active !== operation) return;
+			this.stop();
+			this.emit({ error: "Голос готовится слишком долго. Попробуй ещё раз или продолжи в чате." });
+		}, 120000);
+		this.timer = timeout;
+		try {
+			await this.ready;
+			if (operation.signal.aborted) return;
+			const audio = await this.load(message, operation.signal);
+			clearTimeout(timeout);
+			if (this.active !== operation || operation.signal.aborted) return;
+			await this.player.play(audio, operation.signal, speaking => {
+				if (this.active === operation) this.emit({ speaking });
+			});
+			if (this.active !== operation) return;
 			this.active = null;
 			this.emit({ speaking: false });
-			this.pump();
-		};
-		utterance.onerror = () => { if (this.active === utterance) fail(); };
-		this.timer = setTimeout(fail, 12000);
-		try { this.synth.speak(utterance); } catch { fail(); }
+			void this.pump();
+		} catch (error) {
+			if (this.active !== operation) return;
+			this.stop();
+			this.emit({ error: error instanceof Error ? error.message : "Не удалось озвучить реплику. Попробуй ещё раз." });
+		} finally {
+			clearTimeout(timeout);
+		}
 	}
 }

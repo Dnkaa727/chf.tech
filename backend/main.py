@@ -10,6 +10,8 @@ from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
+from backend.tts import GenApiSpeech, SpeechError, SpeechJob
 from pydantic import BaseModel, Field
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,9 +50,11 @@ class Room:
     ended: bool = False
     queue: list[str] = field(default_factory=list)
     results: list[dict[str, Any]] = field(default_factory=list)
+    speech_jobs: dict[str, SpeechJob] = field(default_factory=dict)
 
 
 rooms: dict[str, Room] = {}
+speech = GenApiSpeech()
 
 app = FastAPI(
     title="chf.tech backend",
@@ -299,6 +303,20 @@ def create_conference(
 @app.get("/api/conferences/{conference_id}")
 def conference_state(conference_id: str) -> dict[str, Any]:
     return snapshot(get_room(conference_id))
+
+
+@app.post("/api/conferences/{conference_id}/messages/{message_id}/audio")
+async def conference_audio(conference_id: str, message_id: str) -> Response:
+    room = get_room(conference_id)
+    message = next((m for m in room.messages if m["id"] == message_id and m["authorKind"] == "ai"), None)
+    if message is None:
+        raise HTTPException(404, "Реплика интервьюера не найдена")
+    job = room.speech_jobs.setdefault(message_id, SpeechJob())
+    try:
+        data, content_type = await speech.get(f"{conference_id}/{message_id}", message["text"], job)
+    except SpeechError as error:
+        raise HTTPException(error.status, str(error)) from None
+    return Response(data, media_type=content_type, headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
 
 
 @app.websocket("/api/conferences/{conference_id}/ws")
