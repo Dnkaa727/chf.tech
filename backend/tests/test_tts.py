@@ -154,3 +154,59 @@ def test_polling_auth_failure_never_discards_existing_job(monkeypatch):
     with pytest.raises(SpeechError):
         asyncio.run(service(handler).get('q','Вопрос',job))
     assert job.submitted and job.request_id == '42'
+
+
+@pytest.mark.parametrize('status', [400, 422])
+def test_validation_rejection_is_not_sticky_and_reports_field_without_private_values(monkeypatch, caplog, status):
+    monkeypatch.setenv('GENAPI_API_KEY', 'secret-test-key')
+    calls = []
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(status, json={'message':'secret-test-key Private interview text',
+                                           'errors':{'sample_rate':['sensitive provider value'],
+                                                     'Authorization':['secret-test-key']}})
+    async def run():
+        client = service(handler); job = SpeechJob()
+        for _ in range(2):
+            with pytest.raises(SpeechError, match=f'HTTP {status}; поля: sample_rate'):
+                await client.get('q','Private interview text',job)
+            assert not job.submitted and job.blocked_error is None
+        assert len(calls) == 2
+    asyncio.run(run())
+    assert 'phase=submit' in caplog.text and f'http={status}' in caplog.text
+    for private in ('secret-test-key', 'Private interview text', 'sensitive provider value', 'Authorization'):
+        assert private not in caplog.text
+
+
+def test_ambiguous_failure_preserves_original_http_reason_on_repeat(monkeypatch):
+    monkeypatch.setenv('GENAPI_API_KEY','test-key')
+    calls = []
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(500)
+    async def run():
+        client = service(handler); job = SpeechJob()
+        errors = []
+        for _ in range(2):
+            with pytest.raises(SpeechError) as error:
+                await client.get('q','Вопрос',job)
+            errors.append(str(error.value))
+        assert errors[0] == errors[1]
+        assert 'HTTP 500' in errors[0]
+        assert len(calls) == 1
+    asyncio.run(run())
+
+
+def test_connection_failure_before_submit_can_be_retried(monkeypatch):
+    monkeypatch.setenv('GENAPI_API_KEY','test-key')
+    calls=[]
+    def handler(request):
+        calls.append(request)
+        raise httpx.ConnectError('do not print raw private error')
+    async def run():
+        client = service(handler); job=SpeechJob()
+        for _ in range(2):
+            with pytest.raises(SpeechError,match='установить соединение'):
+                await client.get('q','Вопрос',job)
+        assert len(calls)==2
+    asyncio.run(run())
