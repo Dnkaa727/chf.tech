@@ -13,7 +13,8 @@ type ScreenId = "prepare" | "conference" | "finished";
 
 export function App() {
 	const s = useServices();
-	const [screen, setScreen] = useState<ScreenId>("prepare");
+	const [error, setError] = useState<string | null>(null);
+ const [screen, setScreen] = useState<ScreenId>("prepare");
 	const finish = () => {
 		void s.media.setCamera(false);
 		void s.media.setMic(false);
@@ -24,13 +25,13 @@ export function App() {
 		prepare: () => (
 			<PreparePage
 				onJoin={(name) => {
-					void s.conference.join(name);
-					setScreen("conference");
+					setError(null);
+                    void s.conference.join(name).then(() => setScreen("conference")).catch(e => setError(e instanceof Error ? e.message : "Не удалось подключиться"));
 				}}
 			/>
 		),
 		conference: () => <ConferencePage onLeave={finish} />,
 		finished: () => <FinishedPage onRestart={() => setScreen("prepare")} />,
 	};
-	return <>{screens[screen]()}</>;
+	return <>{error && <p role="alert">{error}</p>}{screens[screen]()}</>;
 }

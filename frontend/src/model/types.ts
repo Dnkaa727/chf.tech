@@ -36,6 +36,8 @@ export type ConferenceStatus =
 
 export interface ConferenceState {
 	status: ConferenceStatus;
+ queue?: string[];
+ results?: {cardId: string; status: string; score: number | null; followups: number}[];
 }
 
 export interface ConferenceNotice {

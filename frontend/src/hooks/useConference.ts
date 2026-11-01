@@ -33,7 +33,7 @@ export function useConference(props: UseConferenceProps) {
 		[raw, devices],
 	);
 
-	const lastSpeaker = useRef<string>();
+	const lastSpeaker = useRef<string | undefined>(undefined);
 	const current = participants.find((p) => p.speaking);
 
 	if (current) lastSpeaker.current = current.id;
@@ -88,7 +88,7 @@ export function useConference(props: UseConferenceProps) {
 		actions: {
 			toggleCamera: () => void s.media.setCamera(devices.camera !== "on"),
 			toggleMic: () => void s.media.setMic(devices.mic !== "on"),
-			send: (text: string) => void s.chat.send(text),
+			send: (text: string) => s.chat.send(text),
 			leave: () => s.conference.leave(),
 		},
 	};

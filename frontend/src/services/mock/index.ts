@@ -174,6 +174,7 @@ export function createMockServices(): Services {
 			},
 		},
 		chat: {
+            interviewerTyping: createStore(false),
 			messages,
 			async send(text) {
 				push(me, text);
