@@ -5,6 +5,7 @@ import asyncio
 import ipaddress
 import logging
 import os
+import re
 import socket
 from collections import OrderedDict
 from dataclasses import dataclass, field
@@ -71,11 +72,18 @@ def validation_fields(response: httpx.Response) -> list[str]:
                     for name in item if isinstance(item, list) else [item]:
                         if isinstance(name, str) and name in known:
                             found.add(name)
-                if key in ("errors", "detail", "validation_errors"):
+                if key in ("errors", "detail", "validation_errors", "message", "messages", "error", "data"):
                     visit(item, depth + 1)
         elif isinstance(value, list):
             for item in value[:30]:
                 visit(item, depth + 1)
+        elif isinstance(value, str):
+            # Many validation APIs put field names only in a free-form message.
+            # Extract allowlisted names, never the message itself or echoed values.
+            for name in known:
+                pattern = re.escape(name).replace("_", "[ _]")
+                if re.search(r"(?<![\w])" + pattern + r"(?![\w])", value, re.IGNORECASE):
+                    found.add(name)
     visit(body)
     return sorted(found)
 
@@ -152,18 +160,18 @@ class GenApiSpeech:
             raise SpeechError("Озвучивание не настроено: добавь GENAPI_API_KEY на сервере.", 503)
         if not text.strip() or len(text) > 5000:
             raise SpeechError("Эта реплика слишком длинная для озвучивания. Прочитай её в чате.", 422)
-        try:
-            rate = int(os.getenv("GENAPI_TTS_SAMPLE_RATE", "24000"))
-            if rate not in (8000, 24000, 48000):
-                raise ValueError()
-        except ValueError:
-            raise SpeechError("Проверь настройку GENAPI_TTS_SAMPLE_RATE на сервере.", 503) from None
-        payload = {
-            "is_sync": False, "text": text, "callback_url": None,
-            "speaker": os.getenv("GENAPI_TTS_SPEAKER", "xenia"),
-            "sample_rate": rate, "lang": "ru", "put_accent": True,
-            "put_yo": True, "ssml": False, "format": "ogg",
-        }
+        # Match the provider's minimal documented request. Omitted optional fields
+        # use GenAPI defaults instead of our guesses about its validation schema.
+        payload: dict = {"text": text, "callback_url": None}
+        speaker = os.getenv("GENAPI_TTS_SPEAKER", "").strip()
+        if speaker:
+            payload["speaker"] = speaker
+        rate = os.getenv("GENAPI_TTS_SAMPLE_RATE", "").strip()
+        if rate:
+            if rate not in ("8000", "24000", "48000"):
+                raise SpeechError("Проверь настройку GENAPI_TTS_SAMPLE_RATE на сервере.", 503)
+            # The provider's serialized example represents sample_rate as a string.
+            payload["sample_rate"] = rate
         try:
             async with asyncio.timeout(90), self.slots:
                 async with self.client_factory(timeout=80, follow_redirects=False) as client:

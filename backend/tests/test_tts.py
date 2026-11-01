@@ -25,9 +25,7 @@ def test_completed_result_cache_and_no_token_forwarded(monkeypatch):
             assert request.url == 'https://api.gen-api.ru/api/v1/networks/silero-tts'
             assert request.headers['authorization'] == 'Bearer test-only-key'
             payload = json.loads(request.content)
-            assert payload['is_sync'] is False
-            assert payload['lang'] == 'ru' and payload['format'] == 'ogg'
-            assert payload['text'] == 'Вопрос интервьюера'
+            assert payload == {'text': 'Вопрос интервьюера', 'callback_url': None}
             return httpx.Response(200, json={'status':'success','request_id':42,'output':['https://audio.example.test/42.ogg']})
         assert 'authorization' not in request.headers
         return httpx.Response(200, content=AUDIO, headers={'Content-Type':'audio/ogg'})
@@ -210,3 +208,51 @@ def test_connection_failure_before_submit_can_be_retried(monkeypatch):
                 await client.get('q','Вопрос',job)
         assert len(calls)==2
     asyncio.run(run())
+
+
+def test_explicit_overrides_match_provider_serialized_example(monkeypatch):
+    monkeypatch.setenv('GENAPI_API_KEY', 'test-key')
+    monkeypatch.setenv('GENAPI_TTS_SPEAKER', ' xenia ')
+    monkeypatch.setenv('GENAPI_TTS_SAMPLE_RATE', '8000')
+    calls=[]
+    def handler(request):
+        if request.method == 'POST':
+            calls.append(json.loads(request.content))
+            # Provider's example uses a string for this enum-like parameter.
+            assert calls[-1] == {'text':'Вопрос', 'callback_url':None, 'speaker':'xenia', 'sample_rate':'8000'}
+            return httpx.Response(200,json={'status':'success','output':['https://audio.example.test/a.ogg']})
+        return httpx.Response(200,content=AUDIO)
+    async def run():
+        with patch('backend.tts.validate_audio_url',new=AsyncMock()):
+            assert await service(handler).get('q','Вопрос',SpeechJob()) == (AUDIO,'audio/ogg')
+    asyncio.run(run())
+    assert len(calls) == 1
+
+
+def test_empty_optional_settings_use_provider_defaults(monkeypatch):
+    monkeypatch.setenv('GENAPI_API_KEY', 'test-key')
+    monkeypatch.setenv('GENAPI_TTS_SPEAKER', ' ')
+    monkeypatch.setenv('GENAPI_TTS_SAMPLE_RATE', '')
+    def handler(request):
+        if request.method == 'POST':
+            assert json.loads(request.content) == {'text':'Вопрос', 'callback_url':None}
+            return httpx.Response(200,json={'status':'success','output':'https://audio.example.test/a.ogg'})
+        return httpx.Response(200,content=AUDIO)
+    async def run():
+        with patch('backend.tts.validate_audio_url',new=AsyncMock()):
+            await service(handler).get('q','Вопрос',SpeechJob())
+    asyncio.run(run())
+
+
+@pytest.mark.parametrize('body', [
+    {'message':{'sample_rate':['The sample rate field must be a string.']}},
+    {'error':{'message':'The sample rate field must be a string. secret-key PRIVATE TEXT'}},
+    {'detail':[{'loc':['body','sample_rate'],'msg':'Invalid type','input':24000}]},
+])
+def test_validation_fields_in_message_wrappers_are_extracted_without_raw_values(body):
+    from backend.tts import validation_fields
+    # Free-form text may contain other allowlisted names, but never arbitrary values.
+    fields = validation_fields(httpx.Response(422,json=body))
+    assert 'sample_rate' in fields
+    assert 'secret-key' not in fields
+    assert all(field in {'sample_rate','text'} for field in fields)
