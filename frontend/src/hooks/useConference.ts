@@ -17,16 +17,17 @@ export function useConference(props: UseConferenceProps) {
 	const devices = useReadable(s.media.devices);
 	const stream = useReadable(s.media.localStream);
 	const messages = useReadable(s.chat.messages);
+	const interviewerTyping = useReadable(s.chat.interviewerTyping);
 
 	const participants = useMemo(
 		() =>
 			raw.map((p) =>
 				p.id === SELF_ID
 					? {
-						...p,
-						cameraOn: devices.camera === "on",
-						micOn: devices.mic === "on",
-					}
+							...p,
+							cameraOn: devices.camera === "on",
+							micOn: devices.mic === "on",
+						}
 					: p,
 			),
 		[raw, devices],
@@ -35,8 +36,7 @@ export function useConference(props: UseConferenceProps) {
 	const lastSpeaker = useRef<string>();
 	const current = participants.find((p) => p.speaking);
 
-	if (current)
-		lastSpeaker.current = current.id;
+	if (current) lastSpeaker.current = current.id;
 
 	const speaker =
 		participants.find((p) => p.id === lastSpeaker.current) ??
@@ -80,6 +80,7 @@ export function useConference(props: UseConferenceProps) {
 		speaker,
 		content,
 		messages,
+		interviewerTyping,
 		unread,
 		toast,
 		warning,

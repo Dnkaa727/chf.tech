@@ -25,24 +25,29 @@ export function ConferencePage(props: ConferencePageProps) {
 	const c = useConference({ chatOpen: panelId === "chat" });
 
 	const [confirming, setConfirming] = useState(false);
-	const toggle = (id: PanelId) => setPanelId((cur) => (cur === id ? null : id));
+	const toggle = (id: PanelId) =>
+		setPanelId((cur) => (cur === id ? null : id));
 
-	const panels: Record<PanelId, { title: string; render: () => ReactNode }> = {
-		participants: {
-			title: `Участники (${c.participants.length})`,
-			render: () => <ParticipantsPanel participants={c.participants} />,
-		},
-		chat: {
-			title: "Чат",
-			render: () => (
-				<ChatPanel
-					messages={c.messages}
-					selfId={SELF_ID}
-					onSend={c.actions.send}
-				/>
-			),
-		},
-	};
+	const panels: Record<PanelId, { title: string; render: () => ReactNode }> =
+		{
+			participants: {
+				title: `Участники (${c.participants.length})`,
+				render: () => (
+					<ParticipantsPanel participants={c.participants} />
+				),
+			},
+			chat: {
+				title: "Чат",
+				render: () => (
+					<ChatPanel
+						messages={c.messages}
+						selfId={SELF_ID}
+						interviewerTyping={c.interviewerTyping}
+						onSend={c.actions.send}
+					/>
+				),
+			},
+		};
 
 	const stateView = conferenceStates[c.state.status];
 
@@ -101,15 +106,23 @@ export function ConferencePage(props: ConferencePageProps) {
 							id: "cam",
 							icon: dev.camera === "on" ? "video" : "video-slash",
 							label:
-								dev.camera === "on" ? "Выключить камеру" : "Включить камеру",
-							iconVariant: dev.camera === "on" ? "neutral" : "alert",
+								dev.camera === "on"
+									? "Выключить камеру"
+									: "Включить камеру",
+							iconVariant:
+								dev.camera === "on" ? "neutral" : "alert",
 							onClick: c.actions.toggleCamera,
 						},
 						{
 							id: "mic",
-							icon: dev.mic === "on" ? "microphone" : "microphone-slash",
+							icon:
+								dev.mic === "on"
+									? "microphone"
+									: "microphone-slash",
 							label:
-								dev.mic === "on" ? "Выключить микрофон" : "Включить микрофон",
+								dev.mic === "on"
+									? "Выключить микрофон"
+									: "Включить микрофон",
 							iconVariant: dev.mic === "on" ? "neutral" : "alert",
 							onClick: c.actions.toggleMic,
 						},
@@ -120,7 +133,10 @@ export function ConferencePage(props: ConferencePageProps) {
 							icon: "user-group",
 							label: "Участники",
 							text: "Участники",
-							buttonVariant: panelId === "participants" ? "primary" : "tonal",
+							buttonVariant:
+								panelId === "participants"
+									? "primary"
+									: "tonal",
 							onClick: () => toggle("participants"),
 						},
 						{
@@ -129,7 +145,8 @@ export function ConferencePage(props: ConferencePageProps) {
 							label: "Чат",
 							text: "Чат",
 							count: c.unread,
-							buttonVariant: panelId === "chat" ? "primary" : "tonal",
+							buttonVariant:
+								panelId === "chat" ? "primary" : "tonal",
 							onClick: () => toggle("chat"),
 						},
 					]}

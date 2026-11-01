@@ -29,6 +29,7 @@ export interface MediaService {
 
 export interface ChatService {
 	messages: Readable<ChatMessage[]>;
+	interviewerTyping: Readable<boolean>;
 	send(text: string): Promise<void>;
 }
 
@@ -38,4 +39,3 @@ export interface Services {
 	media: MediaService;
 	chat: ChatService;
 }
-

@@ -22,7 +22,9 @@ export function ChatMessageItem(props: ChatMessageItemProps) {
 		<li className={classes("msg", own && "msg--own")}>
 			<div className="msg__meta">
 				<strong>{own ? "Вы" : message.authorName}</strong>
-				{!own && message.authorKind === "ai" && <Badge>{kindLabel.ai}</Badge>}
+				{!own && message.authorKind === "ai" && (
+					<Badge>{kindLabel.ai}</Badge>
+				)}
 				<span>{time(message.sentAt)}</span>
 			</div>
 			<p className="msg__text">{message.text}</p>
@@ -33,11 +35,12 @@ export function ChatMessageItem(props: ChatMessageItemProps) {
 export interface ChatPanelProps {
 	messages: ChatMessage[];
 	selfId: string;
+	interviewerTyping: boolean;
 	onSend: (text: string) => void;
 }
 
 export function ChatPanel(props: ChatPanelProps) {
-	const { messages, selfId, onSend } = props;
+	const { messages, selfId, interviewerTyping, onSend } = props;
 	const [text, setText] = useState("");
 	const end = useRef<HTMLLIElement>(null);
 
@@ -57,11 +60,27 @@ export function ChatPanel(props: ChatPanelProps) {
 		<>
 			<ul className="chat__list">
 				{messages.length === 0 && (
-					<li className="chat__empty">Сообщений пока нет. Напишите первым.</li>
+					<li className="chat__empty">
+						Сообщений пока нет. Напишите первым.
+					</li>
 				)}
 				{messages.map((m) => (
-					<ChatMessageItem key={m.id} message={m} own={m.authorId === selfId} />
+					<ChatMessageItem
+						key={m.id}
+						message={m}
+						own={m.authorId === selfId}
+					/>
 				))}
+				{interviewerTyping && (
+					<li className="chat__typing">
+						<span>Интервьюер печатает</span>
+						<span className="chat__typing-dots" aria-hidden="true">
+							<span />
+							<span />
+							<span />
+						</span>
+					</li>
+				)}
 				<li ref={end} />
 			</ul>
 			<div className="chat__form">
