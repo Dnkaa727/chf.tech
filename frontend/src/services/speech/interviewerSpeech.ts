@@ -10,14 +10,20 @@ export interface SpeechState {
 
 export interface SpeechPlayer {
 	unlock(): Promise<void>;
-	play(data: ArrayBuffer, signal: AbortSignal, onPlaying: (playing: boolean) => void): Promise<void>;
+	play(
+		data: ArrayBuffer,
+		signal: AbortSignal,
+		onPlaying: (playing: boolean) => void,
+	): Promise<void>;
 	stop(): void;
 	dispose(): void;
 }
 
-export type AudioLoader = (message: ChatMessage, signal: AbortSignal) => Promise<ArrayBuffer>;
+export type AudioLoader = (
+	message: ChatMessage,
+	signal: AbortSignal,
+) => Promise<ArrayBuffer>;
 
-/** Owns one interview's audio queue. HTTP/WS duplicates never create extra synthesis requests. */
 export class InterviewerSpeech {
 	private state: SpeechState;
 	private seen = new Set<string>();
@@ -33,17 +39,25 @@ export class InterviewerSpeech {
 	constructor(player: SpeechPlayer | null, load: AudioLoader) {
 		this.player = player;
 		this.load = load;
-		this.state = { enabled: false, available: Boolean(player), speaking: false, busy: false, error: null };
+		this.state = {
+			enabled: false,
+			available: Boolean(player),
+			speaking: false,
+			busy: false,
+			error: null,
+		};
 	}
 
 	getSnapshot = () => this.state;
 	subscribe = (listener: () => void) => {
 		this.listeners.add(listener);
-		return () => { this.listeners.delete(listener); };
+		return () => {
+			this.listeners.delete(listener);
+		};
 	};
 	private emit(update: Partial<SpeechState>) {
 		this.state = { ...this.state, ...update };
-		this.listeners.forEach(listener => listener());
+		this.listeners.forEach((listener) => listener());
 	}
 
 	connect() {
@@ -54,12 +68,21 @@ export class InterviewerSpeech {
 	}
 
 	private aiMessages() {
-		return this.messages.filter(m => m.authorKind === "ai" && m.text.trim());
+		return this.messages.filter(
+			(m) => m.authorKind === "ai" && m.text.trim(),
+		);
 	}
 
-	// Read during render too: an ended snapshot must not unmount the final feedback.
 	hasUnread(messages: ChatMessage[]) {
-		return this.state.enabled && messages.some(m => m.authorKind === "ai" && m.text.trim() && !this.seen.has(m.id));
+		return (
+			this.state.enabled &&
+			messages.some(
+				(m) =>
+					m.authorKind === "ai" &&
+					m.text.trim() &&
+					!this.seen.has(m.id),
+			)
+		);
 	}
 
 	update(messages: ChatMessage[]) {
@@ -73,15 +96,13 @@ export class InterviewerSpeech {
 		void this.pump();
 	}
 
-	// Unlock Web Audio immediately in the click handler, before waiting for synthesis.
 	enable = () => {
 		if (!this.player || this.state.enabled) return;
 		this.ready = this.player.unlock();
-		// Observe rejection even when there are no messages yet; pump reports it to the UI.
 		void this.ready.catch(() => {});
 		this.emit({ enabled: true, error: null });
 		const messages = this.aiMessages();
-		messages.slice(0, -1).forEach(m => this.seen.add(m.id));
+		messages.slice(0, -1).forEach((m) => this.seen.add(m.id));
 		const latest = messages[messages.length - 1];
 		if (latest) this.seen.delete(latest.id);
 		this.update(this.messages);
@@ -111,11 +132,12 @@ export class InterviewerSpeech {
 		const operation = new AbortController();
 		this.active = operation;
 		this.emit({ busy: true, speaking: false });
-		// A stuck generation must not hold the final screen forever.
 		const timeout = setTimeout(() => {
 			if (this.active !== operation) return;
 			this.stop();
-			this.emit({ error: "Голос готовится слишком долго. Попробуй ещё раз или продолжи в чате." });
+			this.emit({
+				error: "Голос готовится слишком долго. Попробуй ещё раз или продолжи в чате.",
+			});
 		}, 120000);
 		this.timer = timeout;
 		try {
@@ -124,7 +146,7 @@ export class InterviewerSpeech {
 			const audio = await this.load(message, operation.signal);
 			clearTimeout(timeout);
 			if (this.active !== operation || operation.signal.aborted) return;
-			await this.player.play(audio, operation.signal, speaking => {
+			await this.player.play(audio, operation.signal, (speaking) => {
 				if (this.active === operation) this.emit({ speaking });
 			});
 			if (this.active !== operation) return;
@@ -134,7 +156,12 @@ export class InterviewerSpeech {
 		} catch (error) {
 			if (this.active !== operation) return;
 			this.stop();
-			this.emit({ error: error instanceof Error ? error.message : "Не удалось озвучить реплику. Попробуй ещё раз." });
+			this.emit({
+				error:
+					error instanceof Error
+						? error.message
+						: "Не удалось озвучить реплику. Попробуй ещё раз.",
+			});
 		} finally {
 			clearTimeout(timeout);
 		}
