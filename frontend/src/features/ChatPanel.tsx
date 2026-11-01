@@ -36,7 +36,7 @@ export interface ChatPanelProps {
 	messages: ChatMessage[];
 	selfId: string;
 	interviewerTyping: boolean;
-	onSend: (text: string) => void;
+	onSend: (text: string) => Promise<void>;
 }
 
 export function ChatPanel(props: ChatPanelProps) {
@@ -48,12 +48,13 @@ export function ChatPanel(props: ChatPanelProps) {
 		end.current?.scrollIntoView({ block: "end" });
 	}, [messages.length]);
 
-	const submit = () => {
+	const [sending, setSending] = useState(false);
+ const [error, setError] = useState<string | null>(null);
+ const submit = async () => {
 		const v = text.trim();
-		if (v) {
-			onSend(v);
-			setText("");
-		}
+		if (!v || sending || interviewerTyping) return;
+ setSending(true); setError(null);
+ try { await onSend(v); setText(""); } catch (e) { setError(e instanceof Error ? e.message : "Не удалось отправить ответ"); } finally { setSending(false); }
 	};
 
 	return (
@@ -83,7 +84,8 @@ export function ChatPanel(props: ChatPanelProps) {
 				)}
 				<li ref={end} />
 			</ul>
-			<div className="chat__form">
+			{error && <p role="alert">{error}</p>}
+            <div className="chat__form">
 				<TextField
 					id="chat-input"
 					value={text}
@@ -96,7 +98,7 @@ export function ChatPanel(props: ChatPanelProps) {
 					label="Отправить"
 					variant="primary"
 					onClick={submit}
-					disabled={!text.trim()}
+					disabled={!text.trim() || sending || interviewerTyping}
 				/>
 			</div>
 		</>

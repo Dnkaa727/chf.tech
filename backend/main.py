@@ -27,6 +27,7 @@ from interview.registry import CardNotFound, get_registry
 class CreateConferenceRequest(BaseModel):
     name: str = Field(min_length=2, max_length=120)
     card_id: str | None = Field(default=None, max_length=100)
+    card_ids: list[str] | None = Field(default=None, min_length=1, max_length=25)
     query: str = Field(default="", max_length=400)
     competency: str | None = Field(default=None, max_length=120)
 
@@ -45,6 +46,8 @@ class Room:
     sockets: set[WebSocket] = field(default_factory=set)
     processing: bool = False
     ended: bool = False
+    queue: list[str] = field(default_factory=list)
+    results: list[dict[str, Any]] = field(default_factory=list)
 
 
 rooms: dict[str, Room] = {}
@@ -143,6 +146,8 @@ def snapshot(room: Room) -> dict[str, Any]:
         "conferenceId": room.room_id,
         "state": {
             "status": "ended" if room.ended else "live",
+            "queue": [room.session.card_id, *room.queue] if not room.ended else room.queue,
+            "results": room.results,
         },
         "interviewerTyping": room.processing,
         "participants": make_participants(room),
@@ -256,8 +261,11 @@ def cards() -> dict[str, Any]:
 def create_conference(
     request: CreateConferenceRequest,
 ) -> dict[str, Any]:
+    selected = request.card_ids or ([request.card_id] if request.card_id else [c["card_id"] for c in get_registry().public_cards()][:3])
+    for selected_id in selected:
+        resolve_card(selected_id, "", None)
     card_id = resolve_card(
-        request.card_id,
+        selected[0],
         request.query,
         request.competency,
     )
@@ -271,6 +279,7 @@ def create_conference(
         room_id=uuid4().hex,
         candidate_name=request.name.strip(),
         session=session,
+        queue=list(dict.fromkeys(selected))[1:],
     )
 
     room.messages.append(
@@ -356,8 +365,10 @@ async def send_message(
             },
         )
 
-    room.processing = True
     text = request.text.strip()
+    if not text:
+        raise HTTPException(422, "Введите ответ")
+    room.processing = True
 
     try:
         room.messages.append(
@@ -389,19 +400,6 @@ async def send_message(
             rubric=room.session.rubric,
         )
 
-        if assessment.get("refusal") or assessment.get("abstained"):
-            room.messages.append(
-                make_message(
-                    "ai-interviewer",
-                    "ИИ-интервьюер",
-                    "ai",
-                    "Ответ передан на проверку человеком.",
-                )
-            )
-
-            await broadcast(room)
-            return snapshot(room)
-
         result = room.session.add_assessment(
             text,
             assessment,
@@ -428,14 +426,15 @@ async def send_message(
                 )
             )
         else:
-            room.messages.append(
-                make_message(
-                    "ai-interviewer",
-                    "ИИ-интервьюер",
-                    "ai",
-                    "Спасибо. Тема собеседования завершена.",
-                )
-            )
+            room.results.append({"cardId": room.session.card_id, "status": result["action"],
+                                 "score": result.get("cumulative_score") if result["action"] == "next_topic" else None,
+                                 "followups": room.session.followups_asked})
+            if room.queue:
+                room.session = TopicSession(room.queue.pop(0))
+                room.messages.append(make_message("ai-interviewer", "ИИ-интервьюер", "ai", room.session.pending_question))
+            else:
+                room.ended = True
+        room.processing = False
 
         return snapshot(room)
 
@@ -452,7 +451,7 @@ async def send_message(
 
         raise HTTPException(
             status_code=502,
-            detail="LLM evaluation failed. Retry the answer.",
+            detail={"code": "evaluation_failed", "message": "Не удалось оценить ответ. Попробуйте отправить его ещё раз."},
             headers=headers,
         ) from None
 
@@ -479,6 +478,8 @@ async def leave_conference(
 ) -> dict[str, Any]:
     room = get_room(conference_id)
 
+    if room.processing:
+        raise HTTPException(409, "Дождитесь завершения обработки ответа")
     room.ended = True
     room.session.status = "ended"
 
