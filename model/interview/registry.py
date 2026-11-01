@@ -1,14 +1,14 @@
 """Validated catalog and rubric snapshots for the single interview model."""
 
+import hashlib
+import json
 from copy import deepcopy
 from dataclasses import dataclass
 from functools import lru_cache
-import hashlib
-import json
 from pathlib import Path
 
-from .search import normalize, related_token, term_in_query, tokens
 from .json_validation import strict_json_loads
+from .search import normalize, related_token, term_in_query, tokens
 
 ROOT = Path(__file__).resolve().parents[1]
 KB_PATH = ROOT / "data" / "knowledge_base.json"
@@ -294,7 +294,6 @@ class CardRegistry:
         if not cards:
             raise CardNotFound("No matching card")
         if len(cards) != 1:
-            # Priority and alphabetical ordering cannot turn ambiguity into selection.
             raise AmbiguousCardSelection([public_card(c) for c in cards])
         return self.get(cards[0]["id"])
 

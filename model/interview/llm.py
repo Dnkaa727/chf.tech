@@ -1,23 +1,24 @@
 """OpenAI-compatible evaluator: semantic segmentation + rubric scoring (two calls by default)."""
 
 from __future__ import annotations
+
 import json
 import os
-import urllib.request
 import urllib.error
+import urllib.request
 from http.client import HTTPException
 
+from .diagnostics import EvaluationValidationError, FailureDetail, safe_provider_token
 from .engine import (
+    check_segmented_output,
+    scoring_messages_for,
+    scoring_schema_for,
     segmentation_messages_for,
     segmentation_schema_for,
     validate_segments,
-    scoring_messages_for,
-    scoring_schema_for,
-    check_segmented_output,
 )
 from .json_validation import strict_json_loads, validate_schema
 from .registry import get_registry
-from .diagnostics import FailureDetail, EvaluationValidationError, safe_provider_token
 
 
 class LLMError(RuntimeError):
@@ -151,7 +152,6 @@ def _request_json(
             body = strict_json_loads(response.read())
     except urllib.error.HTTPError as error:
         status = error.code if type(error.code) is int else None
-        # Keep only provider error code/type/param/request-id; never expose its free-text message.
         metadata = _provider_error_metadata(error)
         raise LLMProviderError(
             "LLM provider HTTP error",
@@ -293,8 +293,6 @@ def evaluate_live(
 
     selected = rubric if rubric is not None else get_registry().get(card_id).rubric
 
-    # Stage 1: LLM performs semantic segmentation + routing. Python assigns IDs and
-    # records whether each LLM fragment could be aligned to the source text.
     segmentation_schema = segmentation_schema_for(card_id, rubric=selected)
     segmentation_messages = segmentation_messages_for(
         card_id,
@@ -329,8 +327,6 @@ def evaluate_live(
             stage="segmentation",
         ) from None
 
-    # Stage 2: score every routed segment. The model returns fixed segment-ID keys,
-    # never free-form quotes or arrays that can omit/duplicate an ID.
     scoring_schema = scoring_schema_for(card_id, segments, rubric=selected)
     scoring_messages = scoring_messages_for(
         card_id,

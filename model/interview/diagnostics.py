@@ -1,9 +1,9 @@
 """Allowlisted failure metadata. Never log prompts, responses, or provider messages."""
 
-from dataclasses import dataclass
 import json
 import logging
 import re
+from dataclasses import dataclass
 from uuid import uuid4
 
 ERROR_CODES = frozenset(

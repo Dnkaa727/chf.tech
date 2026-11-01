@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, FastAPI, HTTPException
-from pydantic import BaseModel, Field, model_validator
-
 from interview.diagnostics import failure_headers
 from interview.engine import (
     TopicSession,
@@ -19,6 +17,7 @@ from interview.registry import (
     get_registry,
     public_card,
 )
+from pydantic import BaseModel, Field, model_validator
 
 
 class AnswerRequest(BaseModel):

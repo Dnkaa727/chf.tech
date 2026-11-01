@@ -2,7 +2,8 @@
 
 import json
 import math
-from .diagnostics import EvaluationValidationError, SAFE_FIELDS
+
+from .diagnostics import SAFE_FIELDS, EvaluationValidationError
 
 
 def strict_json_loads(raw):
@@ -31,7 +32,6 @@ def strict_json_loads(raw):
             parse_float=finite_float,
         )
     except (ValueError, TypeError, RecursionError):
-        # Do not include response text or decoder diagnostics in error messages.
         raise ValueError("Invalid JSON response") from None
 
 

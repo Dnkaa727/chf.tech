@@ -3,15 +3,17 @@ Do NOT use the scores to automatically decide on hiring.
 """
 
 from __future__ import annotations
-from copy import deepcopy
+
 import json
-from pathlib import Path
-from uuid import uuid4
-from .json_validation import validate_schema
-from .registry import get_registry
-from .diagnostics import EvaluationValidationError
 import re
 import unicodedata
+from copy import deepcopy
+from pathlib import Path
+from uuid import uuid4
+
+from .diagnostics import EvaluationValidationError
+from .json_validation import validate_schema
+from .registry import get_registry
 
 ROOT = Path(__file__).resolve().parents[1]
 CASES_FILE = ROOT / "data" / "eval_cases_all_25.json"
@@ -52,7 +54,6 @@ def normalize_text_for_quote_match(text: str) -> str:
     text = unicodedata.normalize("NFKC", text)
     text = text.casefold()
 
-    # Заменяем знаки пунктуации пробелами
     text = "".join(
         " " if unicodedata.category(char).startswith("P") else char for char in text
     )
@@ -374,7 +375,6 @@ def locate_quote_spans(quote, answer):
     spans = []
     for start in _all_occurrences(normalized_answer, normalized_quote):
         end = start + len(normalized_quote)
-        # Do not match a quoted token inside a larger word.
         if start and normalized_answer[start - 1] != " ":
             continue
         if end < len(normalized_answer) and normalized_answer[end] != " ":
@@ -404,17 +404,10 @@ def validate_segments(card_id, answer, raw_output, *, rubric=None):
     validated = []
     for index, row in enumerate(rows, start=1):
         quote = row["quote"].strip()
-        # An empty fragment is not a usable semantic segment. This is a malformed
-        # Stage-1 record, not a source-alignment miss, so keep it as a schema error.
         if not quote:
             raise EvaluationValidationError("schema_mismatch", field="quote")
         spans = locate_quote_spans(quote, answer)
-        # Prefer a not-yet-used occurrence so repeated wording in the candidate
-        # answer can be aligned in source order. If Stage 1 emits the same source
-        # fragment more times than it occurs in the answer, reuse an existing
-        # exact/normalized occurrence rather than incorrectly calling the quote
-        # unverified. A repeated semantic row is still a matched source fragment;
-        # downstream criteria retain their own segment IDs and links.
+
         span = next(
             (candidate for candidate in spans if candidate not in used_spans), None
         )
@@ -428,7 +421,6 @@ def validate_segments(card_id, answer, raw_output, *, rubric=None):
             source_alignment = "matched"
             used_spans.add(span)
             start, end = span
-            # Use the actual source slice whenever an exact or normalized match exists.
             segment_text = answer[start:end]
         links = []
         seen_criteria = set()
@@ -471,7 +463,6 @@ def scoring_schema_for(card_id, segments, *, rubric=None):
     r = _selected_rubric(card_id, rubric)
     segment_ids = [s["segment_id"] for s in segments]
 
-    # Fixed-key objects prevent omissions and duplicate classifications.
     reviewed_schema = {
         "type": "object",
         "properties": {sid: {"type": "boolean", "enum": [True]} for sid in segment_ids},
@@ -488,10 +479,7 @@ def scoring_schema_for(card_id, segments, *, rubric=None):
             for segment in segments
             if any(link["criterion_id"] == cid for link in segment["criterion_links"])
         ]
-        # A fixed-key object gives the provider an exact contract: every routed
-        # segment must be classified once, with no duplicates or foreign IDs.
-        # For an empty criterion, use a non-empty sentinel object because some
-        # OpenAI-compatible gateways reject an object with no properties.
+
         if allowed_ids:
             assessment_properties = {
                 segment_id: {"type": "string", "enum": list(SEGMENT_ASSESSMENT_VALUES)}
@@ -518,8 +506,6 @@ def scoring_schema_for(card_id, segments, *, rubric=None):
             "additionalProperties": False,
         }
 
-    # The model must explicitly inspect every flag definition. Python, not the model,
-    # constructs the final red_flags array from this complete fixed-key checklist.
     flag_checks = {}
     for definition in r["red_flag_definitions"]:
         flag_id = definition["id"]
@@ -542,8 +528,6 @@ def scoring_schema_for(card_id, segments, *, rubric=None):
     update = {
         "type": "object",
         "properties": {
-            # Stable IDs avoid fragile positional references while the checklist is
-            # converted into the compact public red_flags array.
             "flag_id": {"type": "string", "enum": significant_flag_ids},
             "error_id": {"type": ["string", "null"]},
             "criterion_id": {"type": ["string", "null"], "enum": [None, *criteria]},
@@ -863,7 +847,6 @@ def check_segmented_output(
                 )
             segment_assessments = dict(raw_assessments)
         groups = {value: [] for value in SEGMENT_ASSESSMENT_VALUES}
-        # Preserve the original source order in the reconstructed evidence.
         for segment in segments:
             segment_id = segment["segment_id"]
             if segment_id in segment_assessments:
@@ -911,12 +894,6 @@ def check_segmented_output(
             "evidence": evidence,
         }
 
-    # Build the final flag list ourselves from the model's complete checklist.
-    # This keeps the API/session contract unchanged and prevents a dropped
-    # red_flags array entry from silently erasing a detected flag.
-    # For confidently_incorrect, prefer segments that Stage 2 explicitly judged
-    # as contradicting the rubric. This prevents a correct premise from being
-    # attached as the primary proof when the actual false claim is a later segment.
     contradicted_segment_ids = {
         segment_id
         for criterion_assessments in normalized_assessments_by_criterion.values()
@@ -949,8 +926,6 @@ def check_segmented_output(
                 ]
                 if false_claim_ids:
                     evidence_ids = false_claim_ids
-            # Preserve the legacy primary quote while also returning every
-            # model-selected source segment that supports this red flag.
             evidence = []
             for segment_id in evidence_ids:
                 segment = segment_map[segment_id]
@@ -978,8 +953,6 @@ def check_segmented_output(
                 }
             )
 
-    # The model reports stable flag IDs. Convert them to the legacy positional
-    # representation only after Python has built the final ordered flags list.
     flag_index_by_id = {flag["id"]: index for index, flag in enumerate(flags)}
     normalized_updates = []
     for row in output["error_updates"]:
@@ -995,10 +968,6 @@ def check_segmented_output(
             }
         )
 
-    # Only known, still-open errors may be resolved. A model may occasionally
-    # fabricate an empty/unknown error_id (especially when no session history is
-    # available); ignore that invalid state transition instead of rejecting the
-    # otherwise-valid candidate score and red-flag assessment.
     known_open_error_ids = {
         error.get("error_id")
         for error in (error_context or {}).get("errors", [])
@@ -1055,9 +1024,7 @@ def check_segmented_output(
         for segment in segments
         if segment.get("source_alignment", "matched") == "unverified"
     ]
-    # Keep source-alignment review separate from technical warnings. The session
-    # layer treats non-empty warnings as a failed assessment; an unverified but
-    # usable semantic segment must instead produce a reviewable result.
+
     needs_review = (
         uncertainty == "high"
         or output["abstained"]
@@ -1080,8 +1047,6 @@ def check_segmented_output(
         "needs_review": needs_review,
         "source_alignment_review_required": bool(unverified_segment_ids),
         "unverified_segment_ids": unverified_segment_ids,
-        # Full inventory lets a reviewer inspect unlinked segments too, not only
-        # evidence that Stage 2 attached to rubric criteria or Red Flags.
         "segment_alignment": [
             {
                 "segment_id": segment["segment_id"],
@@ -1243,7 +1208,6 @@ def _error_protocol(
         scopes = {u["criterion_id"] for u in clean if u["flag_index"] == index}
         if None in scopes and len(scopes) > 1:
             raise ValueError("A flag cannot have both unknown and known scope")
-    # Missing links in an older provider response mean unknown scope, not zero knowledge.
     for index, flag in enumerate(flags):
         if flag["id"] in SIGNIFICANT_ERROR_FLAGS and index not in mapped:
             clean.append(
@@ -1310,7 +1274,6 @@ def check_output(
     """Fail closed on wrong schema, hallucinated quotes, scores, flags; no semantic truth guarantee."""
     r = _selected_rubric(card_id, rubric)
     if allow_legacy and isinstance(output, dict):
-        # Explicit internal compatibility only; live provider responses are strict.
         output = dict(output)
         output.setdefault("error_updates", [])
         output.setdefault("resolutions", [])
@@ -1330,7 +1293,6 @@ def check_output(
         reason = row["reason"]
         if p and not quote_matches_answer(quote, answer):
             if strict_evidence:
-                #                import pdb; pdb.set_trace()
                 raise EvaluationValidationError(
                     "invalid_quote", criterion_id=cid, field="quote"
                 )
@@ -1394,7 +1356,6 @@ def public_assessment(assessment):
         if k not in ("_error_updates", "_resolutions")
     }
     if assessment.get("needs_review") or assessment.get("abstained"):
-        # An invalid/uncertain model response is not a zero-knowledge assessment.
         result["score"] = None
         result["needs_review"] = True
     elif any(
@@ -1456,7 +1417,6 @@ def decide(
             "target": None,
         }
     if errors:
-        # An error may need another attempt on a previously asked criterion.
         affected = {e.get("criterion_id") for e in errors if e.get("criterion_id")}
         targets = [c for c in rubric["criteria"] if c["id"] in affected]
         if targets:
@@ -1552,8 +1512,6 @@ class TopicSession:
             and cid is not None
             and existing["criterion_id"] not in (None, cid)
         ):
-            # An initially unscoped record can expand into related per-criterion
-            # records within this batch. Preserve the original ID and group.
             existing = next(
                 (
                     e
@@ -1566,8 +1524,6 @@ class TopicSession:
             existing = next((e for e in same if e["criterion_id"] == cid), None)
         if existing is None and cid is not None:
             existing = next((e for e in same if e["criterion_id"] is None), None)
-        # A repeated unscoped flag must not create an independent unknown error
-        # alongside already scoped records for the exact same claim.
         records = (
             ([existing] if existing else same)
             if cid is None
@@ -1670,8 +1626,6 @@ class TopicSession:
                 row["points"] for row in criteria.values()
             ):
                 raise ValueError("Inconsistent assessment score")
-            # Validate ALL references first. A malformed model update must leave
-            # scores, history and the pending question untouched.
             updates, resolutions = _error_protocol(
                 answer,
                 criteria,
