@@ -55,8 +55,11 @@
             export LLM_JSON_MODE="schema"
             export LLM_MESSAGE_MODE="system_user"
 
-            cd "$PWD/model" || exit 1
-            exec python run.py serve
+            cd "$PWD" || exit 1
+            exec uvicorn api:app \
+              --app-dir model \
+              --host "127.0.0.1" \
+              --port "8000"
           '';
         };
 
