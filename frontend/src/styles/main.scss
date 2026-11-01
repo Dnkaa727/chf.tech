@@ -25,3 +25,5 @@
 @include meta.load-css("./features/ParticipantsPanel.scss");
 @include meta.load-css("./features/SidePanel.scss");
 @include meta.load-css("./features/StateMessage.scss");
+
+@include meta.load-css("./features/stage/SnowLeopard.scss");

@@ -11,6 +11,7 @@ export interface FinishedPageProps {
 
 export function FinishedPage(props: FinishedPageProps) {
 	const { onRestart } = props;
+
 	const state = useReadable(useServices().conference.state);
 
 	return (
@@ -22,6 +23,7 @@ export function FinishedPage(props: FinishedPageProps) {
 							title="Собеседование завершено"
 							text={`Завершено тем: ${state.results?.length ?? 0}. Результаты предварительные и требуют проверки специалистом.`}
 						/>
+
 						{state.results?.map((r) => (
 							<div key={r.cardId}>
 								<strong>{r.cardId}</strong>

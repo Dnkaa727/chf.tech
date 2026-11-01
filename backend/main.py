@@ -10,6 +10,8 @@ from uuid import uuid4
 
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import Response
+from backend.tts import GenApiSpeech, SpeechError, SpeechJob
 from pydantic import BaseModel, Field
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,9 +50,11 @@ class Room:
     ended: bool = False
     queue: list[str] = field(default_factory=list)
     results: list[dict[str, Any]] = field(default_factory=list)
+    speech_jobs: dict[str, SpeechJob] = field(default_factory=dict)
 
 
 rooms: dict[str, Room] = {}
+speech = GenApiSpeech()
 
 app = FastAPI(
     title="chf.tech backend",
@@ -130,10 +134,22 @@ def interviewer_feedback(
     action = result.get("action")
 
     if action == "needs_review":
-        return "\n".join(filter(None, [feedback, "Здесь нужна дополнительная проверка — пока оставим оценку открытой."]))
+        return "\n".join(
+            filter(
+                None,
+                [
+                    feedback,
+                    "Здесь нужна дополнительная проверка — пока оставим оценку открытой.",
+                ],
+            )
+        )
 
     if action == "insufficient_evidence":
-        return "\n".join(filter(None, [feedback, "Пока мне не хватает деталей, чтобы оценить эту тему."]))
+        return "\n".join(
+            filter(
+                None, [feedback, "Пока мне не хватает деталей, чтобы оценить эту тему."]
+            )
+        )
 
     if action == "next_topic":
         return feedback
@@ -146,7 +162,9 @@ def snapshot(room: Room) -> dict[str, Any]:
         "conferenceId": room.room_id,
         "state": {
             "status": "ended" if room.ended else "live",
-            "queue": [room.session.card_id, *room.queue] if not room.ended else room.queue,
+            "queue": [room.session.card_id, *room.queue]
+            if not room.ended
+            else room.queue,
             "results": room.results,
         },
         "interviewerTyping": room.processing,
@@ -261,7 +279,11 @@ def cards() -> dict[str, Any]:
 def create_conference(
     request: CreateConferenceRequest,
 ) -> dict[str, Any]:
-    selected = request.card_ids or ([request.card_id] if request.card_id else [c["card_id"] for c in get_registry().public_cards()][:3])
+    selected = request.card_ids or (
+        [request.card_id]
+        if request.card_id
+        else [c["card_id"] for c in get_registry().public_cards()][:3]
+    )
     for selected_id in selected:
         resolve_card(selected_id, "", None)
     card_id = resolve_card(
@@ -299,6 +321,29 @@ def create_conference(
 @app.get("/api/conferences/{conference_id}")
 def conference_state(conference_id: str) -> dict[str, Any]:
     return snapshot(get_room(conference_id))
+
+
+@app.post("/api/conferences/{conference_id}/messages/{message_id}/audio")
+async def conference_audio(conference_id: str, message_id: str) -> Response:
+    room = get_room(conference_id)
+    message = next(
+        (m for m in room.messages if m["id"] == message_id and m["authorKind"] == "ai"),
+        None,
+    )
+    if message is None:
+        raise HTTPException(404, "Реплика интервьюера не найдена")
+    job = room.speech_jobs.setdefault(message_id, SpeechJob())
+    try:
+        data, content_type = await speech.get(
+            f"{conference_id}/{message_id}", message["text"], job
+        )
+    except SpeechError as error:
+        raise HTTPException(error.status, str(error)) from None
+    return Response(
+        data,
+        media_type=content_type,
+        headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"},
+    )
 
 
 @app.websocket("/api/conferences/{conference_id}/ws")
@@ -426,12 +471,26 @@ async def send_message(
                 )
             )
         else:
-            room.results.append({"cardId": room.session.card_id, "status": result["action"],
-                                 "score": result.get("cumulative_score") if result["action"] == "next_topic" else None,
-                                 "followups": room.session.followups_asked})
+            room.results.append(
+                {
+                    "cardId": room.session.card_id,
+                    "status": result["action"],
+                    "score": result.get("cumulative_score")
+                    if result["action"] == "next_topic"
+                    else None,
+                    "followups": room.session.followups_asked,
+                }
+            )
             if room.queue:
                 room.session = TopicSession(room.queue.pop(0))
-                room.messages.append(make_message("ai-interviewer", "ИИ-интервьюер", "ai", room.session.pending_question))
+                room.messages.append(
+                    make_message(
+                        "ai-interviewer",
+                        "ИИ-интервьюер",
+                        "ai",
+                        room.session.pending_question,
+                    )
+                )
             else:
                 room.ended = True
         room.processing = False
@@ -451,7 +510,10 @@ async def send_message(
 
         raise HTTPException(
             status_code=502,
-            detail={"code": "evaluation_failed", "message": "Не удалось оценить ответ. Попробуйте отправить его ещё раз."},
+            detail={
+                "code": "evaluation_failed",
+                "message": "Не удалось оценить ответ. Попробуйте отправить его ещё раз.",
+            },
             headers=headers,
         ) from None
 

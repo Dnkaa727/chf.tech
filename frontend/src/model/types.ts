@@ -17,6 +17,7 @@ export interface ChatMessage {
 	authorKind: ParticipantKind;
 	text: string;
 	sentAt: number;
+	audioUrl?: string;
 }
 
 /* TODO: Переписать это всё */

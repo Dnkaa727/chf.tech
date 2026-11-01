@@ -69,7 +69,15 @@ function applySnapshot(
 	state.set(next.state);
 	list.set(next.participants);
 	content.set(next.content);
-	messages.set(next.messages);
+	messages.set(
+		next.messages.map((message) => ({
+			...message,
+			audioUrl:
+				message.authorKind === "ai"
+					? `${API_URL}/api/conferences/${encodeURIComponent(next.conferenceId)}/messages/${encodeURIComponent(message.id)}/audio`
+					: undefined,
+		})),
+	);
 	typing.set(next.interviewerTyping);
 }
 

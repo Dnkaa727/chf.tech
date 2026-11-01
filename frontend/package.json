@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "vite --host",
 		"build": "tsc --noEmit && vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"test": "node --experimental-strip-types --test tests/*.test.mjs"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^7.3.1",
