@@ -4,6 +4,8 @@ import { useConference } from "../hooks/useConference";
 import { SELF_ID } from "../model/types";
 import { ConferenceLayout } from "../features/layout/ConferenceLayout";
 import { Stage } from "../features/stage/Stage";
+import { SnowLeopard } from "../features/stage/SnowLeopard";
+import { useInterviewerSpeech } from "../hooks/useInterviewerSpeech";
 import { StageContentView } from "../features/stage/renderers";
 import { StateMessage } from "../features/status/StateMessage";
 import { conferenceStates } from "../features/status/conferenceStates";
@@ -21,12 +23,17 @@ export interface ConferencePageProps {
 export function ConferencePage(props: ConferencePageProps) {
 	const { onLeave } = props;
 
-	const [panelId, setPanelId] = useState<PanelId | null>("chat");
+	const [panelId, setPanelId] = useState<PanelId | null>(() =>
+		window.matchMedia("(max-width: 768px)").matches ? null : "chat",
+	);
 	const c = useConference({ chatOpen: panelId === "chat" });
 
-	useEffect(() => { if (c.state.status === "ended") onLeave(); }, [c.state.status, onLeave]);
- const [error, setError] = useState<string | null>(null);
- const [confirming, setConfirming] = useState(false);
+	const voice = useInterviewerSpeech(c.messages);
+	useEffect(() => {
+		if (c.state.status === "ended" && !voice.busy && !voice.hasUnread) onLeave();
+	}, [c.state.status, voice.busy, voice.hasUnread, onLeave]);
+	const [error, setError] = useState<string | null>(null);
+	const [confirming, setConfirming] = useState(false);
 	const toggle = (id: PanelId) =>
 		setPanelId((cur) => (cur === id ? null : id));
 
@@ -54,13 +61,17 @@ export function ConferencePage(props: ConferencePageProps) {
 	const stateView = conferenceStates[c.state.status];
 
 	const stage =
-		c.state.status === "live" && c.speaker ? (
+		(c.state.status === "live" || c.state.status === "ended") && c.speaker ? (
 			<Stage
-				name={c.speaker.name}
+				name={c.speaker.kind === "ai" ? "Барс" : c.speaker.name}
 				role={c.speaker.roleLabel}
-				speaking={c.speaker.speaking}
+				speaking={c.speaker.kind === "ai" ? voice.speaking : c.speaker.speaking}
 			>
-				<StageContentView content={c.content} />
+				{c.speaker.kind === "ai" ? (
+					<SnowLeopard voice={voice} thinking={c.interviewerTyping} />
+				) : (
+					<StageContentView content={c.content} />
+				)}
 			</Stage>
 		) : (
 			stateView && (
@@ -76,7 +87,13 @@ export function ConferencePage(props: ConferencePageProps) {
 		);
 
 	const endCall = async () => {
-		try { await c.actions.leave(); onLeave(); } catch (e) { setError(e instanceof Error ? e.message : "Не удалось завершить интервью"); }
+		try {
+			await c.actions.leave();
+			voice.stop();
+			onLeave();
+		} catch (e) {
+			setError(e instanceof Error ? e.message : "Не удалось завершить интервью");
+		}
 	};
 
 	const dev = c.devices;

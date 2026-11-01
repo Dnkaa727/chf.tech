@@ -1,0 +1,78 @@
+.mascot-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72px 20px 76px;
+  background: radial-gradient(ellipse at 50% 44%, #f8faf4 0%, #e9f1f2 48%, #dce7ee 100%);
+
+  &__portrait {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 28px;
+  }
+
+  &__halo {
+    position: absolute;
+    width: min(68%, 370px);
+    aspect-ratio: 1;
+    max-height: 85%;
+    border: 1px solid #c2d3da;
+    border-radius: 50%;
+    background: #ffffff45;
+    box-shadow: 0 0 0 22px #ffffff22, 0 0 0 44px #ffffff12;
+  }
+
+  &__status {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #3a5264;
+    font-size: 13px;
+    letter-spacing: .02em;
+    span { width: 7px; height: 7px; border-radius: 50%; background: #74958b; }
+    .is-speaking { background: #3063eb; animation: voice-pulse .6s ease-in-out infinite alternate; }
+  }
+
+  &__voice { flex-shrink: 0; width: 100%; max-width: 460px; text-align: center; padding-top: 18px; }
+  &__buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  &__hint { font-size: 12px; color: #526578; line-height: 1.5; margin: 10px 0 0; }
+}
+
+.leopard {
+  position: relative;
+  height: 100%;
+  max-height: 460px;
+  width: auto;
+  max-width: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 12px 16px #233c5410);
+  &__head { transform-origin: 215px 280px; animation: leopard-breathe 5s ease-in-out infinite; }
+  &__eyes { transform-box: fill-box; transform-origin: center; animation: leopard-blink 6s infinite; }
+  &__mouth-open, &__tongue { transform: scaleY(.12); }
+  &__tongue { opacity: 0; }
+  &--speaking &__mouth-open { animation: leopard-talk .32s ease-in-out infinite alternate; }
+  &--speaking &__tongue { opacity: 1; animation: leopard-talk .32s ease-in-out infinite alternate; }
+}
+
+@keyframes leopard-talk { 0% { transform: scale(.85, .2); } 45% { transform: scale(1, 1); } 100% { transform: scale(.9, .45); } }
+@keyframes leopard-blink { 0%, 42%, 46%, 100% { transform: scaleY(1); } 44% { transform: scaleY(.08); } }
+@keyframes leopard-breathe { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(1deg) translateY(-2px); } }
+@keyframes voice-pulse { to { opacity: .4; } }
+
+@media (max-height: 650px) {
+  .mascot-stage { padding-top: 52px; padding-bottom: 62px; }
+  .mascot-stage__voice { padding-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .leopard *, .mascot-stage__status .is-speaking { animation: none !important; }
+  .leopard--speaking .leopard__mouth-open { transform: scaleY(.6); }
+}
