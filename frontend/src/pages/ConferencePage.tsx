@@ -30,7 +30,8 @@ export function ConferencePage(props: ConferencePageProps) {
 
 	const voice = useInterviewerSpeech(c.messages);
 	useEffect(() => {
-		if (c.state.status === "ended" && !voice.busy && !voice.hasUnread) onLeave();
+		if (c.state.status === "ended" && !voice.busy && !voice.hasUnread)
+			onLeave();
 	}, [c.state.status, voice.busy, voice.hasUnread, onLeave]);
 	const [error, setError] = useState<string | null>(null);
 	const [confirming, setConfirming] = useState(false);
@@ -61,11 +62,16 @@ export function ConferencePage(props: ConferencePageProps) {
 	const stateView = conferenceStates[c.state.status];
 
 	const stage =
-		(c.state.status === "live" || c.state.status === "ended") && c.speaker ? (
+		(c.state.status === "live" || c.state.status === "ended") &&
+		c.speaker ? (
 			<Stage
 				name={c.speaker.kind === "ai" ? "Барс" : c.speaker.name}
 				role={c.speaker.roleLabel}
-				speaking={c.speaker.kind === "ai" ? voice.speaking : c.speaker.speaking}
+				speaking={
+					c.speaker.kind === "ai"
+						? voice.speaking
+						: c.speaker.speaking
+				}
 			>
 				{c.speaker.kind === "ai" ? (
 					<SnowLeopard voice={voice} thinking={c.interviewerTyping} />
@@ -92,7 +98,11 @@ export function ConferencePage(props: ConferencePageProps) {
 			voice.stop();
 			onLeave();
 		} catch (e) {
-			setError(e instanceof Error ? e.message : "Не удалось завершить интервью");
+			setError(
+				e instanceof Error
+					? e.message
+					: "Не удалось завершить интервью",
+			);
 		}
 	};
 
@@ -104,8 +114,12 @@ export function ConferencePage(props: ConferencePageProps) {
 			overlay={
 				<>
 					{error && <p role="alert">{error}</p>}
-                    {c.state.queue && <Notice text={`Осталось тем: ${c.state.queue.length}. Текущая: ${c.state.queue[0] ?? "—"}`} />}
-                    {c.warning && <Notice tone="error" text={c.warning} />}
+					{c.state.queue && (
+						<Notice
+							text={`Осталось тем: ${c.state.queue.length}. Текущая: ${c.state.queue[0] ?? "-"}`}
+						/>
+					)}
+					{c.warning && <Notice tone="error" text={c.warning} />}
 					{c.toast && <Notice text={c.toast} />}
 				</>
 			}
