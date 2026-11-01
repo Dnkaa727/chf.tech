@@ -38,3 +38,10 @@ def test_invalid_answer_keeps_question_and_clears_processing():
     assert result['session']['pendingQuestion'] == s['session']['pendingQuestion']
     assert not result['interviewerTyping']
     main.rooms.pop(s['conferenceId'])
+
+
+def test_feedback_does_not_announce_nonexistent_next_topic():
+    assessment = {'summary': 'Ты верно объяснил, почему вызов блокирует цикл.'}
+    assert main.interviewer_feedback(assessment, {'action': 'next_topic'}) == assessment['summary']
+    assert main.interviewer_feedback({}, {'action': 'needs_review'}) == 'Здесь нужна дополнительная проверка — пока оставим оценку открытой.'
+    assert main.interviewer_feedback({}, {'action': 'insufficient_evidence'}) == 'Пока мне не хватает деталей, чтобы оценить эту тему.'

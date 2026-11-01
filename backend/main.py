@@ -125,18 +125,18 @@ def interviewer_feedback(
     if isinstance(summary, str) and summary.strip():
         feedback = summary.strip()
     else:
-        feedback = "Спасибо за ответ."
+        feedback = ""
 
     action = result.get("action")
 
     if action == "needs_review":
-        return f"{feedback}\nОтвет требует дополнительной проверки."
+        return "\n".join(filter(None, [feedback, "Здесь нужна дополнительная проверка — пока оставим оценку открытой."]))
 
     if action == "insufficient_evidence":
-        return f"{feedback}\nВ ответе недостаточно подтверждений."
+        return "\n".join(filter(None, [feedback, "Пока мне не хватает деталей, чтобы оценить эту тему."]))
 
     if action == "next_topic":
-        return f"{feedback}\nПереходим к следующей теме."
+        return feedback
 
     return feedback
 
@@ -410,7 +410,7 @@ async def send_message(
                 "ai-interviewer",
                 "ИИ-интервьюер",
                 "ai",
-                interviewer_feedback(assessment, result),
+                interviewer_feedback(assessment, result) or "Давай продолжим.",
             )
         )
 
