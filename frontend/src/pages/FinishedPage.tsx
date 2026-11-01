@@ -11,7 +11,7 @@ export interface FinishedPageProps {
 
 export function FinishedPage(props: FinishedPageProps) {
 	const { onRestart } = props;
- const state = useReadable(useServices().conference.state);
+	const state = useReadable(useServices().conference.state);
 
 	return (
 		<Screen header={<AppHeader />}>
@@ -22,9 +22,21 @@ export function FinishedPage(props: FinishedPageProps) {
 							title="Собеседование завершено"
 							text={`Завершено тем: ${state.results?.length ?? 0}. Результаты предварительные и требуют проверки специалистом.`}
 						/>
-						{state.results?.map(r => <div key={r.cardId}><strong>{r.cardId}</strong><p>{r.score === null ? "Требуется проверка" : `Предварительный балл: ${r.score}/10`}. Уточнений: {r.followups}</p></div>)}
-                        {!!state.queue?.length && <p>Не завершено тем: {state.queue.length}</p>}
-                        <Button
+						{state.results?.map((r) => (
+							<div key={r.cardId}>
+								<strong>{r.cardId}</strong>
+								<p>
+									{r.score === null
+										? "Требуется проверка"
+										: `Предварительный балл: ${r.score}/10`}
+									. Уточнений: {r.followups}
+								</p>
+							</div>
+						))}
+						{!!state.queue?.length && (
+							<p>Не завершено тем: {state.queue.length}</p>
+						)}
+						<Button
 							size="l"
 							fullWidth
 							iconRight="arrow-right"

@@ -49,12 +49,22 @@ export function ChatPanel(props: ChatPanelProps) {
 	}, [messages.length]);
 
 	const [sending, setSending] = useState(false);
- const [error, setError] = useState<string | null>(null);
- const submit = async () => {
+	const [error, setError] = useState<string | null>(null);
+	const submit = async () => {
 		const v = text.trim();
 		if (!v || sending || interviewerTyping) return;
- setSending(true); setError(null);
- try { await onSend(v); setText(""); } catch (e) { setError(e instanceof Error ? e.message : "Не удалось отправить ответ"); } finally { setSending(false); }
+		setSending(true);
+		setError(null);
+		try {
+			await onSend(v);
+			setText("");
+		} catch (e) {
+			setError(
+				e instanceof Error ? e.message : "Не удалось отправить ответ",
+			);
+		} finally {
+			setSending(false);
+		}
 	};
 
 	return (
@@ -85,7 +95,7 @@ export function ChatPanel(props: ChatPanelProps) {
 				<li ref={end} />
 			</ul>
 			{error && <p role="alert">{error}</p>}
-            <div className="chat__form">
+			<div className="chat__form">
 				<TextField
 					id="chat-input"
 					value={text}

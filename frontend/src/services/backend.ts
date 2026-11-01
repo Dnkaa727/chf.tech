@@ -45,8 +45,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 		try {
 			const body = await response.json();
 
-			if (typeof body.detail?.message === "string") detail = body.detail.message;
-            if (typeof body.detail === "string") {
+			if (typeof body.detail?.message === "string")
+				detail = body.detail.message;
+			if (typeof body.detail === "string") {
 				detail = body.detail;
 			}
 		} catch {}
@@ -208,7 +209,7 @@ export function createBackendServices(): Services {
 
 				conferenceId = null;
 				state.set({
-                    ...state.get(),
+					...state.get(),
 					status: "ended",
 				});
 			},
@@ -230,7 +231,7 @@ export function createBackendServices(): Services {
 						body: JSON.stringify({ text }),
 					},
 				);
-                applyBackendSnapshot(next);
+				applyBackendSnapshot(next);
 			},
 		},
 	};

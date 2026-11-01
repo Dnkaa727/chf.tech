@@ -24,9 +24,11 @@ export function ConferencePage(props: ConferencePageProps) {
 	const [panelId, setPanelId] = useState<PanelId | null>("chat");
 	const c = useConference({ chatOpen: panelId === "chat" });
 
-	useEffect(() => { if (c.state.status === "ended") onLeave(); }, [c.state.status, onLeave]);
- const [error, setError] = useState<string | null>(null);
- const [confirming, setConfirming] = useState(false);
+	useEffect(() => {
+		if (c.state.status === "ended") onLeave();
+	}, [c.state.status, onLeave]);
+	const [error, setError] = useState<string | null>(null);
+	const [confirming, setConfirming] = useState(false);
 	const toggle = (id: PanelId) =>
 		setPanelId((cur) => (cur === id ? null : id));
 
@@ -76,7 +78,16 @@ export function ConferencePage(props: ConferencePageProps) {
 		);
 
 	const endCall = async () => {
-		try { await c.actions.leave(); onLeave(); } catch (e) { setError(e instanceof Error ? e.message : "Не удалось завершить интервью"); }
+		try {
+			await c.actions.leave();
+			onLeave();
+		} catch (e) {
+			setError(
+				e instanceof Error
+					? e.message
+					: "Не удалось завершить интервью",
+			);
+		}
 	};
 
 	const dev = c.devices;
@@ -87,8 +98,12 @@ export function ConferencePage(props: ConferencePageProps) {
 			overlay={
 				<>
 					{error && <p role="alert">{error}</p>}
-                    {c.state.queue && <Notice text={`Осталось тем: ${c.state.queue.length}. Текущая: ${c.state.queue[0] ?? "—"}`} />}
-                    {c.warning && <Notice tone="error" text={c.warning} />}
+					{c.state.queue && (
+						<Notice
+							text={`Осталось тем: ${c.state.queue.length}. Текущая: ${c.state.queue[0] ?? "—"}`}
+						/>
+					)}
+					{c.warning && <Notice tone="error" text={c.warning} />}
 					{c.toast && <Notice text={c.toast} />}
 				</>
 			}
