@@ -1,0 +1,97 @@
+"""Strict JSON decoding and the schema subset used by the interview model."""
+
+import json
+import math
+from .diagnostics import EvaluationValidationError, SAFE_FIELDS
+
+
+def strict_json_loads(raw):
+    def object_pairs(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("Duplicate JSON key")
+            result[key] = value
+        return result
+
+    def constant(_):
+        raise ValueError("Nonstandard JSON number")
+
+    def finite_float(token):
+        value = float(token)
+        if not math.isfinite(value):
+            raise ValueError("Nonfinite JSON number")
+        return value
+
+    try:
+        return json.loads(
+            raw,
+            object_pairs_hook=object_pairs,
+            parse_constant=constant,
+            parse_float=finite_float,
+        )
+    except (ValueError, TypeError, RecursionError):
+        # Do not include response text or decoder diagnostics in error messages.
+        raise ValueError("Invalid JSON response") from None
+
+
+def validate_schema(value, schema, *, _path=()):
+    """Validate against the same schema sent to GPT, without coercion/dependencies.
+
+    Unsupported schema keywords fail closed so a schema extension cannot silently
+    bypass local validation. Semantic evidence/reference checks live in engine.py.
+    """
+
+    def fail(field=None, *, definition=False):
+        criterion_id = _path[1] if len(_path) > 1 and _path[0] == "criteria" else None
+        if field is None:
+            field = next(
+                (part for part in reversed(_path) if part in SAFE_FIELDS), None
+            )
+        raise EvaluationValidationError(
+            "schema_definition_error" if definition else "schema_mismatch",
+            criterion_id=criterion_id,
+            field=field,
+        )
+
+    supported = {
+        "type",
+        "enum",
+        "properties",
+        "required",
+        "additionalProperties",
+        "items",
+    }
+    if set(schema) - supported:
+        fail(definition=True)
+    types = {
+        "object": lambda x: isinstance(x, dict),
+        "array": lambda x: isinstance(x, list),
+        "string": lambda x: isinstance(x, str),
+        "integer": lambda x: type(x) is int,
+        "boolean": lambda x: type(x) is bool,
+        "null": lambda x: x is None,
+    }
+    expected = schema.get("type", [])
+    expected = [expected] if isinstance(expected, str) else expected
+    if not expected or any(t not in types for t in expected):
+        fail(definition=True)
+    if not any(types[t](value) for t in expected):
+        fail()
+    if "enum" in schema and value not in schema["enum"]:
+        fail()
+    if isinstance(value, dict):
+        properties = schema.get("properties", {})
+        missing = [key for key in schema.get("required", []) if key not in value]
+        if missing:
+            fail(field=missing[0] if missing[0] in SAFE_FIELDS else None)
+        if schema.get("additionalProperties") is False and set(value) - set(properties):
+            fail()
+        for key, item in value.items():
+            if key in properties:
+                validate_schema(item, properties[key], _path=(*_path, key))
+    elif isinstance(value, list):
+        if "items" not in schema:
+            fail(definition=True)
+        for index, item in enumerate(value):
+            validate_schema(item, schema["items"], _path=(*_path, index))

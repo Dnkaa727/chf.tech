@@ -18,10 +18,10 @@ MODEL_DIR = os.path.join(ROOT, "model")
 if MODEL_DIR not in sys.path:
     sys.path.insert(0, MODEL_DIR)
 
-from v3.diagnostics import failure_headers
-from v3.engine import TopicSession
-from v3.llm import LLMError, evaluate_live
-from v3.registry import CardNotFound, get_registry
+from interview.diagnostics import failure_headers
+from interview.engine import TopicSession
+from interview.llm import LLMError, evaluate_live
+from interview.registry import CardNotFound, get_registry
 
 
 class CreateConferenceRequest(BaseModel):

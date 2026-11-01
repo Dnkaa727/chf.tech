@@ -16,7 +16,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     LLM_BASE_URL=https://api.hubris.pw/v1 \
     LLM_MODEL=openai/gpt-4o-mini \
     LLM_TIMEOUT_SECONDS=75 \
-    LLM_PIPELINE_MODE=one_stage \
     LLM_JSON_MODE=schema \
     LLM_MESSAGE_MODE=system_user \
     BACKEND_HOST=0.0.0.0 \

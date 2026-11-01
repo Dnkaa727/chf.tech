@@ -1,7 +1,17 @@
-# Unified Python Backend Interview RAG (v3)
+# chf.tech interview model
 
-25 competency cards, 25 draft 10-point rubrics, 150 synthetic eval samples and 50 red-team fixtures, criterion-specific follow-ups, red flags, evidence quote verification, HTTP API, and memory per topic.
+This directory contains one canonical technical interview model. It supports the
+25-card catalog, explainable card selection, in-memory interview sessions, strict
+evidence validation, red-flag detection, and the two-stage OpenAI-compatible LLM
+evaluation pipeline.
 
-**Quick start:** `START_HERE_RU.md` (Russian). Offline: `python run.py test`; live scoring: configure LLM credentials and run `python run.py live-one PY-ASYNC-01 medium`.
+Run locally:
 
-**Not production.** Synthetic tests are not independent expert ground truth. No real GPT model was called during build. Never use the scores for automatic hire/reject decisions.
+```bash
+uvicorn api:app --app-dir model --reload
+```
+
+The model API exposes `/cards`, `/cards/select`, `/prepare`, `/evaluate`,
+`/session/start`, `/session/answer`, and `/session/{session_id}`. The backend
+gateway uses the same model package directly and keeps its existing conference
+and WebSocket contract.

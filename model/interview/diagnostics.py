@@ -49,7 +49,7 @@ SAFE_FIELDS = frozenset(
         "red_flag_checks",
     )
 )
-logger = logging.getLogger("rag.v3.llm")
+logger = logging.getLogger("interview_model.llm")
 
 
 def safe_provider_token(value):

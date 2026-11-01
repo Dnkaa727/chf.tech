@@ -52,7 +52,6 @@
             export LLM_BASE_URL="https://api.hubris.pw/v1"
             export LLM_MODEL="openai/gpt-4o-mini"
             export LLM_TIMEOUT_SECONDS="75"
-            export LLM_PIPELINE_MODE="one_stage"
             export LLM_JSON_MODE="schema"
             export LLM_MESSAGE_MODE="system_user"
 
@@ -70,7 +69,6 @@
             export LLM_BASE_URL="https://api.hubris.pw/v1"
             export LLM_MODEL="openai/gpt-4o-mini"
             export LLM_TIMEOUT_SECONDS="75"
-            export LLM_PIPELINE_MODE="one_stage"
             export LLM_JSON_MODE="schema"
             export LLM_MESSAGE_MODE="system_user"
 
@@ -159,7 +157,6 @@
             export LLM_BASE_URL="https://api.hubris.pw/v1"
             export LLM_MODEL="openai/gpt-4o-mini"
             export LLM_TIMEOUT_SECONDS="75"
-            export LLM_PIPELINE_MODE="one_stage"
             export LLM_JSON_MODE="schema"
             export LLM_MESSAGE_MODE="system_user"
             export BACKEND_HOST="127.0.0.1"
